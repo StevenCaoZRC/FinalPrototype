@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float m_speed = 10.0f;
     public Animator m_playerAnim;
-    public ParticleSystem m_poof;
+    public ParticleSystem m_landParticles;
+    public GameObject m_jumpParticles;
+
+    public float m_speed = 10.0f;
     public float m_jumpSpeed = 20.0f;
     public float m_jumpFallSpeed = 10.0f;
 
@@ -31,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_poof.Stop();
-
+        m_landParticles.Stop();
+        PlayGOParticles(m_jumpParticles, false);
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
     }
 
@@ -76,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
         { 
             if (GameManager.GetAxisOnce(ref m_jumping, "Jump"))
             {
+                PlayGOParticles(m_jumpParticles, true);
                 m_doubleJumping = false;
 
                 m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
@@ -87,12 +90,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (Input.GetButtonDown("Jump"))
                 {
+                    PlayGOParticles(m_jumpParticles, true);
+
                     m_doubleJumping = true;
                     m_rigidbody.velocity = Vector3.zero;
                     m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
                 }
             }
-            m_poof.Play();
+            m_landParticles.Play();
 
             m_rigidbody.velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
 
@@ -131,5 +136,25 @@ public class PlayerMovement : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    void PlayGOParticles(GameObject _gameObject, bool _play)
+    {
+        ParticleSystem[] children = _gameObject.GetComponentsInChildren<ParticleSystem>();
+
+        if(_play)
+        {
+            foreach (ParticleSystem p in children)
+            {
+                p.Play();
+            }
+        }
+        else
+        {
+            foreach (ParticleSystem p in children)
+            {
+                p.Stop();
+            }
+        }
     }
 }
