@@ -5,7 +5,6 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
     public bool m_atDoorEnd = false;
-    public bool m_setTransparent = true;
     // Start is called before the first frame update
     void Start()
     {
