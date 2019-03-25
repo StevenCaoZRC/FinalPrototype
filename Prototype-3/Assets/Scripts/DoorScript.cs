@@ -4,26 +4,51 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour
 {
+    public bool m_atDoorEnd = false;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    //if()
+
     // Update is called once per frame
     private void OnTriggerStay(Collider other)
     {
-        if(other.tag == "Player")
+        if(m_atDoorEnd)
         {
-            other.GetComponent<PlayerMovement>().SetPlayerAtDoor(true);
+            if (other.tag == "Player")
+            {
+                other.GetComponent<PlayerMovement>().SetPlayerAtDoor(true);
+            }
         }
+        else
+        {
+            if (other.tag == "Player")
+            {
+                other.GetComponent<PlayerMovement>().SetPlayerAtDoorPath(true);
+            }
+        }
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (m_atDoorEnd)
         {
-            other.GetComponent<PlayerMovement>().SetPlayerAtDoor(false);
+            if (other.tag == "Player")
+            {
+                other.GetComponent<PlayerMovement>().SetPlayerAtDoor(false);
+            }
+        }
+        else
+        {
+            if (other.tag == "Player")
+            {
+                other.GetComponent<PlayerMovement>().SetPlayerAtDoorPath(false);
+            }
         }
     }
 }

@@ -6,13 +6,21 @@ public class PlayerMovement : MonoBehaviour
 {
     public float m_speed = 10.0f;
     public Animator m_playerAnim;
+    public ParticleSystem m_poof;
+    public float m_jumpSpeed = 20.0f;
+    public float m_jumpFallSpeed = 10.0f;
+
+    [SerializeField] bool m_playerAtDoorEnd = false;
+    [SerializeField] bool m_playerAtDoorPath = false;
+    [SerializeField] bool m_isGrounded = false;
+
     Rigidbody m_rigidbody;
     Vector3 m_direction;
     Quaternion targetRot;
-    public float m_jumpSpeed = 0.0f;
-    public bool m_playerAtDoor = false;
-    public bool m_isGrounded = false;
+   
     float m_distToGround = 0.0f;
+    bool m_jumping = false;
+    bool m_doubleJumping = false;
 
     private void Awake()
     {
@@ -23,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_poof.Stop();
+
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
     }
 
@@ -36,50 +46,90 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         float hor = Input.GetAxisRaw("Horizontal");
-        float ver = Input.GetAxisRaw("Vertical");
-        float jump = 0.0f;
-        
+        float ver = Input.GetAxisRaw("Vertical");        
 
         if (hor != 0.0f) //If horizontal
         {
-            m_direction.Set(hor, 0.0f, 0.0f);
-
-            targetRot = Quaternion.LookRotation(m_direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * m_speed);
+            if(!m_playerAtDoorPath && ! m_playerAtDoorEnd)
+            {
+                //If not at a doorway let player move left and right
+                SetDirection(new Vector3(hor, 0.0f, 0.0f));
+            }
+            else if(m_playerAtDoorEnd)
+            {
+                //If at the end of a doorway let player move left and right
+                SetDirection(new Vector3(hor, 0.0f, 0.0f));
+            }
         }
-        else if (ver != 0.0f && m_playerAtDoor) //If vertical
+        else if (ver != 0.0f && m_playerAtDoorPath) //If vertical
         {
-            m_direction.Set(0.0f, 0.0f, ver);
-
-            targetRot = Quaternion.LookRotation(m_direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * m_speed);
+            //if in doorway, let player walk forwards and backwards
+            SetDirection(new Vector3(0.0f, 0.0f, ver));
         }
         else if(transform.rotation != targetRot)
         {
             transform.rotation = targetRot;
         }
+        Debug.Log("jump: " + m_jumping + "double: " + m_doubleJumping);
 
-        if (Input.GetAxisRaw("Jump") != 0.0f && CheckOnGround())
-        {
-            m_rigidbody.AddForce(Vector3.up * Input.GetAxisRaw("Jump") * m_jumpSpeed, ForceMode.Impulse);
+        if (CheckOnGround())
+        { 
+            if (GameManager.GetAxisOnce(ref m_jumping, "Jump"))
+            {
+                m_doubleJumping = false;
+
+                m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
+            }
         }
-        
-        //m_direction.Set(m_direction.x, jump, m_direction.z);
+        else
+        {
+            if(m_jumping && !m_doubleJumping)
+            {
+                if (Input.GetButtonDown("Jump"))
+                {
+                    m_doubleJumping = true;
+                    m_rigidbody.velocity = Vector3.zero;
+                    m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
+                }
+            }
+            m_poof.Play();
 
+            m_rigidbody.velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
 
+        }
 
         m_direction = m_direction * m_speed * Time.deltaTime;
 
         m_rigidbody.MovePosition(transform.position + m_direction);
     }
 
+    void SetDirection(Vector3 _dir)
+    {
+        m_direction.Set(_dir.x, -_dir.y, _dir.z);
+
+        targetRot = Quaternion.LookRotation(m_direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * m_speed);
+    }
+
     public void SetPlayerAtDoor(bool _atDoor)
     {
-        m_playerAtDoor = _atDoor;
+        m_playerAtDoorEnd = _atDoor;
+    }
+
+    public void SetPlayerAtDoorPath(bool _atDoorPath)
+    {
+        m_playerAtDoorPath = _atDoorPath;
     }
 
     public bool CheckOnGround()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, m_distToGround + 0.1f);
+        RaycastHit hit;
+        if(Physics.SphereCast(transform.position, 0.5f, -Vector3.up, out hit, m_distToGround))
+        {
+            Debug.Log("Hit name: " + hit.collider.gameObject.name);
+
+            return true;
+        }
+        return false;
     }
 }
