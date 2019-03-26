@@ -748,16 +748,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5606690703929558882, guid: 739fa7e0f36739643bf88c85330cc5b9,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5606690702761405410, guid: 739fa7e0f36739643bf88c85330cc5b9,
-        type: 3}
-      propertyPath: m_Name
-      value: DoorEndCollider
-      objectReference: {fileID: 0}
+    - target: {fileID: 1615042596, guid: 739fa7e0f36739643bf88c85330cc5b9, type: 3}
+      propertyPath: m_toBeFaded
+      value: 
+      objectReference: {fileID: 1024626381}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 739fa7e0f36739643bf88c85330cc5b9, type: 3}
 --- !u!1 &1401650430
@@ -1042,25 +1036,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1568261541}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1665943098 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5606690702765866814, guid: 739fa7e0f36739643bf88c85330cc5b9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1311376920}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1665943104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665943098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9eb3bbac5405d640afff2a4c063251b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_toBeFaded: {fileID: 1024626381}
 --- !u!198 &1672544701 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2444019517238143734, guid: 9f53786b90d4bf94da787b03e31793a7,

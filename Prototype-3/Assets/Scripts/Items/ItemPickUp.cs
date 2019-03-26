@@ -21,7 +21,5 @@ public class ItemPickUp : Interactables
         Debug.Log("Picked Up: " + m_item.name);
         m_gear.SetActive(true);
         gameObject.SetActive(false);
-        
-       
     }
 }

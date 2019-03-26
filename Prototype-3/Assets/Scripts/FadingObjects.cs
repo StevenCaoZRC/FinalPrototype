@@ -73,9 +73,9 @@ public class FadingObjects : MonoBehaviour
 
         }
     }
-    private void SetMaterialOpaque(GameObject _setOpaque)
+    private void SetMaterialOpaque()
     {
-        foreach (Material m in _setOpaque.GetComponent<Renderer>().materials)
+        foreach (Material m in GetComponent<Renderer>().materials)
         {
             m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
 

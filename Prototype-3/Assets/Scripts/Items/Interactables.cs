@@ -36,11 +36,10 @@ public class Interactables : MonoBehaviour
     }
     IEnumerator Interacting()
     {
-
         m_particleSystem.Play();
         yield return new WaitForSeconds(0.5f);
         Interact();
-        //Destroy(gameObject);
+        Destroy(gameObject);
         yield return null;
     }
 }
