@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.rotation = targetRot;
         }
-        Debug.Log("jump: " + m_jumping + "double: " + m_doubleJumping);
+      //  Debug.Log("jump: " + m_jumping + "double: " + m_doubleJumping);
 
         if (CheckOnGround())
         { 
@@ -131,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         if(Physics.SphereCast(transform.position, 0.5f, -Vector3.up, out hit, m_distToGround))
         {
-            Debug.Log("Hit name: " + hit.collider.gameObject.name);
+           // Debug.Log("Hit name: " + hit.collider.gameObject.name);
 
             return true;
         }

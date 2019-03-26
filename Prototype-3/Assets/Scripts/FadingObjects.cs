@@ -11,7 +11,6 @@ public class FadingObjects : MonoBehaviour
     {
         m_toBeFaded.GetComponentsInChildren<Transform>();
     }
-
     // Update is called once per frame
     void Update()
     {
