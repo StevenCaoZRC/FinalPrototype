@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] bool m_playerAtDoorEnd = false;
     [SerializeField] bool m_playerAtDoorPath = false;
-    [SerializeField] bool m_isGrounded = false;
 
     Rigidbody m_rigidbody;
     Vector3 m_direction;
@@ -33,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
         m_rigidbody = GetComponent<Rigidbody>();
         m_controller = GetComponent<CharacterController>();
         m_controller.detectCollisions = true;
-
     }
 
     // Start is called before the first frame update
@@ -47,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
         Move();
     }
 
@@ -111,14 +108,12 @@ public class PlayerMovement : MonoBehaviour
         {
             m_landParticles.Play();
 
-            m_velocity.y += Physics.gravity.y * m_jumpFallSpeed * Time.deltaTime;
+            m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
 
             //m_rigidbody.velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
 
         }
-
-
-
+        
         m_direction = m_direction * m_speed * Time.deltaTime;
 
         //m_controller.Move(m_velocity);
@@ -148,15 +143,14 @@ public class PlayerMovement : MonoBehaviour
     public bool CheckOnGround()
     {
         RaycastHit hit;
-        if(Physics.SphereCast(transform.position, 0.5f, -Vector3.up, out hit, m_distToGround))
+        if(Physics.SphereCast(transform.position, 0.3f, -Vector3.up, out hit, m_distToGround))
         {
-            Debug.Log("Hit name: " + hit.collider.gameObject.name);
-
             return true;
         }
         return false;
     }
 
+    //Play particles part of a gameobject
     void PlayGOParticles(GameObject _gameObject, bool _play)
     {
         ParticleSystem[] children = _gameObject.GetComponentsInChildren<ParticleSystem>();
@@ -185,10 +179,15 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        //if(hit.moveDirection.y < -0.3f)
+        //if (hit.moveDirection.y < -0.3f)
         //{
         //    return;
         //}
+
+        if(hit.collider.tag == "Pushable")
+        {
+            //Animation
+        }
 
         Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
         rigidbody.velocity = pushDir * m_pushForce;
