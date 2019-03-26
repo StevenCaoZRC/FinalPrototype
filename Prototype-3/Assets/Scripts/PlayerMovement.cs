@@ -9,8 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject m_jumpParticles;
 
     public float m_speed = 10.0f;
-    public float m_jumpSpeed = 20.0f;
-    public float m_jumpFallSpeed = 10.0f;
+    public float m_jumpSpeed = 1.0f;
+    public float m_jumpFallSpeed = 1.5f;
+    public float m_pushForce = 5.0f;
 
     [SerializeField] bool m_playerAtDoorEnd = false;
     [SerializeField] bool m_playerAtDoorPath = false;
@@ -18,8 +19,10 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody m_rigidbody;
     Vector3 m_direction;
+    Vector3 m_velocity;
     Quaternion targetRot;
-   
+    CharacterController m_controller;
+
     float m_distToGround = 0.0f;
     bool m_jumping = false;
     bool m_doubleJumping = false;
@@ -28,6 +31,9 @@ public class PlayerMovement : MonoBehaviour
     {
         //m_playerAnim = GetComponent<Animator>();   
         m_rigidbody = GetComponent<Rigidbody>();
+        m_controller = GetComponent<CharacterController>();
+        m_controller.detectCollisions = true;
+
     }
 
     // Start is called before the first frame update
@@ -48,7 +54,8 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         float hor = Input.GetAxisRaw("Horizontal");
-        float ver = Input.GetAxisRaw("Vertical");        
+        float ver = Input.GetAxisRaw("Vertical");
+        
 
         if (hor != 0.0f) //If horizontal
         {
@@ -72,40 +79,52 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.rotation = targetRot;
         }
-        Debug.Log("jump: " + m_jumping + "double: " + m_doubleJumping);
+        //Debug.Log("jump: " + m_jumping + "double: " + m_doubleJumping);
+
+        if (m_jumping && !m_doubleJumping)
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                PlayGOParticles(m_jumpParticles, true);
+
+                m_doubleJumping = true;
+                m_velocity = Vector3.zero;
+                m_velocity.y = Mathf.Sqrt(-m_jumpSpeed * Physics.gravity.y);
+
+                //m_rigidbody.velocity = Vector3.zero;
+                //m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
+            }
+        }
 
         if (CheckOnGround())
-        { 
+        {
             if (GameManager.GetAxisOnce(ref m_jumping, "Jump"))
             {
                 PlayGOParticles(m_jumpParticles, true);
                 m_doubleJumping = false;
 
-                m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
+                m_velocity.y = Mathf.Sqrt(-m_jumpSpeed * Physics.gravity.y);
+                //m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
             }
         }
         else
         {
-            if(m_jumping && !m_doubleJumping)
-            {
-                if (Input.GetButtonDown("Jump"))
-                {
-                    PlayGOParticles(m_jumpParticles, true);
-
-                    m_doubleJumping = true;
-                    m_rigidbody.velocity = Vector3.zero;
-                    m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
-                }
-            }
             m_landParticles.Play();
 
-            m_rigidbody.velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
+            m_velocity.y += Physics.gravity.y * m_jumpFallSpeed * Time.deltaTime;
+
+            //m_rigidbody.velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
 
         }
 
+
+
         m_direction = m_direction * m_speed * Time.deltaTime;
 
-        m_rigidbody.MovePosition(transform.position + m_direction);
+        //m_controller.Move(m_velocity);
+
+        m_controller.Move(m_velocity + m_direction);
+        //m_rigidbody.MovePosition(transform.position + m_direction);
     }
 
     void SetDirection(Vector3 _dir)
@@ -157,4 +176,22 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody rigidbody = hit.collider.attachedRigidbody;
+
+        if(rigidbody == null || rigidbody.isKinematic)
+        {
+            return;
+        }
+
+        //if(hit.moveDirection.y < -0.3f)
+        //{
+        //    return;
+        //}
+
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
+        rigidbody.velocity = pushDir * m_pushForce;
+    }
+
 }
