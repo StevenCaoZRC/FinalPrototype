@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 137382011}
   m_Layer: 10
   m_Name: Destrutable
-  m_TagString: Untagged
+  m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -219,12 +219,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_iHealth: 4
   m_isDestroyed: 0
---- !u!4 &258165638 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6697606522391888342, guid: 2fd69490e6a7dfa42b5702aa7ee34612,
-    type: 3}
-  m_PrefabInstance: {fileID: 2045882584}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &264894031
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,6 +684,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rotSpeed: 50
+--- !u!1 &1200164184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6064671108171422626, guid: 2fd69490e6a7dfa42b5702aa7ee34612,
+    type: 3}
+  m_PrefabInstance: {fileID: 2045882584}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1200164185
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200164184}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1297835350
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,10 +976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1a58e0fa5596b4ab46f86267a0c2be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_radius: 1
-  m_player: {fileID: 258165638}
-  m_interactableTransform: {fileID: 258165638}
-  m_box: {fileID: 0}
+  m_katana: {fileID: 2045882585}
 --- !u!1 &1562284196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1145,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6064671108171422626, guid: 2fd69490e6a7dfa42b5702aa7ee34612,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fd69490e6a7dfa42b5702aa7ee34612, type: 3}
 --- !u!1 &2045882585 stripped

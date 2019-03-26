@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : Interactables
+public class PlayerAttack : MonoBehaviour
 {
-    public GameObject m_box;
-    
-    public override void Interact()
-    {
-        base.Interact();
-        Slash();
-    }
-    void Slash()
-    {
-        Debug.Log("Slashed Object: " );
-      
-        Destroy(m_box);
-        
+    public GameObject m_katana;
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "DestructibleObject" && Input.GetKeyDown(
+           KeyCode.E) && m_katana.activeSelf)
+        {
+            other.gameObject.GetComponent<DestructibleObject>().m_iHealth -= 2;
+            if (other.gameObject.GetComponent<DestructibleObject>().m_iHealth <= 0)
+            {
+                Destroy(other.gameObject);
+            }
+        }
     }
 }
