@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -88,7 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000000, guid: 7794e0920b6b6e0448f7a4eff1ff62dd,
+  m_LightingDataAsset: {fileID: 112000000, guid: 057aa36a77dd39d4591aacc7f2dea8fe,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 680462310}
   - component: {fileID: 680462313}
   - component: {fileID: 680462314}
+  - component: {fileID: 680462315}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -316,6 +317,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_targetLocation: {fileID: 1008850610}
+--- !u!114 &680462315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680462309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87e4989c5e703e428df4339d59e2c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showMainBehavior: 1
+  showInnerGlowBehavior: 1
+  rtFormat: 2
+  blurShader: {fileID: 4800000, guid: 1855d9636fad3914bacc4a543165c974, type: 3}
+  compositeShader: {fileID: 4800000, guid: e384de4389ba527479054baf0ddb1d3e, type: 3}
+  selectiveRenderShader: {fileID: 4800000, guid: c04b7cae8accdfb4e9c2648823ff39d7,
+    type: 3}
+  glowLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  glowType: 0
+  glowTint: {r: 1, g: 1, b: 1, a: 0}
+  blurSpreadInner: 0.25
+  blurIterations: 5
+  glowIntensityInner: 0.3
+  samples: 2
 --- !u!1 &890494169
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +466,8 @@ GameObject:
   - component: {fileID: 1085018712}
   - component: {fileID: 1085018711}
   - component: {fileID: 1085018710}
-  m_Layer: 0
+  - component: {fileID: 1085018715}
+  m_Layer: 9
   m_Name: Helmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,13 +558,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085018709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.76, y: 0.252, z: -0.06}
+  m_LocalPosition: {x: -9.76, y: 0.867, z: -0.06}
   m_LocalScale: {x: 0.47664, y: 0.47664, z: 0.47664}
   m_Children:
   - {fileID: 1568261542}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1085018715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085018709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb6811ae2cafd240986231c79064b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_rotSpeed: 50
 --- !u!198 &1239657855 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2444019517238143734, guid: 9f53786b90d4bf94da787b03e31793a7,
@@ -911,6 +954,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: CollectVFX (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2444019517238143732, guid: 9f53786b90d4bf94da787b03e31793a7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2444019517238143734, guid: 9f53786b90d4bf94da787b03e31793a7,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2444019517238143497, guid: 9f53786b90d4bf94da787b03e31793a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -980,11 +1033,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2444019517238143734, guid: 9f53786b90d4bf94da787b03e31793a7,
-        type: 3}
-      propertyPath: looping
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f53786b90d4bf94da787b03e31793a7, type: 3}
@@ -1107,7 +1155,8 @@ GameObject:
   - component: {fileID: 2052744754}
   - component: {fileID: 2052744753}
   - component: {fileID: 2052744757}
-  m_Layer: 0
+  - component: {fileID: 2052744758}
+  m_Layer: 9
   m_Name: Katana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1180,7 +1229,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052744752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.49, y: 0.252, z: 0}
+  m_LocalPosition: {x: -5.49, y: 0.867, z: 0}
   m_LocalScale: {x: 0.47664, y: 0.47664, z: 0.47664}
   m_Children:
   - {fileID: 1239657856}
@@ -1205,6 +1254,19 @@ MonoBehaviour:
   m_particleSystem: {fileID: 1239657855}
   m_item: {fileID: 11400000, guid: 4380ec5a07d84064cb4c8cb03d4bc257, type: 2}
   m_gear: {fileID: 2045882585}
+--- !u!114 &2052744758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052744752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb6811ae2cafd240986231c79064b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_rotSpeed: 50
 --- !u!1001 &2444019516028110729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1216,6 +1278,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CollectVFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 2444019517238143732, guid: 9f53786b90d4bf94da787b03e31793a7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2444019517238143497, guid: 9f53786b90d4bf94da787b03e31793a7,
         type: 3}
