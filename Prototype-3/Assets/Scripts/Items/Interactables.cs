@@ -7,10 +7,11 @@ public class Interactables : MonoBehaviour
     public float m_radius = 3f; //within range before you can interact with object
     public Transform m_player;
     public Transform m_interactableTransform;
-    public ParticleSystem m_particleSystem;
+  
+
     private void Start()
     {
-        m_particleSystem.Stop();
+       
     }
     public virtual void Interact() {
         Debug.Log("Interacting with: " + transform.name);
@@ -23,7 +24,7 @@ public class Interactables : MonoBehaviour
         if(distance < m_radius) // if they are within the radius
         {
 
-            StartCoroutine(Interacting());
+            Interact();
         }
     }
 
@@ -34,12 +35,8 @@ public class Interactables : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(m_interactableTransform.position, m_radius);
     }
-    IEnumerator Interacting()
-    {
-        m_particleSystem.Play();
-        yield return new WaitForSeconds(0.5f);
-        Interact();
-        Destroy(gameObject);
-        yield return null;
-    }
+ 
+
+  
+
 }
