@@ -240,12 +240,15 @@ MonoBehaviour:
   m_playerAnim: {fileID: 0}
   m_landParticles: {fileID: 1605768921}
   m_jumpParticles: {fileID: 790462057}
+  m_headCheck: {fileID: 0}
+  m_groundCheck: {fileID: 0}
   m_speed: 10
   m_jumpSpeed: 12
   m_jumpFallSpeed: 1.5
   m_pushForce: 5
   m_playerAtDoorEnd: 0
   m_playerAtDoorPath: 0
+  m_allowDoubleJump: 1
 --- !u!1 &264894031
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,11 +458,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 165504882}
     m_Modifications:
-    - target: {fileID: 7367297350419834020, guid: 333374efd568edf47b96c372987aa7ba,
-        type: 3}
-      propertyPath: m_Name
-      value: Hit_Particle
-      objectReference: {fileID: 0}
     - target: {fileID: 7367297350419834075, guid: 333374efd568edf47b96c372987aa7ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -514,6 +512,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367297350419834020, guid: 333374efd568edf47b96c372987aa7ba,
+        type: 3}
+      propertyPath: m_Name
+      value: Hit_Particle
       objectReference: {fileID: 0}
     - target: {fileID: 7367297350408225865, guid: 333374efd568edf47b96c372987aa7ba,
         type: 3}
@@ -606,6 +609,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 605627345887776651, guid: 7f6e0969a30740f47bee7ec5dff12f62,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 605627345887776651, guid: 7f6e0969a30740f47bee7ec5dff12f62,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 605627345887776651, guid: 7f6e0969a30740f47bee7ec5dff12f62,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f6e0969a30740f47bee7ec5dff12f62, type: 3}
 --- !u!1 &890494169
@@ -677,6 +695,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1025922354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1025922355}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1025922355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025922354}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.512, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2009656277}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1205799466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -769,7 +817,7 @@ GameObject:
   - component: {fileID: 1297835351}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: JumpableWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -839,13 +887,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297835350}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.782326, y: -0.6955817, z: 12.264797}
-  m_LocalScale: {x: 4.3, y: 1, z: 4.4}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071058, w: 0.7071078}
+  m_LocalPosition: {x: 12.28, y: 2.3, z: 12.264797}
+  m_LocalScale: {x: 11.438, y: 1, z: 4.4}
   m_Children: []
   m_Father: {fileID: 1330699710}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.00001}
 --- !u!1 &1330699709
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,7 +943,7 @@ GameObject:
   - component: {fileID: 1401650435}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: JumpableWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -999,7 +1047,7 @@ GameObject:
   - component: {fileID: 1562284197}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: JumpableWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1069,13 +1117,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562284196}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.782326, y: -3.0555816, z: 12.264797}
+  m_LocalRotation: {x: -0, y: -0, z: 0.70710576, w: 0.70710784}
+  m_LocalPosition: {x: 6.782326, y: 1.44, z: 12.264797}
   m_LocalScale: {x: 4.3, y: 1, z: 4.4}
   m_Children: []
   m_Father: {fileID: 1330699710}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.00001}
 --- !u!1 &1605768920
 GameObject:
   m_ObjectHideFlags: 0
@@ -5906,6 +5954,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 861796386}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2058321434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2058321435}
+  m_Layer: 0
+  m_Name: HeadCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2058321435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058321434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.559, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2009656277}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8000290574609745741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5921,12 +5999,12 @@ PrefabInstance:
     - target: {fileID: 8000290573146516632, guid: 428a5d21b53a9dd4082c7682096d1171,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.45
       objectReference: {fileID: 0}
     - target: {fileID: 8000290573146516632, guid: 428a5d21b53a9dd4082c7682096d1171,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.838
+      value: 0.912
       objectReference: {fileID: 0}
     - target: {fileID: 8000290573146516632, guid: 428a5d21b53a9dd4082c7682096d1171,
         type: 3}
@@ -5973,5 +6051,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8000290573146516638, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_pushForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000290573146516638, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_allowDoubleJump
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000290573146516638, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_jumpSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000290573146516638, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000290573146516638, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_jumpFallSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000290573146516638, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_headCheck
+      value: 
+      objectReference: {fileID: 2058321435}
+    - target: {fileID: 8000290573146516638, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_groundCheck
+      value: 
+      objectReference: {fileID: 1025922355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 428a5d21b53a9dd4082c7682096d1171, type: 3}

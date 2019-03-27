@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - DestructibleObject
+  - Pushable
+  - JumpableWall
   layers:
   - Default
   - TransparentFX
