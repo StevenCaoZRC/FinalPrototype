@@ -451,6 +451,12 @@ MonoBehaviour:
   blurIterations: 5
   glowIntensityInner: 0.3
   samples: 2
+--- !u!4 &888322759 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6697606522391888342, guid: 2fd69490e6a7dfa42b5702aa7ee34612,
+    type: 3}
+  m_PrefabInstance: {fileID: 2045882584}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &890494169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,6 +1102,20 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467950389, guid: 2fd69490e6a7dfa42b5702aa7ee34612, type: 3}
+      propertyPath: m_slashingPoint
+      value: 
+      objectReference: {fileID: 888322759}
+    - target: {fileID: 1467950389, guid: 2fd69490e6a7dfa42b5702aa7ee34612, type: 3}
+      propertyPath: m_particles
+      value: 
+      objectReference: {fileID: 8889226249398012636, guid: 260cc87a278824e4bab2a355894c5718,
+        type: 3}
+    - target: {fileID: 3037957868031772318, guid: 2fd69490e6a7dfa42b5702aa7ee34612,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fd69490e6a7dfa42b5702aa7ee34612, type: 3}

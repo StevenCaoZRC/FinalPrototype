@@ -4968,10 +4968,10 @@ GameObject:
   - component: {fileID: 5981059350772077555}
   - component: {fileID: 5981059350772077552}
   - component: {fileID: 5981059350772077557}
+  - component: {fileID: 1467950389}
   - component: {fileID: 5981059350772077553}
   - component: {fileID: 5981059350772077554}
   - component: {fileID: 5981059350772077550}
-  - component: {fileID: 1467950389}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5028,6 +5028,21 @@ MonoBehaviour:
   m_playerAtDoorEnd: 0
   m_playerAtDoorPath: 0
   m_isGrounded: 0
+--- !u!114 &1467950389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5981059350772077551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1a58e0fa5596b4ab46f86267a0c2be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_katana: {fileID: 5880249393873389480}
+  m_particles: {fileID: 0}
+  m_slashingPoint: {fileID: 0}
 --- !u!23 &5981059350772077553
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5094,19 +5109,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1467950389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5981059350772077551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1a58e0fa5596b4ab46f86267a0c2be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_katana: {fileID: 5880249393873389480}
 --- !u!1 &6064671108171422626
 GameObject:
   m_ObjectHideFlags: 0
@@ -5158,11 +5160,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5981059350772077555}
     m_Modifications:
-    - target: {fileID: 7367297350419834020, guid: 333374efd568edf47b96c372987aa7ba,
-        type: 3}
-      propertyPath: m_Name
-      value: Hit_Particle
-      objectReference: {fileID: 0}
     - target: {fileID: 7367297350419834075, guid: 333374efd568edf47b96c372987aa7ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5217,6 +5214,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367297350419834020, guid: 333374efd568edf47b96c372987aa7ba,
+        type: 3}
+      propertyPath: m_Name
+      value: Hit_Particle
       objectReference: {fileID: 0}
     - target: {fileID: 7367297350945967052, guid: 333374efd568edf47b96c372987aa7ba,
         type: 3}
