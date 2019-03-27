@@ -451,12 +451,6 @@ MonoBehaviour:
   blurIterations: 5
   glowIntensityInner: 0.3
   samples: 2
---- !u!4 &888322759 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6697606522391888342, guid: 2fd69490e6a7dfa42b5702aa7ee34612,
-    type: 3}
-  m_PrefabInstance: {fileID: 2045882584}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &890494169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,7 +1100,7 @@ PrefabInstance:
     - target: {fileID: 1467950389, guid: 2fd69490e6a7dfa42b5702aa7ee34612, type: 3}
       propertyPath: m_slashingPoint
       value: 
-      objectReference: {fileID: 888322759}
+      objectReference: {fileID: 2068835597}
     - target: {fileID: 1467950389, guid: 2fd69490e6a7dfa42b5702aa7ee34612, type: 3}
       propertyPath: m_particles
       value: 
@@ -1116,6 +1110,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5275035423635642212, guid: 2fd69490e6a7dfa42b5702aa7ee34612,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.009
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fd69490e6a7dfa42b5702aa7ee34612, type: 3}
@@ -1250,6 +1249,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rotSpeed: 50
+--- !u!4 &2068835597 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5275035423635642212, guid: 2fd69490e6a7dfa42b5702aa7ee34612,
+    type: 3}
+  m_PrefabInstance: {fileID: 2045882584}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4332194843508829946 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4332194843508829946, guid: 2fd69490e6a7dfa42b5702aa7ee34612,

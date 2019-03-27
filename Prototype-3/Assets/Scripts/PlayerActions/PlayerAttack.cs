@@ -13,8 +13,8 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && m_katana.activeSelf)
         {
           
-                GameObject temp1 = Instantiate(m_particles, m_slashingPoint.position, Quaternion.Euler(0,-90,0)); //Quaternion.Euler(90, m_slashingPoint.rotation.y, m_slashingPoint.rotation.z));
-                Destroy(temp1, 1);
+               GameObject temp1 = Instantiate(m_particles, m_slashingPoint.position, m_slashingPoint.rotation);
+               Destroy(temp1, 1);
 
          
           
