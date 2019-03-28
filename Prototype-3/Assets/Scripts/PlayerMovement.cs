@@ -7,8 +7,6 @@ public class PlayerMovement : MonoBehaviour
     public Animator m_playerAnim;
     public ParticleSystem m_landParticles;
     public GameObject m_jumpParticles;
-    public Transform m_headCheck;
-    public Transform m_groundCheck;
 
     public float m_speed = 10.0f;
     public float m_jumpSpeed = 1.0f;
@@ -216,9 +214,13 @@ public class PlayerMovement : MonoBehaviour
     public bool CheckHeadTouched()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 0.3f, Vector3.up, out hit, m_distToGround))
+        if (Physics.SphereCast(transform.position, 0.3f, Vector3.up, out hit, m_distToGround, LayerMask.NameToLayer("Gear")))
         {
-            Debug.Log("youch");
+            //if(hit.collider.tag == "Armour")
+            //{
+            //    return false;
+            //}
+            Debug.Log("Head youch");
             m_velocity += Physics.gravity.y * (m_jumpFallSpeed*2) * Vector3.up * Time.deltaTime;
 
             return true;

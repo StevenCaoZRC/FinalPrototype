@@ -12,27 +12,23 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && m_katana.activeSelf)
         {
-          
-               GameObject temp1 = Instantiate(m_particles, m_slashingPoint.position, m_slashingPoint.rotation);
-               Destroy(temp1, 1);
-
-         
-          
-           
-         
+            GameObject slashParticles = Instantiate(m_particles, m_slashingPoint.position, m_slashingPoint.rotation);
+            Destroy(slashParticles, 1);
         }
     }
     private void OnTriggerStay(Collider other)
     {
+        Debug.Log("?" + other.gameObject.tag);
+
         if (other.gameObject.tag == "DestructibleObject" && Input.GetKeyDown(KeyCode.E) && m_katana.activeSelf)
         {
-            
+            Debug.Log("im here");
             other.gameObject.GetComponent<DestructibleObject>().m_iHealth -= 2;
             if (other.gameObject.GetComponent<DestructibleObject>().m_iHealth <= 0)
             {
+                
                 Destroy(other.gameObject);
             }
-            
         }
     }
 }
