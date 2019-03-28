@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 918094459}
   - component: {fileID: 918094460}
+  - component: {fileID: 1165352676}
   m_Layer: 0
   m_Name: AttackRangeCenter
   m_TagString: Untagged
@@ -44,6 +45,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1165352676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918094458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1a58e0fa5596b4ab46f86267a0c2be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_katana: {fileID: 1302818916}
+  m_particles: {fileID: 8889226249398012636, guid: 260cc87a278824e4bab2a355894c5718,
+    type: 3}
+  m_slashingPoint: {fileID: 5602577107968802852}
 --- !u!1 &1302818916
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +74,7 @@ GameObject:
   - component: {fileID: 1302818918}
   - component: {fileID: 1302818917}
   m_Layer: 9
-  m_Name: Katana (1)
+  m_Name: Katana
   m_TagString: Armour
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,7 +147,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1302818916}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -148,7 +165,7 @@ GameObject:
   - component: {fileID: 2038762462}
   - component: {fileID: 2038762461}
   m_Layer: 9
-  m_Name: Helmet (1)
+  m_Name: Helmet
   m_TagString: Armour
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,7 +284,6 @@ GameObject:
   - component: {fileID: 8000290573146516632}
   - component: {fileID: 8000290573146516633}
   - component: {fileID: 8000290573146516638}
-  - component: {fileID: 559797939}
   - component: {fileID: 8000290573146516639}
   - component: {fileID: 8000290573146516637}
   - component: {fileID: 8000290573146516635}
@@ -331,22 +347,6 @@ MonoBehaviour:
   m_playerAtDoorPath: 0
   m_allowDoubleJump: 0
   m_allowWallJump: 1
---- !u!114 &559797939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8000290573146516610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1a58e0fa5596b4ab46f86267a0c2be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_katana: {fileID: 1302818916}
-  m_particles: {fileID: 8889226249398012636, guid: 260cc87a278824e4bab2a355894c5718,
-    type: 3}
-  m_slashingPoint: {fileID: 5602577107968802852}
 --- !u!23 &8000290573146516639
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5274,6 +5274,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8000290573146516632}
     m_Modifications:
+    - target: {fileID: 7367297350419834020, guid: 333374efd568edf47b96c372987aa7ba,
+        type: 3}
+      propertyPath: m_Name
+      value: Hit_Particle
+      objectReference: {fileID: 0}
     - target: {fileID: 7367297350419834075, guid: 333374efd568edf47b96c372987aa7ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5328,11 +5333,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7367297350419834020, guid: 333374efd568edf47b96c372987aa7ba,
-        type: 3}
-      propertyPath: m_Name
-      value: Hit_Particle
       objectReference: {fileID: 0}
     - target: {fileID: 7367297350945967052, guid: 333374efd568edf47b96c372987aa7ba,
         type: 3}

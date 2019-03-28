@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && m_katana.activeSelf)
         {
             GameObject slashParticles = Instantiate(m_particles, m_slashingPoint.position, m_slashingPoint.rotation);
+            slashParticles.transform.parent = transform;
             Destroy(slashParticles, 1);
         }
     }
