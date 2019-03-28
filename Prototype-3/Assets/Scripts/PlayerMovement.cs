@@ -60,17 +60,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         Move();
     }
-    float hor;
-    float ver;
+    
     private void Move()
     {
         CheckHeadTouched();
-      
-        hor = Input.GetAxisRaw("Horizontal");
-        ver = Input.GetAxisRaw("Vertical");
+
+        float hor = Input.GetAxisRaw("Horizontal");
+        float ver = Input.GetAxisRaw("Vertical");
 
         //if(m_wallJumping)
         //{
@@ -255,9 +253,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (GameManager.GetAxisOnce(ref m_wallJumping, "WallJump"))
             {
-                
                 Debug.DrawRay(hit.point, hit.normal, Color.red, 1.25f);
-                hor = 0.0f;
                 m_velocity = hit.normal * m_speed / 3 * Time.deltaTime;
                 m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
             }
