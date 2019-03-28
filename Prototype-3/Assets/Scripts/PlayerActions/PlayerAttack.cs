@@ -18,8 +18,6 @@ public class PlayerAttack : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("?" + other.gameObject.tag);
-
         if (other.gameObject.tag == "DestructibleObject" && Input.GetKeyDown(KeyCode.E) && m_katana.activeSelf)
         {
             Debug.Log("im here");

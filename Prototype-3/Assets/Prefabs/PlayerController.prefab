@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 1302818919}
   - component: {fileID: 1302818918}
   - component: {fileID: 1302818917}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Katana (1)
   m_TagString: Armour
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 2038762463}
   - component: {fileID: 2038762462}
   - component: {fileID: 2038762461}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Helmet (1)
   m_TagString: Armour
   m_Icon: {fileID: 0}

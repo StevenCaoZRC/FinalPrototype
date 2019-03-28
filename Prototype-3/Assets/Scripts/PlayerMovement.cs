@@ -29,10 +29,14 @@ public class PlayerMovement : MonoBehaviour
 
     bool m_jumping = false;
     bool m_doubleJumping = false;
+    bool m_wallJumpingOnce = false;
     bool m_wallJumping = false;
     bool m_facingLeft = false;
-    float m_wallJumpTimer = 0.0f;
-    float m_wallJumpTotal = 0.4f;
+    bool m_lastWallLeft = false;
+    bool m_freeTurning = true;
+
+    float m_lastGroundTimer = 0.0f;
+    float m_lastGroundTotal = 0.4f;
 
     [SerializeField] bool m_allowDoubleJump = false;
     [SerializeField] bool m_allowWallJump = true;
@@ -51,8 +55,7 @@ public class PlayerMovement : MonoBehaviour
         m_landParticles.Stop();
         PlayGOParticles(m_jumpParticles, false);
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
-        m_wallJumpTimer = 0.0f;
-
+        m_lastGroundTimer = 0.0f;
     }
 
     // Update is called once per frame
@@ -60,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
     }
-    
+
     private void Move()
     {
         CheckHeadTouched();
@@ -68,50 +71,47 @@ public class PlayerMovement : MonoBehaviour
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
 
-        //if(m_wallJumping)
-        //{
-        //    m_wallJumpTimer += Time.deltaTime;
-        //    if(m_wallJumpTimer > m_wallJumpTotal)
-        //    {
-        //        m_wallJumpTimer = 0.0f;
-        //        m_wallJumping = false;
-        //    }
-        //}
-
-        
-
-        if (hor != 0.0f ) //If horizontal
+        if (hor != 0.0f) //If horizontal
         {
-            //if(m_facingLeft)
-            //{
-            //    Debug.Log("henlo left");
-            //    hor = 0.0f;
+            
 
-            //}
-            //else if(!m_facingLeft)
-            //{
-            //    Debug.Log("henlo right");
-            //    hor = 0.0f;
-
-
-            //}
-            if (!m_playerAtDoorPath && ! m_playerAtDoorEnd)
+            if (((hor < 0.0f && m_lastWallLeft && m_wallJumpingOnce) 
+                || (hor > 0.0f && !m_lastWallLeft && m_wallJumpingOnce)) && !m_freeTurning)
             {
-                //If not at a doorway let player move left and right
-                SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                //Stop player from wall jumping on same left wall
             }
-            else if(m_playerAtDoorEnd)
+            else
             {
-                //If at the end of a doorway let player move left and right
-                SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                if (hor > 0.0f)
+                {
+                    m_facingLeft = false;
+                }
+                else if (hor < 0.0f)
+                {
+                    m_facingLeft = true;
+                }
+
+                if (!m_playerAtDoorPath && !m_playerAtDoorEnd)
+                {
+                    //If not at a doorway let player move left and right
+                    SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                    m_freeTurning = true;
+                }
+                else if (m_playerAtDoorEnd)
+                {
+                    //If at the end of a doorway let player move left and right
+                    SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                    m_freeTurning = true;
+                }
             }
+
         }
         else if (ver != 0.0f && m_playerAtDoorPath) //If vertical
         {
             //if in doorway, let player walk forwards and backwards
             SetDirection(new Vector3(0.0f, 0.0f, ver));
         }
-        else if(transform.rotation != targetRot)
+        else if (transform.rotation != targetRot)
         {
             transform.rotation = targetRot;
         }
@@ -137,7 +137,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (CheckOnGround())
         {
-            if(m_velocity.x != 0.0f)
+            m_lastGroundTimer = 0.0f;
+            m_wallJumpingOnce = false;
+            m_wallJumping = false;
+
+            if (m_velocity.x != 0.0f)
             {
                 m_velocity = Vector3.zero;
             }
@@ -150,28 +154,34 @@ public class PlayerMovement : MonoBehaviour
                 //m_velocity.y = Mathf.Sqrt(-m_jumpSpeed * Physics.gravity.y);
                 //m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
             }
-        }   
+        }
         else
         {
+            m_lastGroundTimer += Time.deltaTime;
+
             //If not on ground
             m_landParticles.Play();
             //m_verticalVelocity -= -Physics.gravity.y * Time.deltaTime;
             //Activate gravity
-            m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
+            if(m_jumping)
+            {
+                m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
+            }
+            else
+            {
+                m_velocity += (Physics.gravity.y * (m_jumpFallSpeed-0.01f) * Vector3.up * Time.deltaTime);
+            }
+
             //m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
 
             //m_rigidbody.velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
         }
-
         
-
-
-        //m_direction = m_direction * m_speed * Time.deltaTime;
         m_moveVector = m_moveVector * m_speed * Time.deltaTime;
 
         //m_controller.Move(m_velocity);
 
-        m_controller.Move(m_moveVector +  m_velocity);
+        m_controller.Move(m_moveVector + m_velocity);
         //m_rigidbody.MovePosition(transform.position + m_direction);
     }
 
@@ -182,13 +192,13 @@ public class PlayerMovement : MonoBehaviour
         else if (_dir.x < 0.0f) m_facingLeft = true;
         m_moveVector.Set(_dir.x, _dir.y, _dir.z);
 
-        if(m_moveVector != Vector3.zero)
+        if (m_moveVector != Vector3.zero)
         {
             targetRot = Quaternion.LookRotation(m_moveVector);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * m_speed);
         }
-        
+
     }
 
     public void SetPlayerAtDoor(bool _atDoor)
@@ -204,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
     public bool CheckOnGround()
     {
         RaycastHit hit;
-        if(Physics.SphereCast(transform.position, 0.3f, -Vector3.up, out hit, m_distToGround))
+        if (Physics.SphereCast(transform.position, 0.4f, -Vector3.up, out hit, m_distToGround))
         {
             return true;
         }
@@ -214,15 +224,15 @@ public class PlayerMovement : MonoBehaviour
     public bool CheckHeadTouched()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 0.3f, Vector3.up, out hit, m_distToGround, LayerMask.NameToLayer("Gear")))
+        if (Physics.SphereCast(transform.position, 0.4f, Vector3.up, out hit, m_distToGround, LayerMask.NameToLayer("Gear")))
         {
             //if(hit.collider.tag == "Armour")
             //{
             //    return false;
             //}
             Debug.Log("Head youch");
-            m_velocity += Physics.gravity.y * (m_jumpFallSpeed*2) * Vector3.up * Time.deltaTime;
-
+            //m_velocity += Physics.gravity.y * (m_jumpFallSpeed * 2) * Vector3.up * Time.deltaTime;
+            m_velocity.y = -0.005f;
             return true;
         }
         return false;
@@ -233,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
     {
         ParticleSystem[] children = _gameObject.GetComponentsInChildren<ParticleSystem>();
 
-        if(_play)
+        if (_play)
         {
             foreach (ParticleSystem p in children)
             {
@@ -251,29 +261,34 @@ public class PlayerMovement : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //If hitting jumpable wall + in air + wall is not sloped
-        if (!CheckOnGround() && hit.normal.y < 0.1f && m_allowWallJump)
+        if (!CheckOnGround() && hit.normal.y < 0.1f && m_allowWallJump && hit.collider.tag == "JumpableWall")
         {
-            if (GameManager.GetAxisOnce(ref m_wallJumping, "WallJump"))
+            if (GameManager.GetAxisOnce(ref m_wallJumpingOnce, "WallJump"))
             {
+                m_freeTurning = false;
+                if (m_facingLeft)
+                    m_lastWallLeft = true;
+                else
+                    m_lastWallLeft = false;
                 Debug.DrawRay(hit.point, hit.normal, Color.red, 1.25f);
-                m_velocity = hit.normal * m_speed / 3 * Time.deltaTime;
+                //m_velocity = hit.normal * m_speed / 3 * Time.deltaTime;
                 m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
             }
         }
 
         Rigidbody rigidbody = hit.collider.attachedRigidbody;
 
-        if(rigidbody == null || rigidbody.isKinematic)
+        if (rigidbody == null || rigidbody.isKinematic)
         {
             return;
         }
 
-        if(hit.collider.tag == "Pushable")
+        if (hit.collider.tag == "Pushable")
         {
             //Animation
         }
 
-        
+
 
         Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
         rigidbody.velocity = pushDir * m_pushForce;
