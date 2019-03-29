@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 984e8a7e5b9d4404f8aaa9151b8e85c7
+labels:
+- Character
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
