@@ -76,8 +76,8 @@ public class PlayerMovement : MonoBehaviour
         {
             
 
-            if (((hor < 0.0f && m_lastWallLeft && m_wallJumpingOnce) 
-                || (hor > 0.0f && !m_lastWallLeft && m_wallJumpingOnce)) && !m_freeTurning)
+            if (((hor < 0.0f && m_lastWallLeft && m_wallJumping) 
+                || (hor > 0.0f && !m_lastWallLeft && m_wallJumping)) && !m_freeTurning)
             {
                 //Stop player from wall jumping on same left wall
             }
@@ -149,11 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (CheckOnGround())
         {
-            Debug.Log("Checked");
-
             m_playerAnim.SetBool("Grounded", true);
-
-
             m_lastGroundTimer = 0.0f;
             m_wallJumpingOnce = false;
             m_wallJumping = false;
@@ -163,13 +159,11 @@ public class PlayerMovement : MonoBehaviour
                 m_velocity = Vector3.zero;
             }
             
-
             if (GameManager.GetAxisOnce(ref m_jumping, "Jump"))
             {
                 m_playerAnim.SetTrigger("Jump");
                 m_playerAnim.SetBool("Grounded", false);
-
-                Invoke("JumpMotion", 0.2f);
+                JumpMotion();
 
                 //m_playerAnim.SetTrigger("Jump");
 
@@ -263,10 +257,6 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         if (Physics.SphereCast(transform.position, 0.4f, Vector3.up, out hit, m_distToGround, LayerMask.NameToLayer("Gear")))
         {
-            //if(hit.collider.tag == "Armour")
-            //{
-            //    return false;
-            //}
             Debug.Log("Head youch");
             //m_velocity += Physics.gravity.y * (m_jumpFallSpeed * 2) * Vector3.up * Time.deltaTime;
             m_velocity.y = -0.005f;
@@ -302,7 +292,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (GameManager.GetAxisOnce(ref m_wallJumpingOnce, "WallJump"))
             {
-
+                m_wallJumping = true;
                 m_freeTurning = false;
                 if (m_facingLeft)
                     m_lastWallLeft = true;
@@ -314,7 +304,7 @@ public class PlayerMovement : MonoBehaviour
                 m_playerAnim.SetTrigger("Jump");
                 m_playerAnim.SetBool("Grounded", false);
 
-                Invoke("JumpMotion", 0.2f);
+                JumpMotion();
             }
         }
 
