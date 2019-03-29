@@ -9,25 +9,44 @@ public class PlayerMovement : MonoBehaviour
     public GameObject m_jumpParticles;
 
     public float m_speed = 10.0f;
-    public float m_jumpSpeed = 20.0f;
-    public float m_jumpFallSpeed = 10.0f;
+    public float m_jumpSpeed = 1.0f;
+    public float m_jumpFallSpeed = 1.5f;
+    public float m_pushForce = 5.0f;
 
     [SerializeField] bool m_playerAtDoorEnd = false;
     [SerializeField] bool m_playerAtDoorPath = false;
-    [SerializeField] bool m_isGrounded = false;
 
     Rigidbody m_rigidbody;
-    Vector3 m_direction;
+    Vector3 m_moveVector;
+    Vector3 m_velocity;
+    Vector3 m_lastMove;
+
     Quaternion targetRot;
-   
+    CharacterController m_controller;
+
     float m_distToGround = 0.0f;
+    float m_verticalVelocity = -1.0f;
+
     bool m_jumping = false;
     bool m_doubleJumping = false;
+    bool m_wallJumpingOnce = false;
+    bool m_wallJumping = false;
+    bool m_facingLeft = false;
+    bool m_lastWallLeft = false;
+    bool m_freeTurning = true;
+
+    float m_lastGroundTimer = 0.0f;
+    float m_lastGroundTotal = 0.4f;
+
+    [SerializeField] bool m_allowDoubleJump = false;
+    [SerializeField] bool m_allowWallJump = true;
 
     private void Awake()
     {
         //m_playerAnim = GetComponent<Animator>();   
         m_rigidbody = GetComponent<Rigidbody>();
+        m_controller = GetComponent<CharacterController>();
+        m_controller.detectCollisions = true;
     }
 
     // Start is called before the first frame update
@@ -36,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
         m_landParticles.Stop();
         PlayGOParticles(m_jumpParticles, false);
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
+        m_lastGroundTimer = 0.0f;
+        //m_playerAnim.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -46,73 +67,175 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+        CheckHeadTouched();
+
         float hor = Input.GetAxisRaw("Horizontal");
-        float ver = Input.GetAxisRaw("Vertical");        
+        float ver = Input.GetAxisRaw("Vertical");
 
         if (hor != 0.0f) //If horizontal
         {
-            if(!m_playerAtDoorPath && ! m_playerAtDoorEnd)
+            
+
+            if (((hor < 0.0f && m_lastWallLeft && m_wallJumpingOnce) 
+                || (hor > 0.0f && !m_lastWallLeft && m_wallJumpingOnce)) && !m_freeTurning)
             {
-                //If not at a doorway let player move left and right
-                SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                //Stop player from wall jumping on same left wall
             }
-            else if(m_playerAtDoorEnd)
+            else
             {
-                //If at the end of a doorway let player move left and right
-                SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                if (hor > 0.0f)
+                {
+                    m_facingLeft = false;
+                }
+                else if (hor < 0.0f)
+                {
+                    m_facingLeft = true;
+                }
+
+                if (!m_playerAtDoorPath && !m_playerAtDoorEnd)
+                {
+                    //If not at a doorway let player move left and right
+                    SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                    m_playerAnim.SetBool("Run", true);
+
+                    m_freeTurning = true;
+                }
+                else if (m_playerAtDoorEnd)
+                {
+                    //If at the end of a doorway let player move left and right
+                    SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                    m_freeTurning = true;
+                    m_playerAnim.SetBool("Run", true);
+
+                }
             }
+
         }
         else if (ver != 0.0f && m_playerAtDoorPath) //If vertical
         {
             //if in doorway, let player walk forwards and backwards
             SetDirection(new Vector3(0.0f, 0.0f, ver));
         }
-        else if(transform.rotation != targetRot)
+        else if (transform.rotation != targetRot)
         {
             transform.rotation = targetRot;
         }
-      //  Debug.Log("jump: " + m_jumping + "double: " + m_doubleJumping);
+
+        if (hor == 0.0f)
+        {
+            m_playerAnim.SetBool("Run", false);
+        }
+
+        //Double Jump
+        if (m_jumping && !m_doubleJumping && m_allowDoubleJump)
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                m_playerAnim.SetTrigger("Jump");
+
+                PlayGOParticles(m_jumpParticles, true);
+
+                m_doubleJumping = true;
+                m_velocity = Vector3.zero;
+                //m_velocity.y = Mathf.Sqrt(-m_jumpSpeed * Physics.gravity.y);
+                m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
+
+                //m_rigidbody.velocity = Vector3.zero;
+                //m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
+            }
+        }
+
+        //If on ground
 
         if (CheckOnGround())
-        { 
+        {
+            Debug.Log("Checked");
+
+            m_playerAnim.SetBool("Grounded", true);
+
+
+            m_lastGroundTimer = 0.0f;
+            m_wallJumpingOnce = false;
+            m_wallJumping = false;
+
+            if (m_velocity.x != 0.0f)
+            {
+                m_velocity = Vector3.zero;
+            }
+            
+
             if (GameManager.GetAxisOnce(ref m_jumping, "Jump"))
             {
-                PlayGOParticles(m_jumpParticles, true);
-                m_doubleJumping = false;
+                m_playerAnim.SetTrigger("Jump");
+                m_playerAnim.SetBool("Grounded", false);
 
-                m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
+                Invoke("JumpMotion", 0.2f);
+
+                //m_playerAnim.SetTrigger("Jump");
+
+                //PlayGOParticles(m_jumpParticles, true);
+                //m_doubleJumping = false;
+                //m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
+                //m_velocity.y = Mathf.Sqrt(-m_jumpSpeed * Physics.gravity.y);
+                //m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
             }
         }
         else
         {
-            if(m_jumping && !m_doubleJumping)
-            {
-                if (Input.GetButtonDown("Jump"))
-                {
-                    PlayGOParticles(m_jumpParticles, true);
+            m_lastGroundTimer += Time.deltaTime;
 
-                    m_doubleJumping = true;
-                    m_rigidbody.velocity = Vector3.zero;
-                    m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
-                }
-            }
+            //If not on ground
             m_landParticles.Play();
+            //m_verticalVelocity -= -Physics.gravity.y * Time.deltaTime;
+            //Activate gravity
+            if (m_jumping)
+            {
 
-            m_rigidbody.velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
+                m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
+            }
+            else
+            {
+                m_velocity += (Physics.gravity.y * (m_jumpFallSpeed-0.01f) * Vector3.up * Time.deltaTime);
+            }
+            m_playerAnim.SetBool("Grounded", false);
 
+            //m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
+
+            //m_rigidbody.velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
         }
 
-        m_direction = m_direction * m_speed * Time.deltaTime;
 
-        m_rigidbody.MovePosition(transform.position + m_direction);
+
+
+        m_moveVector = m_moveVector * m_speed * Time.deltaTime;
+
+        //m_controller.Move(m_velocity);
+
+        m_controller.Move(m_moveVector + m_velocity);
+        //m_rigidbody.MovePosition(transform.position + m_direction);
+    }
+
+    void JumpMotion()
+    {
+        //m_playerAnim.SetTrigger("Jump");
+
+        PlayGOParticles(m_jumpParticles, true);
+        m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
     }
 
     void SetDirection(Vector3 _dir)
     {
-        m_direction.Set(_dir.x, -_dir.y, _dir.z);
+        m_moveVector = Vector3.zero;
+        if (_dir.x > 0.0f) m_facingLeft = false;
+        else if (_dir.x < 0.0f) m_facingLeft = true;
+        m_moveVector.Set(_dir.x, _dir.y, _dir.z);
+        if (m_moveVector != Vector3.zero)
+        {
+            targetRot = Quaternion.LookRotation(m_moveVector);
 
-        targetRot = Quaternion.LookRotation(m_direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * m_speed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * m_speed);
+        }
+
     }
 
     public void SetPlayerAtDoor(bool _atDoor)
@@ -128,20 +251,36 @@ public class PlayerMovement : MonoBehaviour
     public bool CheckOnGround()
     {
         RaycastHit hit;
-        if(Physics.SphereCast(transform.position, 0.5f, -Vector3.up, out hit, m_distToGround))
+        if (Physics.SphereCast(transform.position, 0.4f, -Vector3.up, out hit, m_distToGround))
         {
-           // Debug.Log("Hit name: " + hit.collider.gameObject.name);
-
             return true;
         }
         return false;
     }
 
+    public bool CheckHeadTouched()
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, 0.4f, Vector3.up, out hit, m_distToGround, LayerMask.NameToLayer("Gear")))
+        {
+            //if(hit.collider.tag == "Armour")
+            //{
+            //    return false;
+            //}
+            Debug.Log("Head youch");
+            //m_velocity += Physics.gravity.y * (m_jumpFallSpeed * 2) * Vector3.up * Time.deltaTime;
+            m_velocity.y = -0.005f;
+            return true;
+        }
+        return false;
+    }
+
+    //Play particles part of a gameobject
     void PlayGOParticles(GameObject _gameObject, bool _play)
     {
         ParticleSystem[] children = _gameObject.GetComponentsInChildren<ParticleSystem>();
 
-        if(_play)
+        if (_play)
         {
             foreach (ParticleSystem p in children)
             {
@@ -156,4 +295,45 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        //If hitting jumpable wall + in air + wall is not sloped
+        if (!CheckOnGround() && hit.normal.y < 0.1f && m_allowWallJump && hit.collider.tag == "JumpableWall")
+        {
+            if (GameManager.GetAxisOnce(ref m_wallJumpingOnce, "WallJump"))
+            {
+
+                m_freeTurning = false;
+                if (m_facingLeft)
+                    m_lastWallLeft = true;
+                else
+                    m_lastWallLeft = false;
+                Debug.DrawRay(hit.point, hit.normal, Color.red, 1.25f);
+                //m_velocity = hit.normal * m_speed / 3 * Time.deltaTime;
+                //m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
+                m_playerAnim.SetTrigger("Jump");
+                m_playerAnim.SetBool("Grounded", false);
+
+                Invoke("JumpMotion", 0.2f);
+            }
+        }
+
+        Rigidbody rigidbody = hit.collider.attachedRigidbody;
+
+        if (rigidbody == null || rigidbody.isKinematic)
+        {
+            return;
+        }
+
+        if (hit.collider.tag == "Pushable")
+        {
+            //Animation
+        }
+
+
+
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
+        rigidbody.velocity = pushDir * m_pushForce;
+    }
+
 }

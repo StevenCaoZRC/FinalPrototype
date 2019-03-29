@@ -9,7 +9,8 @@ public class FadingObjects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_toBeFaded.GetComponentsInChildren<Transform>();
+        if(m_toBeFaded != null)
+            m_toBeFaded.GetComponentsInChildren<Transform>();
     }
     // Update is called once per frame
     void Update()

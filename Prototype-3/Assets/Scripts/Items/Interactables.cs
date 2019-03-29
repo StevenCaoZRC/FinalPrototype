@@ -23,7 +23,6 @@ public class Interactables : MonoBehaviour
         float distance = Vector3.Distance(m_player.position, m_interactableTransform.position);
         if(distance < m_radius) // if they are within the radius
         {
-
             Interact();
         }
     }
