@@ -5,36 +5,30 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
     #region Variables
-    [System.Serializable]
-    public class ObjectTrigger
-    {
-        [SerializeField]
-        GameObject m_objectToTrigger;
-        [SerializeField]
-        Transform m_objectStartPos;
-        [SerializeField]
-        Transform m_objectEndPos;
-    }
-    [Header("Object You want to trigger with Plate")]
-    public ObjectTrigger m_TriggeredByPlate;
-    [Space]
     [Header("Pressure Plate Properties")]
     [SerializeField]
-    bool m_triggered = false;
+    public bool m_triggered = false;
     [SerializeField]
     Transform m_startPos;
     [SerializeField]
     Transform m_endPos;
-    // Start is called before the first frame update
+    [SerializeField]
+    GameObject m_pressurePlate;
+   
     #endregion
+
+    public virtual void PerformAction()
+    {
+
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             m_triggered = true;
+            PerformAction();
 
-
-            transform.position = new Vector3(transform.position.x, m_endPos.position.y, transform.position.z);
+            m_pressurePlate.transform.position = new Vector3(m_pressurePlate.transform.position.x, m_endPos.position.y, transform.position.z);
 
         }
         
@@ -44,8 +38,8 @@ public class PressurePlate : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             m_triggered = false;
-
-            transform.position = new Vector3(transform.position.x, m_startPos.position.y, transform.position.z);
+            PerformAction();
+            m_pressurePlate.transform.position = new Vector3(m_pressurePlate.transform.position.x, m_startPos.position.y, transform.position.z);
 
 
         }
