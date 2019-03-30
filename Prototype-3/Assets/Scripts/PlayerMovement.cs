@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float m_speed = 10.0f;
     public float m_jumpSpeed = 1.0f;
-    public float m_jumpFallSpeed = 1.5f;
+    public float m_jumpFallSpeed = 0.05f;
+    public float m_jumpFallSpeedPlatform = 0.02f;
     public float m_pushForce = 5.0f;
 
     [SerializeField] bool m_playerAtDoorEnd = false;
@@ -34,9 +35,10 @@ public class PlayerMovement : MonoBehaviour
     bool m_facingLeft = false;
     bool m_lastWallLeft = false;
     bool m_freeTurning = true;
+    bool m_walkOffPlatform = false;
 
-    float m_lastGroundTimer = 0.0f;
-    float m_lastGroundTotal = 0.4f;
+    float m_lastFreeTurnTimer = 0.0f;
+    float m_lastFreeTurnTotal = 0.6f;
 
     [SerializeField] bool m_allowDoubleJump = false;
     [SerializeField] bool m_allowWallJump = true;
@@ -55,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         m_landParticles.Stop();
         PlayGOParticles(m_jumpParticles, false);
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
-        m_lastGroundTimer = 0.0f;
+        m_lastFreeTurnTimer = 0.0f;
         //m_playerAnim.GetComponent<Animator>();
     }
 
@@ -96,8 +98,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     //If not at a doorway let player move left and right
                     SetDirection(new Vector3(hor, 0.0f, 0.0f));
-                    m_playerAnim.SetBool("Run", true);
-
                     m_freeTurning = true;
                 }
                 else if (m_playerAtDoorEnd)
@@ -105,7 +105,6 @@ public class PlayerMovement : MonoBehaviour
                     //If at the end of a doorway let player move left and right
                     SetDirection(new Vector3(hor, 0.0f, 0.0f));
                     m_freeTurning = true;
-                    m_playerAnim.SetBool("Run", true);
 
                 }
             }
@@ -121,10 +120,20 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = targetRot;
         }
 
-        if (hor == 0.0f)
+        if (hor == 0.0f && ver == 0.0f && !m_wallJumping)
         {
             m_playerAnim.SetBool("Run", false);
         }
+        else if (hor != 0.0f || ver != 0.0f && !m_wallJumping && !m_jumping)
+        {
+            m_playerAnim.SetBool("WallTouch", false);
+            m_playerAnim.SetBool("Run", true);
+        }
+        if(m_wallJumping)
+        {
+            m_playerAnim.SetBool("Run", false);
+        }
+        
 
         //Double Jump
         if (m_jumping && !m_doubleJumping && m_allowDoubleJump)
@@ -137,7 +146,6 @@ public class PlayerMovement : MonoBehaviour
 
                 m_doubleJumping = true;
                 m_velocity = Vector3.zero;
-                //m_velocity.y = Mathf.Sqrt(-m_jumpSpeed * Physics.gravity.y);
                 m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
 
                 //m_rigidbody.velocity = Vector3.zero;
@@ -150,9 +158,11 @@ public class PlayerMovement : MonoBehaviour
         if (CheckOnGround())
         {
             m_playerAnim.SetBool("Grounded", true);
-            m_lastGroundTimer = 0.0f;
+            m_playerAnim.SetBool("WallTouch", false);
+
             m_wallJumpingOnce = false;
             m_wallJumping = false;
+            m_walkOffPlatform = false;
 
             if (m_velocity.x != 0.0f)
             {
@@ -164,44 +174,55 @@ public class PlayerMovement : MonoBehaviour
                 m_playerAnim.SetTrigger("Jump");
                 m_playerAnim.SetBool("Grounded", false);
                 JumpMotion();
-
-                //m_playerAnim.SetTrigger("Jump");
-
-                //PlayGOParticles(m_jumpParticles, true);
                 //m_doubleJumping = false;
-                //m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
-                //m_velocity.y = Mathf.Sqrt(-m_jumpSpeed * Physics.gravity.y);
-                //m_rigidbody.AddForce(Vector3.up * m_jumpSpeed, ForceMode.Impulse);
             }
         }
         else
         {
-            m_lastGroundTimer += Time.deltaTime;
 
             //If not on ground
             m_landParticles.Play();
-            //m_verticalVelocity -= -Physics.gravity.y * Time.deltaTime;
+
             //Activate gravity
             if (m_jumping)
             {
-
                 m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
             }
             else
             {
-                m_velocity += (Physics.gravity.y * (m_jumpFallSpeed-0.01f) * Vector3.up * Time.deltaTime);
+                //Prevent player from falling too fast after walking off platform.
+                if (!m_walkOffPlatform)
+                {
+                    Debug.Log(".______________.");
+                    m_walkOffPlatform = true;
+
+                    m_velocity += (Physics.gravity.y * (m_jumpFallSpeedPlatform) * Vector3.up * Time.deltaTime);
+                }
+                else
+                {
+                    m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
+                }
             }
+
             m_playerAnim.SetBool("Grounded", false);
-
-            //m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
-
-            //m_rigidbody.velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
         }
 
+        if(m_wallJumping)
+        {
+            if(!m_freeTurning)
+                m_lastFreeTurnTimer += Time.deltaTime;
+            if(m_lastFreeTurnTimer > m_lastFreeTurnTotal)
+            {
+                m_freeTurning = true;
+                m_lastFreeTurnTimer = 0.0f;
+            }
 
-
-
-        m_moveVector = m_moveVector * m_speed * Time.deltaTime;
+            m_moveVector = m_moveVector * m_speed/2 * Time.deltaTime;
+        }
+        else
+        {
+            m_moveVector = m_moveVector * m_speed * Time.deltaTime;
+        }
 
         //m_controller.Move(m_velocity);
 
@@ -211,8 +232,6 @@ public class PlayerMovement : MonoBehaviour
 
     void JumpMotion()
     {
-        //m_playerAnim.SetTrigger("Jump");
-
         PlayGOParticles(m_jumpParticles, true);
         m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
     }
@@ -222,6 +241,7 @@ public class PlayerMovement : MonoBehaviour
         m_moveVector = Vector3.zero;
         if (_dir.x > 0.0f) m_facingLeft = false;
         else if (_dir.x < 0.0f) m_facingLeft = true;
+
         m_moveVector.Set(_dir.x, _dir.y, _dir.z);
         if (m_moveVector != Vector3.zero)
         {
@@ -288,10 +308,11 @@ public class PlayerMovement : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //If hitting jumpable wall + in air + wall is not sloped
-        if (!CheckOnGround() && hit.normal.y < 0.1f && m_allowWallJump && hit.collider.tag == "JumpableWall")
+        if (!CheckOnGround() && hit.normal.y < 0.1f && hit.collider.tag == "JumpableWall")
         {
-            if (GameManager.GetAxisOnce(ref m_wallJumpingOnce, "WallJump"))
+            if (GameManager.GetAxisOnce(ref m_wallJumpingOnce, "WallJump") && m_allowWallJump)
             {
+
                 m_wallJumping = true;
                 m_freeTurning = false;
                 if (m_facingLeft)
@@ -299,13 +320,17 @@ public class PlayerMovement : MonoBehaviour
                 else
                     m_lastWallLeft = false;
                 Debug.DrawRay(hit.point, hit.normal, Color.red, 1.25f);
-                //m_velocity = hit.normal * m_speed / 3 * Time.deltaTime;
+                m_velocity = hit.normal * m_speed / 3 * Time.deltaTime;
                 //m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
-                m_playerAnim.SetTrigger("Jump");
+                m_playerAnim.SetTrigger("Climbing");
+                m_playerAnim.SetBool("WallTouch", false);
+
                 m_playerAnim.SetBool("Grounded", false);
 
                 JumpMotion();
             }
+            m_playerAnim.SetBool("WallTouch", true);
+
         }
 
         Rigidbody rigidbody = hit.collider.attachedRigidbody;
