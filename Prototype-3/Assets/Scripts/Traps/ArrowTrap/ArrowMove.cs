@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ArrowMove : MonoBehaviour
 {
@@ -25,12 +26,18 @@ public class ArrowMove : MonoBehaviour
             Debug.Log("Arrow is Not Moving");
         }
     }
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag != "ArrowTrap")
         {
             m_speed = 0;
             Destroy(gameObject);
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            m_speed = 0;
+            Destroy(gameObject);
+            SceneManager.LoadScene("StevenScene");
         }
        
     }
