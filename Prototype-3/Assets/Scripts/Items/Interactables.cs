@@ -6,12 +6,12 @@ public class Interactables : MonoBehaviour
 {
     public float m_radius = 3f; //within range before you can interact with object
     public Transform m_player;
-    public Transform m_interactableTransform;
+     Transform m_interactableTransform;
   
 
     private void Start()
     {
-       
+        m_interactableTransform = GetComponent<Transform>();
     }
     public virtual void Interact() {
         Debug.Log("Interacting with: " + transform.name);
