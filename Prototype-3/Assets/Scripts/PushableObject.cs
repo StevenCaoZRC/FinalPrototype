@@ -22,11 +22,12 @@ public class PushableObject : MonoBehaviour
         if(CheckGrounded())
         {
             transform.rotation = new Quaternion();
-            m_rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            m_rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionZ;
             m_rigidBody.velocity = Vector3.zero;
         }
         else
         {
+            Debug.Log("not on ground");
             m_rigidBody.constraints &= ~RigidbodyConstraints.FreezeRotationZ;
             m_rigidBody.velocity += Physics.gravity.y * (m_fallSpeed) * Vector3.up * Time.deltaTime;
         }
@@ -34,6 +35,6 @@ public class PushableObject : MonoBehaviour
 
     public bool CheckGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, m_distToGround-0.1f);
+        return Physics.Raycast(transform.position, Vector3.down, m_distToGround+0.1f);
     }
 }

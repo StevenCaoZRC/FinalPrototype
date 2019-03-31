@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 6985843726105383204}
   - component: {fileID: 6985843726105383200}
   - component: {fileID: 6985843726105383203}
-  m_Layer: 9
-  m_Name: KatanaPickup
+  m_Layer: 0
+  m_Name: TempKatanaPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6985843726105383205}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.49, y: 0.867, z: 0}
-  m_LocalScale: {x: 0.47664, y: 0.47664, z: 0.47664}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -107,7 +107,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_radius: 1.5
   m_player: {fileID: 0}
-  m_interactableTransform: {fileID: 6985843726105383201}
   m_item: {fileID: 11400000, guid: 4380ec5a07d84064cb4c8cb03d4bc257, type: 2}
   m_gear: {fileID: 0}
   m_particles: {fileID: 2444019517238143732, guid: 9f53786b90d4bf94da787b03e31793a7,

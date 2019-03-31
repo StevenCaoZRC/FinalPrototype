@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] bool m_allowDoubleJump = false;
     [SerializeField] bool m_allowWallJump = true;
+    [SerializeField] bool m_allowBoxPush = true;
 
     private void Awake()
     {
@@ -69,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        CheckHeadTouched();
 
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
@@ -224,6 +224,8 @@ public class PlayerMovement : MonoBehaviour
             m_moveVector = m_moveVector * m_speed * Time.deltaTime;
         }
 
+        CheckHeadTouched();
+
         //m_controller.Move(m_velocity);
 
         m_controller.Move(m_moveVector + m_velocity);
@@ -275,10 +277,12 @@ public class PlayerMovement : MonoBehaviour
     public bool CheckHeadTouched()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 0.4f, Vector3.up, out hit, m_distToGround, LayerMask.NameToLayer("Gear")))
+        if (Physics.SphereCast(transform.position, 0.4f, Vector3.up, out hit, m_distToGround+0.1f, LayerMask.NameToLayer("Gear")))
         {
             Debug.Log("Head youch");
             //m_velocity += Physics.gravity.y * (m_jumpFallSpeed * 2) * Vector3.up * Time.deltaTime;
+            m_velocity = Vector3.zero;
+
             m_velocity.y = -0.005f;
             return true;
         }
@@ -339,7 +343,7 @@ public class PlayerMovement : MonoBehaviour
 
         Rigidbody rigidbody = hit.collider.attachedRigidbody;
 
-        if (rigidbody == null || rigidbody.isKinematic)
+        if (rigidbody == null || rigidbody.isKinematic || !m_allowBoxPush)
         {
             return;
         }
@@ -352,7 +356,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
-        rigidbody.velocity = pushDir * m_pushForce;
+        rigidbody.velocity = pushDir * m_pushForce / rigidbody.mass;
     }
 
 }
