@@ -48,8 +48,9 @@ public class FadingObjects : MonoBehaviour
                 {
                     if (g != null)
                     {
-                        iTween.FadeTo(g.gameObject, 1, 1);
+                        //SetMaterialOpaque(g.gameObject);
                         Invoke("SetMaterialOpaque", 1.0f);
+                        iTween.FadeTo(g.gameObject, 1, 1);
 
                     }
                 }
@@ -78,13 +79,14 @@ public class FadingObjects : MonoBehaviour
             m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
 
             m.renderQueue = 3000;
-
+           
         }
     }
     private void SetMaterialOpaque()
     {
         foreach (Material m in GetComponent<Renderer>().materials)
         {
+            
             m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
 
             m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
@@ -93,7 +95,7 @@ public class FadingObjects : MonoBehaviour
 
             m.DisableKeyword("_ALPHATEST_ON");
 
-            m.DisableKeyword("_ALPHABLEND_ON");
+            m.EnableKeyword("_ALPHABLEND_ON");
 
             m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
 
