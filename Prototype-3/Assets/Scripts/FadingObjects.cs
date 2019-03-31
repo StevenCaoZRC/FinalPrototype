@@ -6,11 +6,13 @@ public class FadingObjects : MonoBehaviour
 {
     public Transform m_toBeFaded;
     private bool m_isTransparent = false;
+    Transform[] m_listToFade;
+
     // Start is called before the first frame update
     void Start()
     {
         if(m_toBeFaded != null)
-            m_toBeFaded.GetComponentsInChildren<Transform>();
+            m_listToFade = m_toBeFaded.GetComponentsInChildren<Transform>();
     }
     // Update is called once per frame
     void Update()
@@ -24,12 +26,17 @@ public class FadingObjects : MonoBehaviour
         {
             if (!m_isTransparent)
             {
-                foreach (Transform g in m_toBeFaded)
+                foreach (Transform g in m_listToFade)
                 {
                     if (g != null)
                     {
-                        SetMaterialTransparent(g.gameObject);
-                        iTween.FadeTo(g.gameObject, 0, 1);
+
+                        if (g.gameObject.GetComponent<Renderer>() != null)
+                        {
+                            SetMaterialTransparent(g.gameObject);
+                            iTween.FadeTo(g.gameObject, 0, 1);
+                        }
+                        
 
                     }
                 }
@@ -37,7 +44,7 @@ public class FadingObjects : MonoBehaviour
             }
             else if (m_isTransparent)
             {
-                foreach (Transform g in m_toBeFaded)
+                foreach (Transform g in m_listToFade)
                 {
                     if (g != null)
                     {
