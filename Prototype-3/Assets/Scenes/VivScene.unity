@@ -6602,6 +6602,26 @@ PrefabInstance:
       propertyPath: m_jumpFallSpeedPlatform
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 8000290573146516637, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000290573146516637, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000290573146516637, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000290573146516635, guid: 428a5d21b53a9dd4082c7682096d1171,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1302818917, guid: 428a5d21b53a9dd4082c7682096d1171, type: 3}
     - {fileID: 2038762461, guid: 428a5d21b53a9dd4082c7682096d1171, type: 3}

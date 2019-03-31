@@ -155,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
 
         //If on ground
 
-        if (CheckOnGround())
+        if (m_controller.isGrounded)
         {
             m_playerAnim.SetBool("Grounded", true);
             m_playerAnim.SetBool("WallTouch", false);
@@ -331,6 +331,10 @@ public class PlayerMovement : MonoBehaviour
             }
             m_playerAnim.SetBool("WallTouch", true);
 
+        }
+        else
+        {
+            m_playerAnim.SetBool("WallTouch", false);
         }
 
         Rigidbody rigidbody = hit.collider.attachedRigidbody;
