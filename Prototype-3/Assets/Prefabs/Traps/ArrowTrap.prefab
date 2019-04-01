@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92366e7d3c6462d42bf4b866ed4e4509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_arrow: {fileID: 6550610268209733683, guid: 973948fdbd005084d9bbbe0d07f9fcef, type: 3}
+  m_projectile: {fileID: 6550610268209733683, guid: 973948fdbd005084d9bbbe0d07f9fcef,
+    type: 3}
   m_firePoint: {fileID: 1094020317473472902}
   m_trapActive: 1

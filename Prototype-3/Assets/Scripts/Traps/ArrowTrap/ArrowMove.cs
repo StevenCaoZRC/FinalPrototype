@@ -11,9 +11,6 @@ public class ArrowMove : MonoBehaviour
     [SerializeField]
     public float m_fireRate;
 
-    private Vector3 m_pos;
-    private Vector3 m_direction;
-    private Quaternion m_rotation;
     // Update is called once per frame
     void Update()
     {
@@ -28,7 +25,7 @@ public class ArrowMove : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "ArrowTrap" )
+        if (other.gameObject.tag != "ArrowTrap" || other.gameObject.tag != "FireballTrap")
         {
             m_speed = 0;
             Destroy(gameObject);

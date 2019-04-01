@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnArrows : MonoBehaviour
+public class SpawnProjectiles : MonoBehaviour
 {
     [SerializeField]
-    GameObject m_arrow;
+    GameObject m_projectile;
     [SerializeField]
     GameObject m_firePoint;
     public bool m_trapActive = true;
@@ -21,18 +21,18 @@ public class SpawnArrows : MonoBehaviour
         //Comment all of this if your gonna use InvokeRepeating.
         if(m_trapActive && Time.time >= timeToFire)
         {
-            timeToFire = Time.time + 1 / m_arrow.GetComponent<ArrowMove>().m_fireRate;
+            timeToFire = Time.time + 1 / m_projectile.GetComponent<ArrowMove>().m_fireRate;
             Spawn();
         }
         
     }
     void Spawn()
     {
-        GameObject arrow;
+        GameObject projectile;
 
         if (m_firePoint != null)
         {
-            arrow = Instantiate(m_arrow, m_firePoint.transform.position, m_firePoint.transform.rotation);
+            projectile = Instantiate(m_projectile, m_firePoint.transform.position, m_firePoint.transform.rotation);
 
         }
         else
