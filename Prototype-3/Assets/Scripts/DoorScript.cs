@@ -21,8 +21,6 @@ public class DoorScript : MonoBehaviour
             if (other.tag == "Player")
             {
                 other.GetComponent<PlayerMovement>().SetPlayerAtDoor(true);
-               
-                
             }
         }
         else

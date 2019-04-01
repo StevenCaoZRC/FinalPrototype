@@ -19,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(m_armourManager.IsBrokenKatanaActive());
+        //Debug.Log(m_armourManager.IsBrokenKatanaActive());
         if (Input.GetKeyDown(KeyCode.E) && (m_armourManager.IsBrokenKatanaActive() || m_armourManager.IsCompleteKatanaActive()))
         {
             m_playeranim.SetTrigger("Slash");

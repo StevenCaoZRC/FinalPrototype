@@ -6,12 +6,17 @@ public class PushableObject : MonoBehaviour
 {
     Rigidbody m_rigidBody;
     Vector3 m_vel;
-    public float m_fallSpeed = 1.0f;
+    public float m_fallSpeed = 10.0f;
     float m_distToGround = 0.0f;
-    public bool m_pushed = true;
+    public bool m_pushed = false;
+    private void Awake()
+    {
+    }
 
     private void Start()
     {
+        this.gameObject.tag = "Pushable";
+
         m_rigidBody = GetComponent<Rigidbody>();
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
     }
@@ -21,9 +26,14 @@ public class PushableObject : MonoBehaviour
         //m_vel.y += Physics.gravity.y * 0.1f * Time.deltaTime;
         if(CheckGrounded())
         {
-            transform.rotation = new Quaternion();
-            m_rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionZ;
-            //m_rigidBody.velocity = Vector3.zero;
+            //transform.rotation = new Quaternion();
+            m_rigidBody.constraints = RigidbodyConstraints.FreezeRotationX 
+                                    | RigidbodyConstraints.FreezeRotationY 
+                                    | RigidbodyConstraints.FreezeRotationZ 
+                                    | RigidbodyConstraints.FreezePositionZ;
+            if (!m_pushed)
+                m_rigidBody.velocity = Vector3.zero;
+            m_pushed = false;
         }
         else
         {
@@ -31,17 +41,10 @@ public class PushableObject : MonoBehaviour
             m_rigidBody.constraints &= ~RigidbodyConstraints.FreezeRotationZ;
             m_rigidBody.velocity += Physics.gravity.y * (m_fallSpeed) * Vector3.up * Time.deltaTime;
         }
-
-
     }
 
     public bool CheckGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, m_distToGround+0.1f);
-    }
-
-    public void SetPushed(bool _pushed)
-    {
-        m_pushed = _pushed;
     }
 }
