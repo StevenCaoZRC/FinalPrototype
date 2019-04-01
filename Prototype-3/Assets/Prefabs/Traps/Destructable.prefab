@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5295156973142353675}
   m_Layer: 0
   m_Name: Destructable
-  m_TagString: Untagged
+  m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143812544475051355}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.154, y: 0, z: 5.473}
   m_LocalScale: {x: 13.8, y: 13.8, z: 13.8}
   m_Children:
@@ -92,8 +92,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2d3333e5407414088d5c03b982aacd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_iHealth: 4
+  m_iHealth: 2
   m_isDestroyed: 0
+  m_countdown: 0
+  m_wallType: 2
+  m_speechText: {fileID: 0}
+  m_brokenBox: {fileID: 9036792272576128553, guid: 44656998a8cc39e45a5fa37e43610821,
+    type: 3}
 --- !u!1 &5295156973396807426
 GameObject:
   m_ObjectHideFlags: 0

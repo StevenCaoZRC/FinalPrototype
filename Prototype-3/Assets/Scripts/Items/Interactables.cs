@@ -18,10 +18,14 @@ public class Interactables : MonoBehaviour
     }
     public virtual void Interact() {
         Debug.Log("Interacting with: " + transform.name);
-        if (m_katanaBar.m_fill <= m_katanaBar.m_maxFill)
-            m_katanaBar.m_fill += 20;
-        else
-            Debug.Log("You Have Collected all the items");
+        if(m_katanaBar != null)
+        {
+            if (m_katanaBar.m_fill <= m_katanaBar.m_maxFill)
+                m_katanaBar.m_fill += 20;
+            else
+                Debug.Log("You Have Collected all the items");
+        }
+        
     }
     
     // Update is called once per frame

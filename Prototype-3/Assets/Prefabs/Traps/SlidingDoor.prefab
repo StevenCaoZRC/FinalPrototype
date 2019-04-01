@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7562090551698666079}
   m_Layer: 0
   m_Name: SlidingDoor
-  m_TagString: Untagged
+  m_TagString: JumpableWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 7562090551698666076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.77, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 7562090552656714174}
   - {fileID: 7562090553382094653}
@@ -62,8 +62,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7562090551934930390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 1, z: 0}
-  m_LocalScale: {x: 0.1, y: 3, z: 1}
+  m_LocalPosition: {x: -6, y: 2.005, z: 0}
+  m_LocalScale: {x: 0.1, y: 4.793501, z: 2.2936928}
   m_Children: []
   m_Father: {fileID: 7562090551698666079}
   m_RootOrder: 3
@@ -150,7 +150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7562090552024765725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 1, z: 1}
+  m_LocalPosition: {x: -6, y: 1, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7562090551698666079}
@@ -180,8 +180,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7562090552144245682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 1, y: 0.96000004, z: 1}
   m_Children:
   - {fileID: 7562090552474494463}
   - {fileID: 7562090552651752144}
@@ -215,8 +215,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7562090552474494460}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.888, y: 1, z: 1}
-  m_LocalScale: {x: 0.1, y: 3, z: 1}
+  m_LocalPosition: {x: -5.888, y: 2, z: 1}
+  m_LocalScale: {x: 0.1, y: 4.5393, z: 0.71934}
   m_Children: []
   m_Father: {fileID: 7562090552144245685}
   m_RootOrder: 0
@@ -307,7 +307,7 @@ Transform:
   m_GameObject: {fileID: 7562090552651752145}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -6.11, y: 1, z: 1}
-  m_LocalScale: {x: 0.1, y: 3, z: 1}
+  m_LocalScale: {x: 0.1, y: 3, z: 0.71934}
   m_Children: []
   m_Father: {fileID: 7562090552144245685}
   m_RootOrder: 1
@@ -396,7 +396,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7562090552656714175}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.51, y: -0.478, z: 0}
+  m_LocalPosition: {x: -1.01, y: 2.772, z: 0.25}
   m_LocalScale: {x: 1, y: 0.042202, z: 1}
   m_Children:
   - {fileID: 7562090553594897135}
@@ -422,6 +422,7 @@ MonoBehaviour:
   m_slidingDoor: {fileID: 7562090551934930390}
   m_startDoorPos: {fileID: 7562090553382094653}
   m_endDoorPos: {fileID: 7562090552024765724}
+  m_doorSpeed: 2
 --- !u!65 &7562090552656714144
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -34,7 +34,7 @@ public class ArrowMove : MonoBehaviour
         {
             m_speed = 0;
             Destroy(gameObject);
-            SceneManager.LoadScene("StevenScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
        
     }

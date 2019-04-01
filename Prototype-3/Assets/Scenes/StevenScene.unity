@@ -1170,11 +1170,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Destructable
       objectReference: {fileID: 0}
-    - target: {fileID: 143812544475051355, guid: 2a10e072405785d4db0552e94ce5e69d,
-        type: 3}
-      propertyPath: m_TagString
-      value: DestructibleObject
-      objectReference: {fileID: 0}
     - target: {fileID: 143812544475051351, guid: 2a10e072405785d4db0552e94ce5e69d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1229,17 +1224,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5295156973142353675, guid: 2a10e072405785d4db0552e94ce5e69d,
-        type: 3}
-      propertyPath: m_brokenBox
-      value: 
-      objectReference: {fileID: 9036792272576128553, guid: 44656998a8cc39e45a5fa37e43610821,
-        type: 3}
-    - target: {fileID: 5295156973142353675, guid: 2a10e072405785d4db0552e94ce5e69d,
-        type: 3}
-      propertyPath: m_iHealth
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a10e072405785d4db0552e94ce5e69d, type: 3}
@@ -1588,6 +1572,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562090552656714174, guid: 5397f34780d7ddb4581b3abad4407c55,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562090552656714174, guid: 5397f34780d7ddb4581b3abad4407c55,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5397f34780d7ddb4581b3abad4407c55, type: 3}

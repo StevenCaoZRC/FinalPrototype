@@ -72,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
 

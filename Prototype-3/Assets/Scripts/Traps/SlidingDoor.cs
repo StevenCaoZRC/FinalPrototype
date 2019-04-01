@@ -11,6 +11,8 @@ public class SlidingDoor : PressurePlate
     Transform m_startDoorPos;
     [SerializeField]
     Transform m_endDoorPos;
+    [SerializeField]
+    float m_doorSpeed = 2.0f;
 
     public override void PerformAction()
     {
@@ -21,11 +23,11 @@ public class SlidingDoor : PressurePlate
     {
         if (m_triggered)
         {
-            m_slidingDoor.transform.position = new Vector3(m_slidingDoor.transform.position.x, m_slidingDoor.transform.position.y, Mathf.Lerp(m_slidingDoor.transform.position.z, m_endDoorPos.position.z, Time.deltaTime));
+            m_slidingDoor.transform.position = new Vector3(m_slidingDoor.transform.position.x, m_slidingDoor.transform.position.y, Mathf.Lerp(m_slidingDoor.transform.position.z, m_endDoorPos.position.z, Time.deltaTime * m_doorSpeed));
         }
         else if (!m_triggered)
         {
-            m_slidingDoor.transform.position = new Vector3(m_slidingDoor.transform.position.x, m_slidingDoor.transform.position.y, Mathf.Lerp(m_slidingDoor.transform.position.z, m_startDoorPos.position.z, Time.deltaTime));
+            m_slidingDoor.transform.position = new Vector3(m_slidingDoor.transform.position.x, m_slidingDoor.transform.position.y, Mathf.Lerp(m_slidingDoor.transform.position.z, m_startDoorPos.position.z, Time.deltaTime / m_doorSpeed));
         }
     }
   
