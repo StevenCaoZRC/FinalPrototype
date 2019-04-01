@@ -20,6 +20,8 @@ public class ArmourManager : MonoBehaviour
         if (m_chest != null) m_chest.SetActive(false);
         if (m_leftArmCuffs != null) m_leftArmCuffs.SetActive(false);
         if (m_rightArmCuffs != null) m_rightArmCuffs.SetActive(false);
+        if (m_leftBoots != null) m_leftBoots.SetActive(false);
+        if (m_rightBoots != null) m_rightBoots.SetActive(false);
         if (m_brokenKatana != null) m_brokenKatana.SetActive(false);
         if (m_completeKatana != null) m_completeKatana.SetActive(false);
     }

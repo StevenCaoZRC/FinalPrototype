@@ -350,13 +350,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (hit.collider.tag == "Pushable")
         {
+            Debug.Log(":ooooooooooo");
+            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
+            rigidbody.velocity = pushDir * m_pushForce / rigidbody.mass;
             //Animation
         }
 
 
 
-        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
-        rigidbody.velocity = pushDir * m_pushForce / rigidbody.mass;
     }
 
 }
