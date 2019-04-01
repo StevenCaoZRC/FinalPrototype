@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4554131073353718014}
   m_Layer: 0
   m_Name: TempArrow
-  m_TagString: Untagged
+  m_TagString: ArrowTrap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a76e33e232eed84391127028d194e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 8
-  m_fireRate: 2
+  m_speed: 10
+  m_fireRate: 1
 --- !u!65 &7010225227335051185
 BoxCollider:
   m_ObjectHideFlags: 0

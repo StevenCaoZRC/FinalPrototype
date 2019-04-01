@@ -37,7 +37,8 @@ public class PlayerAttack : MonoBehaviour
             other.gameObject.GetComponent<DestructibleObject>().m_iHealth -= 2;
             if (other.gameObject.GetComponent<DestructibleObject>().m_iHealth <= 0)
             {
-                Destroy(other.gameObject, 0.5f);
+                other.gameObject.GetComponent<DestructibleObject>().m_isDestroyed = true;
+                //Destroy(other.gameObject);
             }
         }
     }

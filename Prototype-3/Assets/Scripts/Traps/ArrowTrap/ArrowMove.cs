@@ -28,7 +28,7 @@ public class ArrowMove : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "ArrowTrap")
+        if (other.gameObject.tag != "ArrowTrap" )
         {
             m_speed = 0;
             Destroy(gameObject);
