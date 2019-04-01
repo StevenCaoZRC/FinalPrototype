@@ -51,6 +51,7 @@ ModelImporter:
     100090: SamuraiBoySpine4
     100092: SamuraiBoyTail1
     100094: SamuraiBoyTail2
+    100096: BoyWithHair:pPlane8
     400000: //RootNode
     400002: human
     400004: pants
@@ -99,9 +100,14 @@ ModelImporter:
     400090: SamuraiBoySpine4
     400092: SamuraiBoyTail1
     400094: SamuraiBoyTail2
+    400096: BoyWithHair:pPlane8
     2100000: lambert2
+    2100002: lambert1
+    2300000: BoyWithHair:pPlane8
+    3300000: BoyWithHair:pPlane8
     4300000: human
     4300002: pants
+    4300004: BoyWithHair:pPlane8
     9500000: //RootNode
     13700000: human
     13700002: pants
