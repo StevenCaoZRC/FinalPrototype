@@ -62,7 +62,6 @@ MonoBehaviour:
   m_radius: 1.5
   m_player: {fileID: 0}
   m_item: {fileID: 11400000, guid: afe9a4a0c0849c0449eb693dda175144, type: 2}
-  m_gear: {fileID: 0}
   m_particles: {fileID: 2444019517238143732, guid: 9f53786b90d4bf94da787b03e31793a7,
     type: 3}
 --- !u!114 &2193037398219617892
