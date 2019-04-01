@@ -5,9 +5,13 @@ using UnityEngine;
 public class ItemPickUp : Interactables
 {
     public Item m_item;
-    public GameObject m_gear;
+    
     public GameObject m_particles;
-
+    KatanaFill m_katanaBar;
+    private void Start()
+    {
+        m_katanaBar = GetComponent<KatanaFill>();
+    }
     public override void Interact()
     {
         base.Interact();
@@ -19,7 +23,10 @@ public class ItemPickUp : Interactables
     void PickUpItem()
     {
         Debug.Log("Picked Up: " + m_item.name);
-
+        if (m_katanaBar.m_fill <= m_katanaBar.m_maxFill)
+            m_katanaBar.m_fill += 20;
+        else
+            Debug.Log("You Have Collected all the items");
         ActivateArmour();
         
         GameObject particles = Instantiate(m_particles, transform.position, transform.rotation);
