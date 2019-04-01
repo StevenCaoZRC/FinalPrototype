@@ -11,7 +11,7 @@ public class BambooTrap : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene("StevenScene");
+            SceneManager.LoadScene("VivScene");
         }
     }
 }

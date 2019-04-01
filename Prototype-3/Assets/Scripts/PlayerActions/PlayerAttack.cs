@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public GameObject m_katana;
+    public GameObject m_brokenKatana;
+    public GameObject m_completeKatana;
     public GameObject m_particles;
     public Transform m_slashingPoint;
     private Animator m_playeranim;
+    ArmourManager m_armourManager;
 
     private void Start()
     {
         m_playeranim = transform.parent.GetComponentInChildren<Animator>();
+        m_armourManager = transform.parent.GetComponent<ArmourManager>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && m_katana.activeSelf)
+        if (Input.GetKeyDown(KeyCode.E) && (m_armourManager.IsBrokenKatanaActive() || m_armourManager.IsCompleteKatanaActive()))
         {
             m_playeranim.SetTrigger("Slash");
         }
@@ -32,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "DestructibleObject" && Input.GetKeyDown(KeyCode.E) 
-            && m_katana.activeSelf)
+            && (m_armourManager.IsBrokenKatanaActive() || m_armourManager.IsCompleteKatanaActive()))
         {
             other.gameObject.GetComponent<DestructibleObject>().m_iHealth -= 2;
             if (other.gameObject.GetComponent<DestructibleObject>().m_iHealth <= 0)
@@ -41,4 +44,17 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
+    public GameObject GetKatana()
+    {
+        if(m_armourManager.IsCompleteKatanaActive())
+        {
+            return m_completeKatana;
+        }
+        else
+        {
+            return m_brokenKatana;
+        }
+    }
+
 }

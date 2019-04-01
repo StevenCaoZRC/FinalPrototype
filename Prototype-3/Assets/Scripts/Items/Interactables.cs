@@ -6,11 +6,12 @@ public class Interactables : MonoBehaviour
 {
     public float m_radius = 3f; //within range before you can interact with object
     public Transform m_player;
-     Transform m_interactableTransform;
-  
+    Transform m_interactableTransform;
+    protected ArmourManager m_armourManager;
 
     private void Start()
     {
+        m_armourManager = m_player.GetComponent<ArmourManager>();
         m_interactableTransform = GetComponent<Transform>();
     }
     public virtual void Interact() {

@@ -8,6 +8,12 @@ TagManager:
   - Pushable
   - JumpableWall
   - Armour
+  - BrokenKatanaPickup
+  - CompleteKatanaPickup
+  - HelmetPickup
+  - ChestPickup
+  - ArmPickup
+  - GetaPickup
   layers:
   - Default
   - TransparentFX
