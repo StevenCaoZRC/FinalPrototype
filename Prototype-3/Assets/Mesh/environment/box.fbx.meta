@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 801aba0a30c036f4ea07d384faafa37a
+guid: 99ac003b0df485b4580e7db4e1316408
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -42,6 +42,7 @@ ModelImporter:
     400034: polySurface8
     400036: polySurface9
     2100000: lambert1
+    2100002: lambert6
     2300000: pCube3
     2300002: pCube5
     2300004: pCube6
@@ -60,6 +61,7 @@ ModelImporter:
     2300030: polySurface7
     2300032: polySurface8
     2300034: polySurface9
+    2300036: //RootNode
     3300000: pCube3
     3300002: pCube5
     3300004: pCube6
@@ -78,6 +80,7 @@ ModelImporter:
     3300030: polySurface7
     3300032: polySurface8
     3300034: polySurface9
+    3300036: //RootNode
     4300000: pCube3
     4300002: pCube5
     4300004: pCube6
