@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: 984e8a7e5b9d4404f8aaa9151b8e85c7
-labels:
-- Character
+guid: 3a30583e279db554ca58b9c288f3f389
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -51,6 +49,8 @@ ModelImporter:
     100086: SamuraiBoySpine4
     100088: SamuraiBoyTail1
     100090: SamuraiBoyTail2
+    100092: wrist
+    100094: Helmet
     400000: //RootNode
     400002: SamuraiBoyHead
     400004: SamuraiBoyLCalf
@@ -97,8 +97,12 @@ ModelImporter:
     400086: SamuraiBoySpine4
     400088: SamuraiBoyTail1
     400090: SamuraiBoyTail2
-    7400000: Attack
+    400092: wrist
+    400094: Helmet
+    2100000: lambert3
+    4300000: Helmet
     9500000: //RootNode
+    13700000: Helmet
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -126,49 +130,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Attack
-      takeName: Take 001
-      firstFrame: 0
-      lastFrame: 40
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: 0.45703125
-        functionName: Slash
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.7920113
-        functionName: ReleaseKatana
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []

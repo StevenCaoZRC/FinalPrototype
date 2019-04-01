@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Animator m_playerAnim;
     public ParticleSystem m_landParticles;
     public GameObject m_jumpParticles;
 
@@ -17,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] bool m_playerAtDoorEnd = false;
     [SerializeField] bool m_playerAtDoorPath = false;
 
+    public Animator m_playerAnim;
     Rigidbody m_rigidbody;
     Vector3 m_moveVector;
     Vector3 m_velocity;
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        //m_playerAnim = GetComponent<Animator>();   
+        //m_playerAnim = GetComponentInChildren<Animator>();
         m_rigidbody = GetComponent<Rigidbody>();
         m_controller = GetComponent<CharacterController>();
         m_controller.detectCollisions = true;

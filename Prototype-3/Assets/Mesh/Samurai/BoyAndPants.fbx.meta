@@ -1,0 +1,193 @@
+fileFormatVersion: 2
+guid: 4746cae868f8474429d22a1151431cf7
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: human
+    100004: pants
+    100006: SamuraiBoyHead
+    100008: SamuraiBoyLCalf
+    100010: SamuraiBoyLCollarbone
+    100012: SamuraiBoyLFoot
+    100014: SamuraiBoyLForearm
+    100016: SamuraiBoyLIndex1
+    100018: SamuraiBoyLIndex2
+    100020: SamuraiBoyLMiddle1
+    100022: SamuraiBoyLMiddle2
+    100024: SamuraiBoyLPalm
+    100026: SamuraiBoyLPinky1
+    100028: SamuraiBoyLPinky2
+    100030: SamuraiBoyLRing1
+    100032: SamuraiBoyLRing2
+    100034: SamuraiBoyLThigh
+    100036: SamuraiBoyLThumb1
+    100038: SamuraiBoyLThumb2
+    100040: SamuraiBoyLUpperarm
+    100042: SamuraiBoyNeck1
+    100044: SamuraiBoyNeck2
+    100046: SamuraiBoyPelvis
+    100048: SamuraiBoyRCalf
+    100050: SamuraiBoyRCollarbone
+    100052: SamuraiBoyRFoot
+    100054: SamuraiBoyRForearm
+    100056: SamuraiBoyRibcage
+    100058: SamuraiBoyRIndex1
+    100060: SamuraiBoyRIndex2
+    100062: SamuraiBoyRMiddle1
+    100064: SamuraiBoyRMiddle2
+    100066: SamuraiBoyRPalm
+    100068: SamuraiBoyRPinky1
+    100070: SamuraiBoyRPinky2
+    100072: SamuraiBoyRRing1
+    100074: SamuraiBoyRRing2
+    100076: SamuraiBoyRThigh
+    100078: SamuraiBoyRThumb1
+    100080: SamuraiBoyRThumb2
+    100082: SamuraiBoyRUpperarm
+    100084: SamuraiBoySpine1
+    100086: SamuraiBoySpine2
+    100088: SamuraiBoySpine3
+    100090: SamuraiBoySpine4
+    100092: SamuraiBoyTail1
+    100094: SamuraiBoyTail2
+    400000: //RootNode
+    400002: human
+    400004: pants
+    400006: SamuraiBoyHead
+    400008: SamuraiBoyLCalf
+    400010: SamuraiBoyLCollarbone
+    400012: SamuraiBoyLFoot
+    400014: SamuraiBoyLForearm
+    400016: SamuraiBoyLIndex1
+    400018: SamuraiBoyLIndex2
+    400020: SamuraiBoyLMiddle1
+    400022: SamuraiBoyLMiddle2
+    400024: SamuraiBoyLPalm
+    400026: SamuraiBoyLPinky1
+    400028: SamuraiBoyLPinky2
+    400030: SamuraiBoyLRing1
+    400032: SamuraiBoyLRing2
+    400034: SamuraiBoyLThigh
+    400036: SamuraiBoyLThumb1
+    400038: SamuraiBoyLThumb2
+    400040: SamuraiBoyLUpperarm
+    400042: SamuraiBoyNeck1
+    400044: SamuraiBoyNeck2
+    400046: SamuraiBoyPelvis
+    400048: SamuraiBoyRCalf
+    400050: SamuraiBoyRCollarbone
+    400052: SamuraiBoyRFoot
+    400054: SamuraiBoyRForearm
+    400056: SamuraiBoyRibcage
+    400058: SamuraiBoyRIndex1
+    400060: SamuraiBoyRIndex2
+    400062: SamuraiBoyRMiddle1
+    400064: SamuraiBoyRMiddle2
+    400066: SamuraiBoyRPalm
+    400068: SamuraiBoyRPinky1
+    400070: SamuraiBoyRPinky2
+    400072: SamuraiBoyRRing1
+    400074: SamuraiBoyRRing2
+    400076: SamuraiBoyRThigh
+    400078: SamuraiBoyRThumb1
+    400080: SamuraiBoyRThumb2
+    400082: SamuraiBoyRUpperarm
+    400084: SamuraiBoySpine1
+    400086: SamuraiBoySpine2
+    400088: SamuraiBoySpine3
+    400090: SamuraiBoySpine4
+    400092: SamuraiBoyTail1
+    400094: SamuraiBoyTail2
+    2100000: lambert2
+    4300000: human
+    4300002: pants
+    9500000: //RootNode
+    13700000: human
+    13700002: pants
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

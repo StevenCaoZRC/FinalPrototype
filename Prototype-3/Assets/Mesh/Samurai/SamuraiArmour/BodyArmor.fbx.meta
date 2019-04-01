@@ -1,0 +1,159 @@
+fileFormatVersion: 2
+guid: 5bef866adbaaa0b438eaaf04712618ff
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Body
+    100002: //RootNode
+    100004: SamuraiBoyLCalf
+    100006: SamuraiBoyLCollarbone
+    100008: SamuraiBoyLFoot
+    100010: SamuraiBoyLForearm
+    100012: SamuraiBoyLPalm
+    100014: SamuraiBoyLPinky1
+    100016: SamuraiBoyLThigh
+    100018: SamuraiBoyLThumb1
+    100020: SamuraiBoyLThumb2
+    100022: SamuraiBoyLUpperarm
+    100024: SamuraiBoyNeck1
+    100026: SamuraiBoyNeck2
+    100028: SamuraiBoyPelvis
+    100030: SamuraiBoyRCalf
+    100032: SamuraiBoyRCollarbone
+    100034: SamuraiBoyRFoot
+    100036: SamuraiBoyRForearm
+    100038: SamuraiBoyRibcage
+    100040: SamuraiBoyRPalm
+    100042: SamuraiBoyRPinky1
+    100044: SamuraiBoyRThigh
+    100046: SamuraiBoyRThumb1
+    100048: SamuraiBoyRThumb2
+    100050: SamuraiBoyRUpperarm
+    100052: SamuraiBoySpine1
+    100054: SamuraiBoySpine2
+    100056: SamuraiBoySpine3
+    100058: SamuraiBoySpine4
+    100060: SamuraiBoyTail1
+    100062: SamuraiBoyTail2
+    400000: Body
+    400002: //RootNode
+    400004: SamuraiBoyLCalf
+    400006: SamuraiBoyLCollarbone
+    400008: SamuraiBoyLFoot
+    400010: SamuraiBoyLForearm
+    400012: SamuraiBoyLPalm
+    400014: SamuraiBoyLPinky1
+    400016: SamuraiBoyLThigh
+    400018: SamuraiBoyLThumb1
+    400020: SamuraiBoyLThumb2
+    400022: SamuraiBoyLUpperarm
+    400024: SamuraiBoyNeck1
+    400026: SamuraiBoyNeck2
+    400028: SamuraiBoyPelvis
+    400030: SamuraiBoyRCalf
+    400032: SamuraiBoyRCollarbone
+    400034: SamuraiBoyRFoot
+    400036: SamuraiBoyRForearm
+    400038: SamuraiBoyRibcage
+    400040: SamuraiBoyRPalm
+    400042: SamuraiBoyRPinky1
+    400044: SamuraiBoyRThigh
+    400046: SamuraiBoyRThumb1
+    400048: SamuraiBoyRThumb2
+    400050: SamuraiBoyRUpperarm
+    400052: SamuraiBoySpine1
+    400054: SamuraiBoySpine2
+    400056: SamuraiBoySpine3
+    400058: SamuraiBoySpine4
+    400060: SamuraiBoyTail1
+    400062: SamuraiBoyTail2
+    2100000: lambert3
+    4300000: Body
+    9500000: //RootNode
+    13700000: Body
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
