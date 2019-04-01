@@ -16,6 +16,8 @@ TagManager:
   - GetaPickup
   - PlayerCanvas
   - Speech
+  - ArrowTrap
+  - FireballTrap
   layers:
   - Default
   - TransparentFX

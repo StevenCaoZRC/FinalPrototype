@@ -18,10 +18,15 @@ public class DestructibleObject : MonoBehaviour
     public DestructibleType m_wallType = DestructibleType.NONE;
 
     public TextMeshProUGUI m_speechText;
-
+    public GameObject m_brokenBox;
+	
     float m_textFadeTimer = 0.0f;
     float m_textFadeTotal = 0.5f;
-
+	
+    private void Update()
+    {
+        
+    }
     private void Start()
     {
         m_countdown = false;
@@ -32,6 +37,12 @@ public class DestructibleObject : MonoBehaviour
 
     private void Update()
     {
+		if (m_isDestroyed)
+        {
+            StartCoroutine(BreakingBox());
+			m_isDestroyed = false; //Dont want it repeating multiple coroutines
+        }
+		
         if(m_countdown)
         {
             m_textFadeTimer += Time.deltaTime;
@@ -71,5 +82,17 @@ public class DestructibleObject : MonoBehaviour
         {
             m_countdown = true;
         }
+	}
+	
+    
+    IEnumerator BreakingBox()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Instantiate(m_brokenBox, transform.position, transform.rotation);
+        Destroy(gameObject);
+        
+        //Destroy(box);
+        m_isDestroyed = false;
+        yield return null;
     }
 }

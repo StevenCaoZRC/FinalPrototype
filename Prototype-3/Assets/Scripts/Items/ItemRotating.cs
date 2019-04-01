@@ -20,9 +20,8 @@ public class ItemRotating : MonoBehaviour
     void Update()
     {
         if(m_rotate)
-            transform.Rotate(new Vector3(0, m_rotSpeed * Time.deltaTime, 0));
+            transform.Rotate(new Vector3(0, -m_rotSpeed * Time.deltaTime, 0));
         else
             transform.position = new Vector3(transform.position.x, transform.position.y + Mathf.Sin(Time.fixedTime * Mathf.PI * m_frequency) * m_amplitude, transform.position.z);
-
     }
 }
