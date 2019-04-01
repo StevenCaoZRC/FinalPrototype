@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &918094459
 Transform:
   m_ObjectHideFlags: 0
@@ -5038,6 +5038,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8000290574499784034}
     m_Modifications:
+    - target: {fileID: 928010109260677230, guid: 0c3c412ef632cef469d0eb6c9d1e25ca,
+        type: 3}
+      propertyPath: m_Name
+      value: ArmourChest
+      objectReference: {fileID: 0}
     - target: {fileID: 928010109260651598, guid: 0c3c412ef632cef469d0eb6c9d1e25ca,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5107,11 +5112,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 928010109260677230, guid: 0c3c412ef632cef469d0eb6c9d1e25ca,
-        type: 3}
-      propertyPath: m_Name
-      value: ArmourChest
       objectReference: {fileID: 0}
     - target: {fileID: 928010109260651596, guid: 0c3c412ef632cef469d0eb6c9d1e25ca,
         type: 3}
@@ -5489,11 +5489,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hit_Particle
       objectReference: {fileID: 0}
-    - target: {fileID: 7367297350419834020, guid: 333374efd568edf47b96c372987aa7ba,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7367297350419834075, guid: 333374efd568edf47b96c372987aa7ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5652,6 +5647,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 13700002, guid: 4746cae868f8474429d22a1151431cf7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d2566b42ef61bd47aa301f73f5809ae, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4746cae868f8474429d22a1151431cf7, type: 3}
 --- !u!4 &8000290574499783960 stripped
@@ -5725,18 +5724,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: katana
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b066fdc4484d0234eabf40455583229a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b066fdc4484d0234eabf40455583229a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b066fdc4484d0234eabf40455583229a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: b066fdc4484d0234eabf40455583229a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.03663779
@@ -5792,6 +5779,18 @@ PrefabInstance:
     - target: {fileID: 400002, guid: b066fdc4484d0234eabf40455583229a, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7500005
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b066fdc4484d0234eabf40455583229a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b066fdc4484d0234eabf40455583229a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b066fdc4484d0234eabf40455583229a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b066fdc4484d0234eabf40455583229a, type: 3}
@@ -5885,6 +5884,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8000290574499784028}
     m_Modifications:
+    - target: {fileID: 6183787663995027614, guid: cab3142b2fbd39548ac1cdfe135aac41,
+        type: 3}
+      propertyPath: m_Name
+      value: ArmourHelmet
+      objectReference: {fileID: 0}
     - target: {fileID: 6183787663994805438, guid: cab3142b2fbd39548ac1cdfe135aac41,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5954,11 +5958,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.01020705
-      objectReference: {fileID: 0}
-    - target: {fileID: 6183787663995027614, guid: cab3142b2fbd39548ac1cdfe135aac41,
-        type: 3}
-      propertyPath: m_Name
-      value: ArmourHelmet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cab3142b2fbd39548ac1cdfe135aac41, type: 3}

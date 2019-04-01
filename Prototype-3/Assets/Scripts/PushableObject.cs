@@ -5,15 +5,15 @@ using UnityEngine;
 public class PushableObject : MonoBehaviour
 {
     Rigidbody m_rigidBody;
-    Vector3 m_vel = Vector3.zero;
+    Vector3 m_vel;
     public float m_fallSpeed = 1.0f;
     float m_distToGround = 0.0f;
+    public bool m_pushed = true;
 
     private void Start()
     {
         m_rigidBody = GetComponent<Rigidbody>();
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
-
     }
 
     private void FixedUpdate()
@@ -23,7 +23,7 @@ public class PushableObject : MonoBehaviour
         {
             transform.rotation = new Quaternion();
             m_rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionZ;
-            m_rigidBody.velocity = Vector3.zero;
+            //m_rigidBody.velocity = Vector3.zero;
         }
         else
         {
@@ -31,10 +31,17 @@ public class PushableObject : MonoBehaviour
             m_rigidBody.constraints &= ~RigidbodyConstraints.FreezeRotationZ;
             m_rigidBody.velocity += Physics.gravity.y * (m_fallSpeed) * Vector3.up * Time.deltaTime;
         }
+
+
     }
 
     public bool CheckGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, m_distToGround+0.1f);
+    }
+
+    public void SetPushed(bool _pushed)
+    {
+        m_pushed = _pushed;
     }
 }

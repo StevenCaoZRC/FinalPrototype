@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemPickUp : Interactables
 {
     public Item m_item;
-    public GameObject m_gear;
     public GameObject m_particles;
 
     public override void Interact()
