@@ -29,10 +29,8 @@ public class TrapDoor : PressurePlate
     {
         if (m_triggered)
         {
-
             m_leftHinge.transform.rotation = Quaternion.Lerp(m_leftHinge.transform.rotation, m_leftEnd.rotation, m_speed * Time.deltaTime);
             m_rightHinge.transform.rotation = Quaternion.Lerp(m_rightHinge.transform.rotation, m_rightEnd.rotation, m_speed * Time.deltaTime);
-
         }
         else if (!m_triggered)
         {
