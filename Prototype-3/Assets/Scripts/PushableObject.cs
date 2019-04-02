@@ -37,7 +37,6 @@ public class PushableObject : MonoBehaviour
         }
         else
         {
-            Debug.Log("not on ground");
             m_rigidBody.constraints &= ~RigidbodyConstraints.FreezeRotationZ;
             m_rigidBody.velocity += Physics.gravity.y * (m_fallSpeed) * Vector3.up * Time.deltaTime;
         }
