@@ -321,6 +321,8 @@ GameObject:
   m_Component:
   - component: {fileID: 365984298}
   - component: {fileID: 366470667}
+  - component: {fileID: 366470669}
+  - component: {fileID: 366470671}
   m_Layer: 0
   m_Name: BrokenFloorTrap
   m_TagString: Untagged
@@ -359,6 +361,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &366470669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366470666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8205dbac0e1886e4da5270d2aa5d3f6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_leftPivot: {fileID: 955288676}
+  m_rightPivot: {fileID: 1104753106}
+  m_leftEndRot: {fileID: 1583261507}
+  m_rightEndRot: {fileID: 141086791}
+  m_speed: 5
 --- !u!1 &366470670
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,6 +396,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &366470671
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366470666}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.5, y: 0.1, z: 2.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &367278604
 MeshFilter:
   m_ObjectHideFlags: 0
