@@ -322,8 +322,6 @@ public class PlayerMovement : MonoBehaviour
                 JumpMotion();
             }
             m_playerAnim.SetBool("WallTouch", true);
-            m_playerAnim.SetBool("IsJumping", true);
-
         }
         else
         {
