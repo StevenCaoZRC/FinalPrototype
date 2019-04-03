@@ -86,33 +86,14 @@ public class PlayerMovement : MonoBehaviour
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetAxis("Jump") == 0.0f)
+        if (Input.GetAxis("Jump") == 0.0f)
             m_normalJumpPressed = false;
 
-        if ((m_controller.transform.position.z != 0.0f || m_controller.transform.position.z != 15.0f) && !m_playerAtDoorPath)
-        {
-            //m_controller.enabled = false;
-            if (transform.position.z < 2.0f)
-            {
-                //transform.position = new Vector3(transform.position.x, transform.position.y, m_frontZPos);
-                Vector3 move = new Vector3(transform.position.x, transform.position.y, m_frontZPos) - transform.position;
-                m_controller.Move(move);
-
-            }
-            else
-            {
-                //transform.position = new Vector3(transform.position.x, transform.position.y, m_backZPos);
-                //m_controller.transform.position = new Vector3(transform.position.x, transform.position.y, m_backZPos);
-                Vector3 move = new Vector3(transform.position.x, transform.position.y, m_backZPos) - transform.position;
-                m_controller.Move(move);
-
-            }
-            //m_controller.enabled = true;
-        }
+        
 
         if (hor != 0.0f) //If horizontal
         {
-            if (((hor < 0.0f && m_lastWallLeft && m_wallJumping) 
+            if (((hor < 0.0f && m_lastWallLeft && m_wallJumping)
                 || (hor > 0.0f && !m_lastWallLeft && m_wallJumping)) && !m_freeTurning)
             {
                 //Stop player from wall jumping on same left wall
@@ -139,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
                     //If at the end of a doorway let player move left and right
                     SetDirection(new Vector3(hor, 0.0f, 0.0f));
                     m_freeTurning = true;
+
                 }
             }
 
@@ -163,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
             m_playerAnim.SetBool("Run", true);
         }
 
-        if(m_wallJumping)
+        if (m_wallJumping)
         {
             m_playerAnim.SetBool("Run", false);
         }
@@ -201,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
                 m_firstGroundTouch = 0;
             else
                 m_firstGroundTouch = 1;
-            
+
             if (Input.GetAxis("Jump") == 0.0f)
             {
                 m_jumping = false;
@@ -224,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetAxis("Jump") != 0.0f && !m_jumped && !m_airJumpPressed && !m_wallJumpingOnce)
             {
+                Debug.Log("----------------------------------SDKJFHDKJSH");
                 m_normalJumpPressed = true;
                 m_playerAnim.SetTrigger("Jump");
                 m_playerAnim.SetBool("Grounded", false);
@@ -286,6 +269,27 @@ public class PlayerMovement : MonoBehaviour
 
             //    m_moveVector = m_moveVector * m_speed/2 * Time.deltaTime;
         }
+
+        if ((m_controller.transform.position.z != 0.0f || m_controller.transform.position.z != 15.0f) && !m_playerAtDoorPath)
+        {
+            //m_controller.enabled = false;
+            if (transform.position.z < 2.0f)
+            {
+                //transform.position = new Vector3(transform.position.x, transform.position.y, m_frontZPos);
+                Vector3 move = new Vector3(transform.position.x, transform.position.y, m_frontZPos) - transform.position;
+                m_controller.Move(move);
+
+            }
+            else
+            {
+                //transform.position = new Vector3(transform.position.x, transform.position.y, m_backZPos);
+                //m_controller.transform.position = new Vector3(transform.position.x, transform.position.y, m_backZPos);
+                Vector3 move = new Vector3(transform.position.x, transform.position.y, m_backZPos) - transform.position;
+                m_controller.Move(move);
+
+            }
+            //m_controller.enabled = true;
+        }
         //else
         //{
         m_moveVector = m_moveVector * m_speed * Time.deltaTime;
@@ -296,7 +300,7 @@ public class PlayerMovement : MonoBehaviour
         CollisionFlags flags = m_controller.Move(m_moveVector + m_velocity);
         bool headTouch = (flags & CollisionFlags.CollidedAbove) != 0;
         bool sideTouch = (flags & CollisionFlags.CollidedSides) != 0;
-        bool floorTouch = (flags & CollisionFlags.CollidedBelow) !=0;
+        bool floorTouch = (flags & CollisionFlags.CollidedBelow) != 0;
         //if (!CheckOnGround() && !sideTouch)
         //{
         //    m_wallTouch = false;
@@ -384,14 +388,14 @@ public class PlayerMovement : MonoBehaviour
         //If hitting jumpable wall + in air + wall is not sloped
         if (!CheckOnGround() && hit.normal.y < 0.1f && hit.collider.tag == "JumpableWall")
         {
-            
+
             m_wallTouch = true;
             m_playerAnim.SetBool("WallTouch", m_wallTouch);
 
             if (!m_wallJumpingOnce && m_armourManager.IsArmCuffActive())
             {
                 m_wallTouchTimer += Time.deltaTime;
-                if(m_wallTouchTimer >= m_wallTouchTotal)
+                if (m_wallTouchTimer >= m_wallTouchTotal)
                 {
                     m_playerAnim.SetBool("WallTouch", false);
                 }
@@ -402,7 +406,7 @@ public class PlayerMovement : MonoBehaviour
                         m_wallTouch = true;
                         m_velocity = (Physics.gravity.y * (m_wallTouchFallSpeed) * Vector3.up * Time.deltaTime);
                     }
-                    else if(!m_jumped)
+                    else if (!m_jumped)
                     {
                         m_wallTouch = true;
                         m_velocity = (Physics.gravity.y * (m_wallTouchFallSpeed) * Vector3.up * Time.deltaTime);
@@ -440,7 +444,7 @@ public class PlayerMovement : MonoBehaviour
             m_playerAnim.SetBool("WallTouch", false);
         }
 
-        
+
 
         Rigidbody rigidbody = hit.collider.attachedRigidbody;
 
