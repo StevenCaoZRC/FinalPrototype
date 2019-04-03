@@ -273,6 +273,8 @@ MonoBehaviour:
   m_jumpFallSpeed: 0.05
   m_jumpFallSpeedPlatform: 0.4
   m_pushForce: 6
+  m_frontZPos: 0
+  m_backZPos: 15
   m_playerAtDoorEnd: 0
   m_playerAtDoorPath: 0
   m_playerAnim: {fileID: 8000290574489995962}
