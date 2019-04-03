@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArmourManager : MonoBehaviour
 {
     public GameObject m_helmet;
+    public GameObject m_hair;
     public GameObject m_chest;
     public GameObject m_leftArmCuffs;
     public GameObject m_rightArmCuffs;
@@ -17,6 +18,7 @@ public class ArmourManager : MonoBehaviour
     void Start()
     {
         if(m_helmet != null) m_helmet.SetActive(false);
+        if (m_hair != null) m_hair.SetActive(true);
         if (m_chest != null) m_chest.SetActive(false);
         if (m_leftArmCuffs != null) m_leftArmCuffs.SetActive(false);
         if (m_rightArmCuffs != null) m_rightArmCuffs.SetActive(false);
@@ -28,6 +30,7 @@ public class ArmourManager : MonoBehaviour
 
     public void ActivateHelmet(bool _activate)
     {
+        m_hair.SetActive(false);
         m_helmet.SetActive(_activate);
     }
 

@@ -29,8 +29,8 @@ TagManager:
   - 
   - PostProcessing
   - Gear
-  - DestructibleObject
-  - 
+  - BrokenObject
+  - Player
   - 
   - 
   - 

@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     float m_verticalVelocity = -1.0f;
 
     bool m_jumping = false;
+    bool m_normalJumpPressed = false;
     bool m_doubleJumping = false;
     bool m_wallJumpingOnce = false;
     bool m_wallJumping = false;
@@ -75,10 +76,11 @@ public class PlayerMovement : MonoBehaviour
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
 
+        if(Input.GetAxis("Jump") == 0.0f)
+            m_normalJumpPressed = false;
+
         if (hor != 0.0f) //If horizontal
         {
-            
-
             if (((hor < 0.0f && m_lastWallLeft && m_wallJumping) 
                 || (hor > 0.0f && !m_lastWallLeft && m_wallJumping)) && !m_freeTurning)
             {
@@ -176,6 +178,7 @@ public class PlayerMovement : MonoBehaviour
             
             if (GameManager.GetAxisOnce(ref m_jumping, "Jump"))
             {
+                m_normalJumpPressed = true;
                 m_playerAnim.SetTrigger("Jump");
                 m_playerAnim.SetBool("Grounded", false);
                 JumpMotion();
@@ -216,12 +219,11 @@ public class PlayerMovement : MonoBehaviour
         m_moveVector = m_moveVector * m_speed * Time.deltaTime;
         //}
 
-        CheckHeadTouched();
-
         //m_controller.Move(m_velocity);
 
-        m_controller.Move(m_moveVector + m_velocity);
-        //m_rigidbody.MovePosition(transform.position + m_direction);
+        CollisionFlags flags = m_controller.Move(m_moveVector + m_velocity);
+        bool headTouch = (flags & CollisionFlags.CollidedAbove) != 0;
+        CheckHeadTouched(headTouch);
     }
 
     void JumpMotion()
@@ -266,19 +268,13 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    public bool CheckHeadTouched()
+    public void CheckHeadTouched(bool _headTouched)
     {
-        RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 0.4f, Vector3.up, out hit, m_distToGround+0.1f, LayerMask.NameToLayer("Gear")))
+        if (_headTouched && m_velocity.y > 0)
         {
-            Debug.Log("Head youch");
-            //m_velocity += Physics.gravity.y * (m_jumpFallSpeed * 2) * Vector3.up * Time.deltaTime;
-            m_velocity = Vector3.zero;
-
-            m_velocity.y = -0.005f;
-            return true;
+            Debug.Log("head youch");
+            m_velocity.y = 0;
         }
-        return false;
     }
 
     //Play particles part of a gameobject
@@ -306,7 +302,7 @@ public class PlayerMovement : MonoBehaviour
         //If hitting jumpable wall + in air + wall is not sloped
         if (!CheckOnGround() && hit.normal.y < 0.1f && hit.collider.tag == "JumpableWall")
         {
-            if (GameManager.GetAxisOnce(ref m_wallJumpingOnce, "WallJump") && m_armourManager.IsArmCuffActive())
+            if (GameManager.GetAxisOnce(ref m_wallJumpingOnce, "WallJump") && !m_normalJumpPressed && m_armourManager.IsArmCuffActive())
             {
 
                 m_wallJumping = true;
@@ -326,7 +322,6 @@ public class PlayerMovement : MonoBehaviour
                 JumpMotion();
             }
             m_playerAnim.SetBool("WallTouch", true);
-
         }
         else
         {

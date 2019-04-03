@@ -38,7 +38,6 @@ public class PlayerAttack : MonoBehaviour
         if (other.gameObject.tag == "DestructibleObject" && Input.GetKeyDown(KeyCode.E) 
             && (m_armourManager.IsBrokenKatanaActive() || m_armourManager.IsCompleteKatanaActive()))
         {
-            Debug.Log("?");
             other.gameObject.GetComponent<DestructibleObject>().m_iHealth -= 2;
             if (other.gameObject.GetComponent<DestructibleObject>().m_iHealth <= 0)
             {
