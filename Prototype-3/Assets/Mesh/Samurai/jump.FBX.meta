@@ -112,7 +112,7 @@ ModelImporter:
     2100004: lambert13
     4300000: wrist
     4300002: shoes
-    7400000: Jumpstart
+    7400000: jumpstart
     7400002: jumpstay
     7400004: jumpend
     9500000: //RootNode
@@ -148,7 +148,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jumpstart
+      name: jumpstart
       takeName: Take 001
       firstFrame: 0
       lastFrame: 20
@@ -178,7 +178,7 @@ ModelImporter:
     - serializedVersion: 16
       name: jumpstay
       takeName: Take 001
-      firstFrame: 21
+      firstFrame: 20
       lastFrame: 37
       wrapMode: 0
       orientationOffsetY: 0
@@ -211,11 +211,11 @@ ModelImporter:
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
-      cycleOffset: 1
+      cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
