@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public ParticleSystem m_landParticles;
+    public GameObject m_landParticles;
     public GameObject m_jumpParticles;
 
     public float m_speed = 10.0f;
@@ -38,7 +36,11 @@ public class PlayerMovement : MonoBehaviour
     bool m_lastWallLeft = false;
     bool m_freeTurning = true;
     bool m_walkOffPlatform = false;
+    bool m_wallTouch = false;
+    int m_firstGroundTouch = 0;
 
+    float m_wallTouchFall = 0.1f;
+    
     float m_lastFreeTurnTimer = 0.0f;
     float m_lastFreeTurnTotal = 0.6f;
 
@@ -58,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         m_armourManager = GetComponent<ArmourManager>();
-        m_landParticles.Stop();
+        PlayGOParticles(m_landParticles, false);
         PlayGOParticles(m_jumpParticles, false);
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
         m_lastFreeTurnTimer = 0.0f;
@@ -164,6 +166,16 @@ public class PlayerMovement : MonoBehaviour
         }
         if (m_controller.isGrounded)
         {
+            if (m_firstGroundTouch == 2)
+                m_firstGroundTouch = 0;
+            else
+                m_firstGroundTouch = 1;
+            
+            if (Input.GetAxis("Jump") == 0.0f)
+            {
+                m_jumping = false;
+            }
+
             m_playerAnim.SetBool("Grounded", true);
             m_playerAnim.SetBool("WallTouch", false);
 
@@ -187,33 +199,39 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            m_firstGroundTouch = 2;
 
-            //If not on ground
-            m_landParticles.Play();
-            
+
             m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
             
             m_playerAnim.SetBool("Grounded", false);
         }
 
+        Debug.Log("Ground Touch: " + m_firstGroundTouch);
+        //If not on ground
+        if (m_firstGroundTouch == 0)
+            PlayGOParticles(m_landParticles, true);
+
         //Change start gravity after walking off platform to prevent lightspeed falling
-        if (!m_walkOffPlatform && !m_jumping)
+        if (!m_walkOffPlatform && !m_jumping && !m_wallJumping)
         {
             m_walkOffPlatform = true;
             m_velocity += (Physics.gravity.y * (m_jumpFallSpeedPlatform) * Vector3.up * Time.deltaTime);
         }
-        //if(m_wallJumping)
-        //{
-        //    if(!m_freeTurning)
-        //        m_lastFreeTurnTimer += Time.deltaTime;
-        //    if(m_lastFreeTurnTimer > m_lastFreeTurnTotal)
-        //    {
-        //        m_freeTurning = true;
-        //        m_lastFreeTurnTimer = 0.0f;
-        //    }
 
-        //    m_moveVector = m_moveVector * m_speed/2 * Time.deltaTime;
-        //}
+        Debug.Log("Jumping: " + m_jumping + " ---------------------------------");
+        if (m_wallJumping)
+        {
+            if (!m_freeTurning)
+                m_lastFreeTurnTimer += Time.deltaTime;
+            if (m_lastFreeTurnTimer > m_lastFreeTurnTotal)
+            {
+                m_freeTurning = true;
+                m_lastFreeTurnTimer = 0.0f;
+            }
+
+            //    m_moveVector = m_moveVector * m_speed/2 * Time.deltaTime;
+        }
         //else
         //{
         m_moveVector = m_moveVector * m_speed * Time.deltaTime;
@@ -223,6 +241,14 @@ public class PlayerMovement : MonoBehaviour
 
         CollisionFlags flags = m_controller.Move(m_moveVector + m_velocity);
         bool headTouch = (flags & CollisionFlags.CollidedAbove) != 0;
+        bool sideTouch = (flags & CollisionFlags.CollidedSides) != 0;
+        bool floorTouch = (flags & CollisionFlags.CollidedBelow) !=0;
+        if (!CheckOnGround() && !sideTouch)
+        {
+            m_wallTouch = false;
+            m_playerAnim.SetBool("WallTouch", false);
+        }
+
         CheckHeadTouched(headTouch);
     }
 
@@ -230,6 +256,7 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayGOParticles(m_jumpParticles, true);
         m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
+        m_wallTouch = false;
     }
 
     void SetDirection(Vector3 _dir)
@@ -302,8 +329,17 @@ public class PlayerMovement : MonoBehaviour
         //If hitting jumpable wall + in air + wall is not sloped
         if (!CheckOnGround() && hit.normal.y < 0.1f && hit.collider.tag == "JumpableWall")
         {
+            if(!m_wallJumpingOnce && !m_normalJumpPressed && !m_jumping && m_armourManager.IsArmCuffActive())
+            {
+                m_wallTouch = true;
+                m_velocity = (Physics.gravity.y * (m_wallTouchFall) * Vector3.up * Time.deltaTime);
+
+            }
+
             if (GameManager.GetAxisOnce(ref m_wallJumpingOnce, "WallJump") && !m_normalJumpPressed && m_armourManager.IsArmCuffActive())
             {
+                m_wallTouch = false;
+                m_jumping = false;
 
                 m_wallJumping = true;
                 m_freeTurning = false;
@@ -316,7 +352,6 @@ public class PlayerMovement : MonoBehaviour
                 //m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
                 m_playerAnim.SetTrigger("Climbing");
                 m_playerAnim.SetBool("WallTouch", false);
-
                 m_playerAnim.SetBool("Grounded", false);
 
                 JumpMotion();
@@ -325,8 +360,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            m_wallTouch = false;
             m_playerAnim.SetBool("WallTouch", false);
         }
+
+        
 
         Rigidbody rigidbody = hit.collider.attachedRigidbody;
 
@@ -342,8 +380,5 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.velocity = pushDir * m_pushForce / rigidbody.mass;
             //Animation
         }
-
-
     }
-
 }

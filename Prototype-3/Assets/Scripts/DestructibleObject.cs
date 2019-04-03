@@ -41,7 +41,7 @@ public class DestructibleObject : MonoBehaviour
             m_isDestroyed = false; //Dont want it repeating multiple coroutines
         }
 
-        if (m_countdown)
+        if (m_countdown && m_speechText != null)
         {
             m_textFadeTimer += Time.deltaTime;
 
