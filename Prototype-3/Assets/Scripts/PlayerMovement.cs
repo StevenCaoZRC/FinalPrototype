@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float m_jumpFallSpeed = 0.05f;
     public float m_jumpFallSpeedPlatform = 0.4f;
     public float m_pushForce = 5.0f;
-
+    [SerializeField] float m_frontZPos = 0.0f;
+    [SerializeField] float m_backZPos = 15.0f;
     [SerializeField] bool m_playerAtDoorEnd = false;
     [SerializeField] bool m_playerAtDoorPath = false;
 
@@ -38,11 +39,18 @@ public class PlayerMovement : MonoBehaviour
     bool m_walkOffPlatform = false;
     bool m_wallTouch = false;
     int m_firstGroundTouch = 0;
+    bool m_jumped = false;
+    bool m_airJumpPressed = false;
 
-    float m_wallTouchFall = 0.1f;
-    
+    float m_wallTouchFallSpeed = 0.1f;
+    float m_wallTouchTimer = 0.0f;
+    float m_wallTouchTotal = 0.5f;
+
+    float m_initJumpTimer = 0.0f;
+    float m_initJumpTotal = 0.3f;
+
     float m_lastFreeTurnTimer = 0.0f;
-    float m_lastFreeTurnTotal = 0.6f;
+    float m_lastFreeTurnTotal = 0.75f;
 
     [SerializeField] bool m_allowDoubleJump = false;
     [SerializeField] bool m_allowWallJump = true;
@@ -81,6 +89,27 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetAxis("Jump") == 0.0f)
             m_normalJumpPressed = false;
 
+        if ((m_controller.transform.position.z != 0.0f || m_controller.transform.position.z != 15.0f) && !m_playerAtDoorPath)
+        {
+            //m_controller.enabled = false;
+            if (transform.position.z < 2.0f)
+            {
+                //transform.position = new Vector3(transform.position.x, transform.position.y, m_frontZPos);
+                Vector3 move = new Vector3(transform.position.x, transform.position.y, m_frontZPos) - transform.position;
+                m_controller.Move(move);
+
+            }
+            else
+            {
+                //transform.position = new Vector3(transform.position.x, transform.position.y, m_backZPos);
+                //m_controller.transform.position = new Vector3(transform.position.x, transform.position.y, m_backZPos);
+                Vector3 move = new Vector3(transform.position.x, transform.position.y, m_backZPos) - transform.position;
+                m_controller.Move(move);
+
+            }
+            //m_controller.enabled = true;
+        }
+
         if (hor != 0.0f) //If horizontal
         {
             if (((hor < 0.0f && m_lastWallLeft && m_wallJumping) 
@@ -110,8 +139,6 @@ public class PlayerMovement : MonoBehaviour
                     //If at the end of a doorway let player move left and right
                     SetDirection(new Vector3(hor, 0.0f, 0.0f));
                     m_freeTurning = true;
-                    
-
                 }
             }
 
@@ -130,11 +157,12 @@ public class PlayerMovement : MonoBehaviour
         {
             m_playerAnim.SetBool("Run", false);
         }
-        else if (hor != 0.0f || ver != 0.0f && !m_wallJumping && !m_jumping)
+        else if (hor != 0.0f || ver != 0.0f && !m_wallJumping && !m_jumped)
         {
             m_playerAnim.SetBool("WallTouch", false);
             m_playerAnim.SetBool("Run", true);
         }
+
         if(m_wallJumping)
         {
             m_playerAnim.SetBool("Run", false);
@@ -164,6 +192,9 @@ public class PlayerMovement : MonoBehaviour
         {
             m_velocity = Vector3.zero;
         }
+
+        if (Input.GetAxis("Jump") == 0.0f)
+            m_wallJumpingOnce = false;
         if (m_controller.isGrounded)
         {
             if (m_firstGroundTouch == 2)
@@ -174,12 +205,15 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetAxis("Jump") == 0.0f)
             {
                 m_jumping = false;
+                m_airJumpPressed = false;
+                m_jumped = false;
+                m_wallTouchTimer = 0.0f;
+                m_initJumpTimer = 0.0f;
             }
 
             m_playerAnim.SetBool("Grounded", true);
             m_playerAnim.SetBool("WallTouch", false);
 
-            m_wallJumpingOnce = false;
             m_wallJumping = false;
             m_walkOffPlatform = false;
 
@@ -187,47 +221,67 @@ public class PlayerMovement : MonoBehaviour
             {
                 m_velocity = Vector3.zero;
             }
-            
-            if (GameManager.GetAxisOnce(ref m_jumping, "Jump"))
+
+            if (Input.GetAxis("Jump") != 0.0f && !m_jumped && !m_airJumpPressed && !m_wallJumpingOnce)
             {
                 m_normalJumpPressed = true;
                 m_playerAnim.SetTrigger("Jump");
                 m_playerAnim.SetBool("Grounded", false);
                 JumpMotion();
+                m_jumped = true;
                 //m_doubleJumping = false;
             }
         }
         else
         {
-            m_firstGroundTouch = 2;
+            if (Input.GetAxis("Jump") != 0.0f && !m_airJumpPressed && !m_wallJumping && !m_jumped)
+            {
+                m_airJumpPressed = true;
+                m_playerAnim.SetTrigger("Jump");
+                m_playerAnim.SetBool("Grounded", false);
 
+                JumpMotion();
+                //m_doubleJumping = false;
+            }
+            else
+            {
+                m_firstGroundTouch = 2;
+                m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
 
-            m_velocity += Physics.gravity.y * (m_jumpFallSpeed) * Vector3.up * Time.deltaTime;
-            
-            m_playerAnim.SetBool("Grounded", false);
+                m_playerAnim.SetBool("Grounded", false);
+            }
         }
 
-        Debug.Log("Ground Touch: " + m_firstGroundTouch);
         //If not on ground
         if (m_firstGroundTouch == 0)
             PlayGOParticles(m_landParticles, true);
 
+
+        if (m_jumped)
+            m_initJumpTimer += Time.deltaTime;
+        else
+            m_initJumpTimer = 0.0f;
+
         //Change start gravity after walking off platform to prevent lightspeed falling
-        if (!m_walkOffPlatform && !m_jumping && !m_wallJumping)
+        if (!m_walkOffPlatform && !m_jumped && !m_wallJumping && !m_airJumpPressed)
         {
             m_walkOffPlatform = true;
             m_velocity += (Physics.gravity.y * (m_jumpFallSpeedPlatform) * Vector3.up * Time.deltaTime);
         }
 
-        Debug.Log("Jumping: " + m_jumping + " ---------------------------------");
         if (m_wallJumping)
         {
             if (!m_freeTurning)
                 m_lastFreeTurnTimer += Time.deltaTime;
-            if (m_lastFreeTurnTimer > m_lastFreeTurnTotal)
+            else
+                m_lastFreeTurnTimer = m_lastFreeTurnTotal;
+            if (m_lastFreeTurnTimer >= m_lastFreeTurnTotal)
             {
                 m_freeTurning = true;
                 m_lastFreeTurnTimer = 0.0f;
+
+                m_playerAnim.SetBool("WallTouch", false);
+                m_wallTouch = false;
             }
 
             //    m_moveVector = m_moveVector * m_speed/2 * Time.deltaTime;
@@ -243,11 +297,11 @@ public class PlayerMovement : MonoBehaviour
         bool headTouch = (flags & CollisionFlags.CollidedAbove) != 0;
         bool sideTouch = (flags & CollisionFlags.CollidedSides) != 0;
         bool floorTouch = (flags & CollisionFlags.CollidedBelow) !=0;
-        if (!CheckOnGround() && !sideTouch)
-        {
-            m_wallTouch = false;
-            m_playerAnim.SetBool("WallTouch", false);
-        }
+        //if (!CheckOnGround() && !sideTouch)
+        //{
+        //    m_wallTouch = false;
+        //    m_playerAnim.SetBool("WallTouch", false);
+        //}
 
         CheckHeadTouched(headTouch);
     }
@@ -257,6 +311,7 @@ public class PlayerMovement : MonoBehaviour
         PlayGOParticles(m_jumpParticles, true);
         m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
         m_wallTouch = false;
+        m_playerAnim.SetBool("WallTouch", false);
     }
 
     void SetDirection(Vector3 _dir)
@@ -329,17 +384,38 @@ public class PlayerMovement : MonoBehaviour
         //If hitting jumpable wall + in air + wall is not sloped
         if (!CheckOnGround() && hit.normal.y < 0.1f && hit.collider.tag == "JumpableWall")
         {
-            if(!m_wallJumpingOnce && !m_normalJumpPressed && !m_jumping && m_armourManager.IsArmCuffActive())
-            {
-                m_wallTouch = true;
-                m_velocity = (Physics.gravity.y * (m_wallTouchFall) * Vector3.up * Time.deltaTime);
+            
+            m_wallTouch = true;
+            m_playerAnim.SetBool("WallTouch", m_wallTouch);
 
+            if (!m_wallJumpingOnce && m_armourManager.IsArmCuffActive())
+            {
+                m_wallTouchTimer += Time.deltaTime;
+                if(m_wallTouchTimer >= m_wallTouchTotal)
+                {
+                    m_playerAnim.SetBool("WallTouch", false);
+                }
+                else
+                {
+                    if (m_jumped && m_initJumpTimer >= m_initJumpTotal)
+                    {
+                        m_wallTouch = true;
+                        m_velocity = (Physics.gravity.y * (m_wallTouchFallSpeed) * Vector3.up * Time.deltaTime);
+                    }
+                    else if(!m_jumped)
+                    {
+                        m_wallTouch = true;
+                        m_velocity = (Physics.gravity.y * (m_wallTouchFallSpeed) * Vector3.up * Time.deltaTime);
+                    }
+                }
             }
 
-            if (GameManager.GetAxisOnce(ref m_wallJumpingOnce, "WallJump") && !m_normalJumpPressed && m_armourManager.IsArmCuffActive())
+            if (Input.GetAxis("Jump") != 0.0f && !m_wallJumpingOnce && !m_normalJumpPressed && !m_airJumpPressed && m_armourManager.IsArmCuffActive())
             {
+                m_wallJumpingOnce = true;
+                m_wallTouchTimer = 0.0f;
                 m_wallTouch = false;
-                m_jumping = false;
+                m_jumped = false;
 
                 m_wallJumping = true;
                 m_freeTurning = false;
@@ -356,7 +432,7 @@ public class PlayerMovement : MonoBehaviour
 
                 JumpMotion();
             }
-            m_playerAnim.SetBool("WallTouch", true);
+
         }
         else
         {
