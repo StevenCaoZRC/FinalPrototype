@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 7134227842801795321}
   - component: {fileID: 7134227842802795065}
   - component: {fileID: 1094020318442703122}
+  - component: {fileID: 3481108093060206558}
   m_Layer: 0
   m_Name: ArrowTrap
   m_TagString: ArrowTrap
@@ -126,3 +127,22 @@ MonoBehaviour:
     type: 3}
   m_firePoint: {fileID: 1094020317473472902}
   m_trapActive: 1
+--- !u!95 &3481108093060206558
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7134227842800606457}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: d5f318df59c527f4182d52d328cdc845, type: 3}
+  m_Controller: {fileID: 9100000, guid: 694deaa7e15256c46ba7e48630c6bb05, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
