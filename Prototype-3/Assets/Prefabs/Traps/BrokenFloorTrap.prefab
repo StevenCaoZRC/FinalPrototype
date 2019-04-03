@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3541842530177243425}
   - component: {fileID: 3541842530178013441}
   - component: {fileID: 3541842530179013569}
+  - component: {fileID: 8426629382697676052}
   m_Layer: 0
   m_Name: BrokenFloor1
   m_TagString: Untagged
@@ -77,6 +78,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &8426629382697676052
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541842530177008897}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2211716, y: 0.12500003, z: 2.5}
+  m_Center: {x: 0.20708832, y: 0, z: 0}
 --- !u!1 &3541842530177008899
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,6 +102,7 @@ GameObject:
   - component: {fileID: 3541842530177243427}
   - component: {fileID: 3541842530178013443}
   - component: {fileID: 3541842530179013571}
+  - component: {fileID: 1279531288778999846}
   m_Layer: 0
   m_Name: BrokenFloor2
   m_TagString: Untagged
@@ -154,6 +169,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1279531288778999846
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541842530177008899}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2954364, y: 0.12500003, z: 2.4999998}
+  m_Center: {x: -0.20985162, y: 0, z: 0}
 --- !u!1 &3541842530177008901
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,14 +31,14 @@ public class BrokenFloor : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-
-            m_broken = true;
+            StartCoroutine(OpenTrap());
+          //  m_broken = true;
             
         }
     }
     IEnumerator OpenTrap()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.35f);
         m_broken = true;
         yield return new WaitForSeconds(4);
         Destroy(gameObject);
