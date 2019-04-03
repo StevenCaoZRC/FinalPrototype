@@ -23,7 +23,7 @@ public class PressurePlate : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Pushable" )
         {
             m_triggered = true;
             PerformAction();
@@ -35,7 +35,7 @@ public class PressurePlate : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Pushable")
         {
             m_triggered = false;
             PerformAction();
