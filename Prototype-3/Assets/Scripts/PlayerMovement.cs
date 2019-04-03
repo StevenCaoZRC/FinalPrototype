@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     float m_distToGround = 0.0f;
     float m_verticalVelocity = -1.0f;
 
-    bool m_jumping = false;
     bool m_normalJumpPressed = false;
     bool m_doubleJumping = false;
     bool m_wallJumpingOnce = false;
@@ -85,10 +84,6 @@ public class PlayerMovement : MonoBehaviour
     {
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
-
-        if (Input.GetAxis("Jump") == 0.0f)
-            m_normalJumpPressed = false;
-
         
 
         if (hor != 0.0f) //If horizontal
@@ -176,7 +171,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (Input.GetAxis("Jump") == 0.0f)
+        {
             m_wallJumpingOnce = false;
+            m_normalJumpPressed = false;
+        }
+        
+
         if (m_controller.isGrounded)
         {
             if (m_firstGroundTouch == 2)
@@ -186,7 +186,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetAxis("Jump") == 0.0f)
             {
-                m_jumping = false;
                 m_airJumpPressed = false;
                 m_jumped = false;
                 m_wallTouchTimer = 0.0f;
@@ -206,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetAxis("Jump") != 0.0f && !m_jumped && !m_airJumpPressed && !m_wallJumpingOnce)
             {
-                Debug.Log("----------------------------------SDKJFHDKJSH");
+                Debug.Log("----------------------------------Nrom");
                 m_normalJumpPressed = true;
                 m_playerAnim.SetTrigger("Jump");
                 m_playerAnim.SetBool("Grounded", false);
@@ -219,6 +218,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetAxis("Jump") != 0.0f && !m_airJumpPressed && !m_wallJumping && !m_jumped)
             {
+                Debug.Log("----------------------------------Nrom");
+
                 m_airJumpPressed = true;
                 m_playerAnim.SetTrigger("Jump");
                 m_playerAnim.SetBool("Grounded", false);

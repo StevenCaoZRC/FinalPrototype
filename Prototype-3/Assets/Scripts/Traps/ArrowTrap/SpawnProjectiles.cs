@@ -10,8 +10,11 @@ public class SpawnProjectiles : MonoBehaviour
     GameObject m_firePoint;
     public bool m_trapActive = true;
     private float timeToFire = 0;
+    Animator m_bowAnim;
+
     void Start()
     {
+        m_bowAnim = GetComponent<Animator>();
         //Uncomment this and use this if Time.time breaks in reloading scene
         //InvokeRepeating("Spawn", 1, 1);
     }
@@ -32,6 +35,7 @@ public class SpawnProjectiles : MonoBehaviour
 
         if (m_firePoint != null)
         {
+            m_bowAnim.SetTrigger("Shoot");
             projectile = Instantiate(m_projectile, m_firePoint.transform.position, m_firePoint.transform.rotation);
 
         }
