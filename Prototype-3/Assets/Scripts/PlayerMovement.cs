@@ -89,14 +89,25 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetAxis("Jump") == 0.0f)
             m_normalJumpPressed = false;
 
-        if((m_controller.transform.position.z != 0.0f || m_controller.transform.position.z != 15.0f) && !m_playerAtDoorPath)
+        if ((m_controller.transform.position.z != 0.0f || m_controller.transform.position.z != 15.0f) && !m_playerAtDoorPath)
         {
-            m_controller.enabled = false;
+            //m_controller.enabled = false;
             if (transform.position.z < 2.0f)
-                m_controller.transform.position = new Vector3(transform.position.x, transform.position.y, m_frontZPos);
+            {
+                //transform.position = new Vector3(transform.position.x, transform.position.y, m_frontZPos);
+                Vector3 move = new Vector3(transform.position.x, transform.position.y, m_frontZPos) - transform.position;
+                m_controller.Move(move);
+
+            }
             else
-                m_controller.transform.position = new Vector3(transform.position.x, transform.position.y, m_backZPos);
-            m_controller.enabled = true;
+            {
+                //transform.position = new Vector3(transform.position.x, transform.position.y, m_backZPos);
+                //m_controller.transform.position = new Vector3(transform.position.x, transform.position.y, m_backZPos);
+                Vector3 move = new Vector3(transform.position.x, transform.position.y, m_backZPos) - transform.position;
+                m_controller.Move(move);
+
+            }
+            //m_controller.enabled = true;
         }
 
         if (hor != 0.0f) //If horizontal
@@ -128,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
                     //If at the end of a doorway let player move left and right
                     SetDirection(new Vector3(hor, 0.0f, 0.0f));
                     m_freeTurning = true;
-                        
                 }
             }
 
@@ -214,7 +224,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetAxis("Jump") != 0.0f && !m_jumped && !m_airJumpPressed && !m_wallJumpingOnce)
             {
-                Debug.Log("----------------------------------SDKJFHDKJSH");
                 m_normalJumpPressed = true;
                 m_playerAnim.SetTrigger("Jump");
                 m_playerAnim.SetBool("Grounded", false);

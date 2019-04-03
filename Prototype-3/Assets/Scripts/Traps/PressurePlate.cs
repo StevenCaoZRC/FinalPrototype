@@ -23,25 +23,26 @@ public class PressurePlate : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Enter: " + other.gameObject.tag);
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "Pushable" )
         {
             m_triggered = true;
             PerformAction();
 
             m_pressurePlate.transform.position = new Vector3(m_pressurePlate.transform.position.x, m_endPos.position.y, transform.position.z);
-
         }
-        
+
     }
+
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("Exit: " + other.gameObject.tag);
+
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "Pushable")
         {
             m_triggered = false;
             PerformAction();
             m_pressurePlate.transform.position = new Vector3(m_pressurePlate.transform.position.x, m_startPos.position.y, transform.position.z);
-
-
         }
 
     }
