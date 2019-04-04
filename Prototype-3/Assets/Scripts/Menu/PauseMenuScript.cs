@@ -46,6 +46,10 @@ public class PauseMenuScript : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        FindObjectOfType<AudioManager>().Play("MenuMusic");
+        FindObjectOfType<AudioManager>().Stop("InGameMusic");
+        Time.timeScale = 1; 
+        m_isPaused = false;
     }
     public void Controls()
     {

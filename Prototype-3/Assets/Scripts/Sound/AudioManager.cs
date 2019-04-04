@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
@@ -36,8 +37,7 @@ public class AudioManager : MonoBehaviour
     }
     void Start()
     {
-       Play("BGM");
-    
+        Play("MenuMusic");   
     }
     public void Play(string name)
     {
