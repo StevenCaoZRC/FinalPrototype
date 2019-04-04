@@ -76,14 +76,16 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Input.GetKey(KeyCode.F))
+        if (m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("ArmCuffsGained") 
+            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("GetaGained")
+            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("BodyArmourGained")
+            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("HelmetGained"))
         {
             m_pausePlayer = true;
         }
         else
         {
             m_pausePlayer = false;
-
         }
         Move();
     }

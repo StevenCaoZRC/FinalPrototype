@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Interactables : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Interactables : MonoBehaviour
     public Transform m_interactableTransform;
     protected ArmourManager m_armourManager;
     KatanaFill m_katanaBar;
+    protected Animator m_playerAnim;
+    public TextMeshProUGUI m_speechText;
+    protected float textTimer = 0.0f;
+    float textTotal = 5.0f;
 
     private void Start()
     {
@@ -17,6 +22,9 @@ public class Interactables : MonoBehaviour
         m_armourManager = m_player.GetComponent<ArmourManager>();
         m_interactableTransform = GetComponent<Transform>();
         m_katanaBar = FindObjectOfType<KatanaFill>();
+        m_playerAnim = m_player.GetComponentInChildren<Animator>();
+        if (m_speechText != null)
+            m_speechText.gameObject.SetActive(false);
     }
     public virtual void Interact() {
         Debug.Log("Interacting with: " + transform.name);
@@ -39,6 +47,25 @@ public class Interactables : MonoBehaviour
         {
             Interact();
         }
+
+        if(m_speechText.gameObject.activeSelf)
+        {
+            textTimer += Time.deltaTime;
+            if (textTimer >= textTotal)
+            {
+                m_speechText.gameObject.SetActive(false);
+                textTimer = 0.0f;
+
+            }
+        }
+        else
+        {
+            m_speechText.gameObject.SetActive(false);
+
+            textTimer = 0.0f;
+
+        }
+
     }
 
     private void IsItemAlreadyCollected()
