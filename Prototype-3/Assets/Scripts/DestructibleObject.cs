@@ -102,7 +102,7 @@ public class DestructibleObject : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         m_speechText.gameObject.SetActive(false);
-
+        FindObjectOfType<AudioManager>().PlayOnce("PaperWall");
         Destroy(gameObject);
 
         //Destroy(box);

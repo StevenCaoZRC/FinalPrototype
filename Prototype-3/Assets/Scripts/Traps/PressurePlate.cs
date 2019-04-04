@@ -28,7 +28,7 @@ public class PressurePlate : MonoBehaviour
         {
             m_triggered = true;
             PerformAction();
-
+            FindObjectOfType<AudioManager>().PlayOnce("PressurePlate");
             m_pressurePlate.transform.position = new Vector3(m_pressurePlate.transform.position.x, m_endPos.position.y, transform.position.z);
         }
 
