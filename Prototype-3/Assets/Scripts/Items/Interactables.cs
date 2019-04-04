@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,10 +33,54 @@ public class Interactables : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        IsItemAlreadyCollected();
         float distance = Vector3.Distance(m_player.transform.position, m_interactableTransform.position);
         if(distance < m_radius) // if they are within the radius
         {
             Interact();
+        }
+    }
+
+    private void IsItemAlreadyCollected()
+    {
+        switch (gameObject.tag)
+        {
+            case ("HelmetPickup"):
+            {
+                if (m_armourManager.IsHelmetActive())
+                    gameObject.SetActive(false);
+                break;
+            }
+            case ("ChestPickup"):
+            {
+                if (m_armourManager.IsChestActive())
+                    gameObject.SetActive(false);
+                break;
+            }
+            case ("ArmPickup"):
+            {
+                if (m_armourManager.IsArmCuffActive())
+                    gameObject.SetActive(false);
+                break;
+            }
+            case ("GetaPickup"):
+            {
+                if (m_armourManager.IsBootActive())
+                    gameObject.SetActive(false);
+                break;
+            }
+            case ("BrokenKatanaPickup"):
+            {
+                if (m_armourManager.IsBrokenKatanaActive())
+                    gameObject.SetActive(false);
+                break;
+            }
+            case ("CompleteKatanaPickup"):
+            {
+                if (m_armourManager.IsCompleteKatanaActive())
+                    gameObject.SetActive(false);
+                break;
+            }
         }
     }
 

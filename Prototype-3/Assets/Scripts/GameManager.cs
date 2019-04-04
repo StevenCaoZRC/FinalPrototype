@@ -5,8 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    [SerializeField]CheckPoint m_lastCheckpoint;
-    [SerializeField] Vector3 m_spawnPoint = Vector3.zero;
+    Vector3 m_spawnPoint = Vector3.zero;
 
     bool m_helmetActive = false;
     bool m_chestActive = false;
@@ -38,7 +37,9 @@ public class GameManager : MonoBehaviour
         m_armCuffsActive = _manager.IsArmCuffActive();
         m_getaActive = _manager.IsBootActive();
         m_brokenKatanaActive = _manager.IsBrokenKatanaActive();
-        m_CompleteKatanaActive = _manager.IsCompleteKatanaActive();
+        Debug.Log("katana is active !!: " + m_brokenKatanaActive);
+
+        //m_CompleteKatanaActive = _manager.IsCompleteKatanaActive();
     }
 
     public void SetUpArmourVariables(ArmourManager _manager)
@@ -48,7 +49,9 @@ public class GameManager : MonoBehaviour
         _manager.ActivateArmCuffs(m_armCuffsActive);
         _manager.ActivateBoots(m_getaActive);
         _manager.ActivateBrokenKatana(m_brokenKatanaActive);
-        _manager.ActivateCompleteKatana(m_CompleteKatanaActive);
+        //_manager.ActivateCompleteKatana(m_CompleteKatanaActive);
+
+        Debug.Log("katana: " + m_brokenKatanaActive + " geta: " + m_getaActive);
     }
 
     static public GameManager GetInstance()
@@ -72,19 +75,7 @@ public class GameManager : MonoBehaviour
 
         return current;
     }
-
-    public void SetCheckPoint(CheckPoint _cp)
-    {
-        m_lastCheckpoint = _cp;
-    }
-
-    public CheckPoint GetCheckPoint()
-    {
-        if (m_lastCheckpoint != null)
-            Debug.Log(m_lastCheckpoint.gameObject.name);
-        return m_lastCheckpoint;
-    }
-
+    
     public void SetSpawnPos(Vector3 _pos)
     {
         m_spawnPoint = _pos;

@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Respawn : MonoBehaviour
 {
-    //Transform m_startPosition;
+    ArmourManager m_armourManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        m_armourManager = GetComponent<ArmourManager>();
+
         GetComponent<CharacterController>().enabled = false;
         transform.position = GameManager.GetInstance().GetSpawnPos();
 
@@ -20,6 +22,8 @@ public class Respawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         Debug.Log("Broken katana : " + GetComponent<ArmourManager>().IsBrokenKatanaActive());
     }
 }

@@ -26,6 +26,7 @@ public class CheckPoint : MonoBehaviour
         m_inactiveMaterial.SetColor("_EmissionColor", m_inactiveColor);
         m_activeMaterial.SetColor("_EmissionColor", m_activeColor);
         m_currentMaterial.GetComponent<Renderer>().material = m_inactiveMaterial;
+        m_currentMaterial.GetComponent<Light>().color = m_inactiveColor;
         m_armourManager = GameObject.FindGameObjectWithTag("Player").GetComponent<ArmourManager>();
     }
 
@@ -41,11 +42,17 @@ public class CheckPoint : MonoBehaviour
         {
             m_checkPointManager.SetAllInactive();
             m_armourManager = other.gameObject.GetComponent<ArmourManager>();
-            GameObject particles = Instantiate(m_particles, transform.position, transform.rotation);
-            Destroy(particles, 2);
+
+            if (!m_activeCheckpoint)
+            {
+                GameObject particles = Instantiate(m_particles, transform.position, transform.rotation);
+                Destroy(particles, 2);
+            }
 
             m_activeCheckpoint = true;
             m_currentMaterial.GetComponent<Renderer>().material = m_activeMaterial;
+            m_currentMaterial.GetComponent<Light>().color = m_activeColor;
+
             GameManager.GetInstance().SetSpawnPos(transform.position);
             GameManager.GetInstance().SetArmourVariables(m_armourManager);
         }
@@ -54,7 +61,7 @@ public class CheckPoint : MonoBehaviour
     public void SetInactive()
     {
         m_activeCheckpoint = false;
+        m_currentMaterial.GetComponent<Light>().color = m_inactiveColor;
         m_currentMaterial.GetComponent<Renderer>().material = m_inactiveMaterial;
-
     }
 }

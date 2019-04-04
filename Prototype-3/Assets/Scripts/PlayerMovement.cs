@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     int m_firstGroundTouch = 0;
     bool m_jumped = false;
     bool m_airJumpPressed = false;
-    bool m_spawned = false;
 
     float m_wallTouchFallSpeed = 0.1f;
     float m_wallTouchTimer = 0.0f;
@@ -52,9 +51,7 @@ public class PlayerMovement : MonoBehaviour
     float m_lastFreeTurnTimer = 0.0f;
     float m_lastFreeTurnTotal = 0.75f;
 
-    [SerializeField] bool m_allowDoubleJump = false;
-    [SerializeField] bool m_allowWallJump = true;
-    [SerializeField] bool m_allowBoxPush = true;
+    [SerializeField] bool m_pausePlayer = false;
 
     private void Awake()
     {
@@ -79,12 +76,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!m_spawned && !m_armourManager)
+        if(Input.GetKey(KeyCode.F))
         {
-            GameManager.GetInstance().SetUpArmourVariables(m_armourManager);
-            m_spawned = true;
+            m_pausePlayer = true;
         }
+        else
+        {
+            m_pausePlayer = false;
 
+        }
         Move();
     }
 
@@ -92,67 +92,72 @@ public class PlayerMovement : MonoBehaviour
     {
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
-        
 
-        if (hor != 0.0f) //If horizontal
+        if (!m_pausePlayer)
         {
-            if (((hor < 0.0f && m_lastWallLeft && m_wallJumping)
-                || (hor > 0.0f && !m_lastWallLeft && m_wallJumping)) && !m_freeTurning)
+            if (hor != 0.0f) //If horizontal
             {
-                //Stop player from wall jumping on same left wall
+                if (((hor < 0.0f && m_lastWallLeft && m_wallJumping)
+                    || (hor > 0.0f && !m_lastWallLeft && m_wallJumping)) && !m_freeTurning)
+                {
+                    //Stop player from wall jumping on same left wall
+                }
+                else
+                {
+                    if (hor > 0.0f)
+                    {
+                        m_facingLeft = false;
+                    }
+                    else if (hor < 0.0f)
+                    {
+                        m_facingLeft = true;
+                    }
+
+                    if (!m_playerAtDoorPath && !m_playerAtDoorEnd)
+                    {
+                        //If not at a doorway let player move left and right
+                        SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                        m_freeTurning = true;
+                    }
+                    else if (m_playerAtDoorEnd || (m_playerAtDoorEnd && m_playerAtDoorPath))
+                    {
+                        //If at the end of a doorway let player move left and right
+                        SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                        m_freeTurning = true;
+
+                    }
+                }
+
             }
-            else
+            else if (ver != 0.0f && m_playerAtDoorPath) //If vertical
             {
-                if (hor > 0.0f)
-                {
-                    m_facingLeft = false;
-                }
-                else if (hor < 0.0f)
-                {
-                    m_facingLeft = true;
-                }
-
-                if (!m_playerAtDoorPath && !m_playerAtDoorEnd)
-                {
-                    //If not at a doorway let player move left and right
-                    SetDirection(new Vector3(hor, 0.0f, 0.0f));
-                    m_freeTurning = true;
-                }
-                else if (m_playerAtDoorEnd || (m_playerAtDoorEnd && m_playerAtDoorPath))
-                {
-                    //If at the end of a doorway let player move left and right
-                    SetDirection(new Vector3(hor, 0.0f, 0.0f));
-                    m_freeTurning = true;
-
-                }
+                //if in doorway, let player walk forwards and backwards
+                SetDirection(new Vector3(0.0f, 0.0f, ver));
+            }
+            else if (transform.rotation != targetRot)
+            {
+                transform.rotation = targetRot;
             }
 
-        }
-        else if (ver != 0.0f && m_playerAtDoorPath) //If vertical
-        {
-            //if in doorway, let player walk forwards and backwards
-            SetDirection(new Vector3(0.0f, 0.0f, ver));
-        }
-        else if (transform.rotation != targetRot)
-        {
-            transform.rotation = targetRot;
-        }
+            if (hor == 0.0f && ver == 0.0f && !m_wallJumping)
+            {
+                m_playerAnim.SetBool("Run", false);
+            }
+            else if (hor != 0.0f || ver != 0.0f && !m_wallJumping && !m_jumped)
+            {
+                m_playerAnim.SetBool("WallTouch", false);
+                m_playerAnim.SetBool("Run", true);
+            }
 
-        if (hor == 0.0f && ver == 0.0f && !m_wallJumping)
+            if (m_wallJumping)
+            {
+                m_playerAnim.SetBool("Run", false);
+            }
+        }
+        else
         {
             m_playerAnim.SetBool("Run", false);
         }
-        else if (hor != 0.0f || ver != 0.0f && !m_wallJumping && !m_jumped)
-        {
-            m_playerAnim.SetBool("WallTouch", false);
-            m_playerAnim.SetBool("Run", true);
-        }
-
-        if (m_wallJumping)
-        {
-            m_playerAnim.SetBool("Run", false);
-        }
-
 
         //Double Jump
         //if (m_jumping && !m_doubleJumping && m_allowDoubleJump)
@@ -191,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
                 m_firstGroundTouch = 0;
             else
                 m_firstGroundTouch = 1;
-
+            
             if (Input.GetAxis("Jump") == 0.0f)
             {
                 m_airJumpPressed = false;
@@ -210,21 +215,23 @@ public class PlayerMovement : MonoBehaviour
             {
                 m_velocity = Vector3.zero;
             }
-
-            if (Input.GetAxis("Jump") != 0.0f && !m_jumped && !m_airJumpPressed && !m_wallJumpingOnce)
+            if (!m_pausePlayer)
             {
-                Debug.Log("----------------------------------Nrom");
-                m_normalJumpPressed = true;
-                m_playerAnim.SetTrigger("Jump");
-                m_playerAnim.SetBool("Grounded", false);
-                JumpMotion();
-                m_jumped = true;
-                //m_doubleJumping = false;
+                if (Input.GetAxis("Jump") != 0.0f && !m_jumped && !m_airJumpPressed && !m_wallJumpingOnce)
+                {
+                    Debug.Log("----------------------------------Nrom");
+                    m_normalJumpPressed = true;
+                    m_playerAnim.SetTrigger("Jump");
+                    m_playerAnim.SetBool("Grounded", false);
+                    JumpMotion();
+                    m_jumped = true;
+                    //m_doubleJumping = false;
+                }
             }
         }
         else
         {
-            if (Input.GetAxis("Jump") != 0.0f && !m_airJumpPressed && !m_wallJumping && !m_jumped)
+            if (Input.GetAxis("Jump") != 0.0f && !m_airJumpPressed && !m_wallJumping && !m_jumped && !m_pausePlayer)
             {
                 Debug.Log("----------------------------------Nrom");
 
@@ -397,7 +404,6 @@ public class PlayerMovement : MonoBehaviour
         //If hitting jumpable wall + in air + wall is not sloped
         if (!CheckOnGround() && hit.normal.y < 0.1f && hit.collider.tag == "JumpableWall")
         {
-
             m_wallTouch = true;
             m_playerAnim.SetBool("WallTouch", m_wallTouch);
 
