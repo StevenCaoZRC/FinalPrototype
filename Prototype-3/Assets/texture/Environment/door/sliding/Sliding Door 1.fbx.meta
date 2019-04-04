@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 880459cfe3a101b4a99527f13762cccf
+guid: 69720cdddb9f2f04a95e511d600c0e67
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert4
+    2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Door_2
+    4300000: Sliding_Door
   externalObjects: {}
   materials:
     importMaterials: 1
