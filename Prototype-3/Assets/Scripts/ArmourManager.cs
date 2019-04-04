@@ -73,8 +73,6 @@ public class ArmourManager : MonoBehaviour
 
     public void ActivateBrokenKatana(bool _activate)
     {
-        m_brokenKatana.SetActive(_activate);
-
         if (_activate)
         {
             m_completeKatana.SetActive(false);
