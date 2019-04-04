@@ -5,13 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class BambooTrap : MonoBehaviour
 {
-   
+
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            other.gameObject.GetComponentInChildren<Animator>().SetTrigger("Dead");          
         }
+    }
+
+    void Respawn()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

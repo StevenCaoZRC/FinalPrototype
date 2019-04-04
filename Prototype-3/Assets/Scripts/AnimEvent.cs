@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AnimEvent : MonoBehaviour
 {
@@ -35,5 +36,10 @@ public class AnimEvent : MonoBehaviour
         m_playerAttack.GetKatana().transform.parent = m_katanaRestParent;
         m_playerAttack.GetKatana().transform.position = m_katanaRestPos.position;
         m_playerAttack.GetKatana().transform.rotation = m_katanaRestPos.rotation;
+    }
+
+    void Respawn()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -10,6 +10,7 @@ public class ArrowMove : MonoBehaviour
     private float m_speed;
     [SerializeField]
     public float m_fireRate;
+    bool m_isHit = false;
 
     // Update is called once per frame
     void Update()
@@ -19,25 +20,21 @@ public class ArrowMove : MonoBehaviour
             transform.position += transform.forward * (m_speed * Time.deltaTime);
         
         }
-        else {
+        else
+        {
             Debug.Log("Arrow is Not Moving");
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "ArrowTrap" || other.gameObject.tag != "FireballTrap")
-        {
-            m_speed = 0;
-            Destroy(gameObject);
-        }
         if (other.gameObject.tag == "Player")
         {
+            other.gameObject.GetComponentInChildren<Animator>().SetTrigger("Dead");
+        }
+        else if (other.gameObject.tag != "ArrowTrap" || other.gameObject.tag != "FireballTrap")
+        {
             m_speed = 0;
             Destroy(gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-       
+        }       
     }
-
-
 }

@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     int m_firstGroundTouch = 0;
     bool m_jumped = false;
     bool m_airJumpPressed = false;
+    bool m_pushingObject = false;
 
     float m_wallTouchFallSpeed = 0.1f;
     float m_wallTouchTimer = 0.0f;
@@ -79,7 +80,8 @@ public class PlayerMovement : MonoBehaviour
         if (m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("ArmCuffsGained") 
             || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("GetaGained")
             || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("BodyArmourGained")
-            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("HelmetGained"))
+            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("HelmetGained")
+            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
         {
             m_pausePlayer = true;
         }
@@ -89,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
         }
         Move();
     }
-
+    bool sideTouch = false;
     private void Move()
     {
         float hor = Input.GetAxisRaw("Horizontal");
@@ -155,10 +157,23 @@ public class PlayerMovement : MonoBehaviour
             {
                 m_playerAnim.SetBool("Run", false);
             }
+
         }
         else
         {
             m_playerAnim.SetBool("Run", false);
+        }
+
+
+        if (m_pushingObject)
+        {
+            m_playerAnim.SetBool("Pushing", true);
+            //m_playerAnim.SetBool("Pushing", true);
+        }
+        else
+        {
+            m_playerAnim.SetBool("Pushing", false);
+
         }
 
         //Double Jump
@@ -317,7 +332,7 @@ public class PlayerMovement : MonoBehaviour
 
         CollisionFlags flags = m_controller.Move(m_moveVector + m_velocity);
         bool headTouch = (flags & CollisionFlags.CollidedAbove) != 0;
-        bool sideTouch = (flags & CollisionFlags.CollidedSides) != 0;
+        sideTouch = (flags & CollisionFlags.CollidedSides) != 0;
         bool floorTouch = (flags & CollisionFlags.CollidedBelow) != 0;
         //if (!CheckOnGround() && !sideTouch)
         //{
@@ -459,6 +474,7 @@ public class PlayerMovement : MonoBehaviour
         {
             m_wallTouch = false;
             m_playerAnim.SetBool("WallTouch", false);
+
         }
 
 
@@ -470,12 +486,23 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (hit.collider.tag == "Pushable" && m_armourManager.IsBootActive())
+        if (hit.collider.tag == "Pushable" && sideTouch) 
         {
-            hit.collider.gameObject.GetComponent<PushableObject>().m_pushed = true;
-            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
-            rigidbody.velocity = pushDir * m_pushForce / rigidbody.mass;
+            m_playerAnim.SetBool("Pushing", true);
+            if (m_armourManager.IsBootActive())
+            {
+                m_pushingObject = true;
+                hit.collider.gameObject.GetComponent<PushableObject>().m_pushed = true;
+                Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
+                rigidbody.velocity = pushDir * m_pushForce / rigidbody.mass;
+            }
+                
             //Animation
+        }
+        else
+        {
+            m_pushingObject = false;
+            m_playerAnim.SetBool("Pushing", false);
         }
     }
 }
