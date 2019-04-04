@@ -151,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 m_playerAnim.SetBool("WallTouch", false);
                 m_playerAnim.SetBool("Run", true);
-               
+                if (FindObjectOfType<AudioManager>() != null) FindObjectOfType<AudioManager>().PlayOnce("Running");
 
             }
 

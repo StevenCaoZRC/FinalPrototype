@@ -101,7 +101,7 @@ MonoBehaviour:
     SpatialBlend: 1
     source: {fileID: 0}
   - name: Running
-    clip: {fileID: 8300000, guid: 545999c2efff8f845b7b586cd6ca40d7, type: 3}
+    clip: {fileID: 8300000, guid: f110aa9448961784aa01544635b00509, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
     SpatialBlend: 0.8
     source: {fileID: 0}
   - name: PaperWall
-    clip: {fileID: 8300000, guid: 83c27a7ef9c13344f9aa6ef5a0ccd674, type: 3}
+    clip: {fileID: 8300000, guid: 20cd29a0b1248ba45b424134093b271e, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
