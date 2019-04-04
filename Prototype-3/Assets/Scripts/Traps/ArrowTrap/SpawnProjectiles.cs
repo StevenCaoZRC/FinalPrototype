@@ -33,7 +33,10 @@ public class SpawnProjectiles : MonoBehaviour
         if (m_firePoint != null)
         {
             projectile = Instantiate(m_projectile, m_firePoint.transform.position, m_firePoint.transform.rotation);
-
+            if(gameObject.tag == "ArrowTrap")
+            FindObjectOfType<AudioManager>().PlayOnce("ArrowShoot");
+            else if(gameObject.tag == "FireballTrap")
+                FindObjectOfType<AudioManager>().PlayOnce("FireballShoot");
         }
         else
         {

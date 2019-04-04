@@ -15,6 +15,7 @@ public class MenuScript : MonoBehaviour
         m_mainMenu.SetActive(true);
         m_controlsMenu.SetActive(false);
         m_creditsMenu.SetActive(false);
+      
     }
     public void CreditBtn()
     {
@@ -41,6 +42,8 @@ public class MenuScript : MonoBehaviour
     public void StartBtn()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 );
+        FindObjectOfType<AudioManager>().Stop("MenuMusic");
+        FindObjectOfType<AudioManager>().Play("InGameMusic");
     }
 
 

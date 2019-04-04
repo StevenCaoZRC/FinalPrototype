@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5498348690084840653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8712325923112356847}
+  - component: {fileID: 6485251846808932880}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8712325923112356847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5498348690084840653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6485251846808932880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5498348690084840653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d0a0a011338829478e7501b42968cb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: InGameMusic
+    clip: {fileID: 8300000, guid: 693d897751ba1a2429c04460e5e5b83a, type: 3}
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    SpatialBlend: 0
+    source: {fileID: 0}
+  - name: MenuMusic
+    clip: {fileID: 8300000, guid: d91bd6eb6ece4574995d6b278129b065, type: 3}
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    SpatialBlend: 0
+    source: {fileID: 0}
+  - name: ArrowShoot
+    clip: {fileID: 8300000, guid: 66079488678e6064ca3674c3ba70838e, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    SpatialBlend: 0.9
+    source: {fileID: 0}
+  - name: BreakBox
+    clip: {fileID: 8300000, guid: 936583570d47f5543a9bdf54b1bf8bf3, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    SpatialBlend: 0.9
+    source: {fileID: 0}
+  - name: Collection
+    clip: {fileID: 8300000, guid: 5f9324bc7656a6b408f9ead034a03373, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    SpatialBlend: 0.9
+    source: {fileID: 0}
+  - name: FireballShoot
+    clip: {fileID: 8300000, guid: 94a2451b97937cd429d46ee6f0bee6ee, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    SpatialBlend: 0.9
+    source: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: e607fae7a606c0046b3ce639bfe2b070, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    SpatialBlend: 0
+    source: {fileID: 0}
+  - name: PressurePlate
+    clip: {fileID: 8300000, guid: 18e6ce1173b265b489ceda19ed619e93, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    SpatialBlend: 0.9
+    source: {fileID: 0}
+  - name: Running
+    clip: {fileID: 8300000, guid: 545999c2efff8f845b7b586cd6ca40d7, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    SpatialBlend: 0
+    source: {fileID: 0}
+  - name: CloseSlideDoor
+    clip: {fileID: 8300000, guid: 6ee1310ec62586445ad2de0991452a23, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    SpatialBlend: 0.9
+    source: {fileID: 0}
+  - name: OpenSlideDoor
+    clip: {fileID: 8300000, guid: 2bdc38eb3d384c74b969fd675b53811c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    SpatialBlend: 0.6
+    source: {fileID: 0}
+  - name: PaperWall
+    clip: {fileID: 8300000, guid: 83c27a7ef9c13344f9aa6ef5a0ccd674, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    SpatialBlend: 0.9
+    source: {fileID: 0}
+  - name: Slash
+    clip: {fileID: 8300000, guid: 2e64be50609d8c54581b2f142cd56a66, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    SpatialBlend: 0.6
+    source: {fileID: 0}
+  - name: TrapDoor
+    clip: {fileID: 8300000, guid: 2925023eb862cab4293e7cba0bd467ae, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    SpatialBlend: 0.9
+    source: {fileID: 0}
