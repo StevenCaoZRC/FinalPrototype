@@ -25,6 +25,7 @@ public class Interactables : MonoBehaviour
         m_playerAnim = m_player.GetComponentInChildren<Animator>();
         if (m_speechText != null)
             m_speechText.gameObject.SetActive(false);
+
     }
     public virtual void Interact() {
         Debug.Log("Interacting with: " + transform.name);
@@ -48,23 +49,27 @@ public class Interactables : MonoBehaviour
             Interact();
         }
 
-        if(m_speechText.gameObject.activeSelf)
+        if(m_speechText != null)
         {
-            textTimer += Time.deltaTime;
-            if (textTimer >= textTotal)
+            if (m_speechText.gameObject.activeSelf)
+            {
+                textTimer += Time.deltaTime;
+                if (textTimer >= textTotal)
+                {
+                    m_speechText.gameObject.SetActive(false);
+                    textTimer = 0.0f;
+
+                }
+            }
+            else
             {
                 m_speechText.gameObject.SetActive(false);
+
                 textTimer = 0.0f;
 
             }
         }
-        else
-        {
-            m_speechText.gameObject.SetActive(false);
-
-            textTimer = 0.0f;
-
-        }
+        
 
     }
 
