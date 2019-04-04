@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     int m_firstGroundTouch = 0;
     bool m_jumped = false;
     bool m_airJumpPressed = false;
+    bool m_pushingObject = false;
 
     float m_wallTouchFallSpeed = 0.1f;
     float m_wallTouchTimer = 0.0f;
@@ -51,9 +52,7 @@ public class PlayerMovement : MonoBehaviour
     float m_lastFreeTurnTimer = 0.0f;
     float m_lastFreeTurnTotal = 0.75f;
 
-    [SerializeField] bool m_allowDoubleJump = false;
-    [SerializeField] bool m_allowWallJump = true;
-    [SerializeField] bool m_allowBoxPush = true;
+    [SerializeField] bool m_pausePlayer = false;
 
     private void Awake()
     {
@@ -67,84 +66,115 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         m_armourManager = GetComponent<ArmourManager>();
+        
         PlayGOParticles(m_landParticles, false);
         PlayGOParticles(m_jumpParticles, false);
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
         m_lastFreeTurnTimer = 0.0f;
-        //m_playerAnim.GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("ArmCuffsGained") 
+            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("GetaGained")
+            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("BodyArmourGained")
+            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("HelmetGained")
+            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+        {
+            m_pausePlayer = true;
+        }
+        else
+        {
+            m_pausePlayer = false;
+        }
         Move();
     }
-
+    bool sideTouch = false;
     private void Move()
     {
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
-        
 
-        if (hor != 0.0f) //If horizontal
+        if (!m_pausePlayer)
         {
-            if (((hor < 0.0f && m_lastWallLeft && m_wallJumping)
-                || (hor > 0.0f && !m_lastWallLeft && m_wallJumping)) && !m_freeTurning)
+            if (hor != 0.0f) //If horizontal
             {
-                //Stop player from wall jumping on same left wall
+                if (((hor < 0.0f && m_lastWallLeft && m_wallJumping)
+                    || (hor > 0.0f && !m_lastWallLeft && m_wallJumping)) && !m_freeTurning)
+                {
+                    //Stop player from wall jumping on same left wall
+                }
+                else
+                {
+                    if (hor > 0.0f)
+                    {
+                        m_facingLeft = false;
+                    }
+                    else if (hor < 0.0f)
+                    {
+                        m_facingLeft = true;
+                    }
+
+                    if (!m_playerAtDoorPath && !m_playerAtDoorEnd)
+                    {
+                        //If not at a doorway let player move left and right
+                        SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                        m_freeTurning = true;
+                    }
+                    else if (m_playerAtDoorEnd || (m_playerAtDoorEnd && m_playerAtDoorPath))
+                    {
+                        //If at the end of a doorway let player move left and right
+                        SetDirection(new Vector3(hor, 0.0f, 0.0f));
+                        m_freeTurning = true;
+
+                    }
+                }
+
             }
-            else
+            else if (ver != 0.0f && m_playerAtDoorPath) //If vertical
             {
-                if (hor > 0.0f)
-                {
-                    m_facingLeft = false;
-                }
-                else if (hor < 0.0f)
-                {
-                    m_facingLeft = true;
-                }
+                //if in doorway, let player walk forwards and backwards
+                SetDirection(new Vector3(0.0f, 0.0f, ver));
+            }
+            else if (transform.rotation != targetRot)
+            {
+                transform.rotation = targetRot;
+            }
 
-                if (!m_playerAtDoorPath && !m_playerAtDoorEnd)
-                {
-                    //If not at a doorway let player move left and right
-                    SetDirection(new Vector3(hor, 0.0f, 0.0f));
-                    m_freeTurning = true;
-                }
-                else if (m_playerAtDoorEnd || (m_playerAtDoorEnd && m_playerAtDoorPath))
-                {
-                    //If at the end of a doorway let player move left and right
-                    SetDirection(new Vector3(hor, 0.0f, 0.0f));
-                    m_freeTurning = true;
+            if (hor == 0.0f && ver == 0.0f && !m_wallJumping)
+            {
+                m_playerAnim.SetBool("Run", false);
+            }
+            else if (hor != 0.0f || ver != 0.0f && !m_wallJumping && !m_jumped)
+            {
+                m_playerAnim.SetBool("WallTouch", false);
+                m_playerAnim.SetBool("Run", true);
+            }
 
-                }
+            if (m_wallJumping)
+            {
+                m_playerAnim.SetBool("Run", false);
             }
 
         }
-        else if (ver != 0.0f && m_playerAtDoorPath) //If vertical
-        {
-            //if in doorway, let player walk forwards and backwards
-            SetDirection(new Vector3(0.0f, 0.0f, ver));
-        }
-        else if (transform.rotation != targetRot)
-        {
-            transform.rotation = targetRot;
-        }
-
-        if (hor == 0.0f && ver == 0.0f && !m_wallJumping)
+        else
         {
             m_playerAnim.SetBool("Run", false);
         }
-        else if (hor != 0.0f || ver != 0.0f && !m_wallJumping && !m_jumped)
-        {
-            m_playerAnim.SetBool("WallTouch", false);
-            m_playerAnim.SetBool("Run", true);
-        }
 
-        if (m_wallJumping)
-        {
-            m_playerAnim.SetBool("Run", false);
-        }
 
+        if (m_pushingObject)
+        {
+            m_playerAnim.SetBool("Pushing", true);
+            //m_playerAnim.SetBool("Pushing", true);
+        }
+        else
+        {
+            m_playerAnim.SetBool("Pushing", false);
+
+        }
 
         //Double Jump
         //if (m_jumping && !m_doubleJumping && m_allowDoubleJump)
@@ -183,7 +213,7 @@ public class PlayerMovement : MonoBehaviour
                 m_firstGroundTouch = 0;
             else
                 m_firstGroundTouch = 1;
-
+            
             if (Input.GetAxis("Jump") == 0.0f)
             {
                 m_airJumpPressed = false;
@@ -202,21 +232,23 @@ public class PlayerMovement : MonoBehaviour
             {
                 m_velocity = Vector3.zero;
             }
-
-            if (Input.GetAxis("Jump") != 0.0f && !m_jumped && !m_airJumpPressed && !m_wallJumpingOnce)
+            if (!m_pausePlayer)
             {
-                Debug.Log("----------------------------------Nrom");
-                m_normalJumpPressed = true;
-                m_playerAnim.SetTrigger("Jump");
-                m_playerAnim.SetBool("Grounded", false);
-                JumpMotion();
-                m_jumped = true;
-                //m_doubleJumping = false;
+                if (Input.GetAxis("Jump") != 0.0f && !m_jumped && !m_airJumpPressed && !m_wallJumpingOnce)
+                {
+                    Debug.Log("----------------------------------Nrom");
+                    m_normalJumpPressed = true;
+                    m_playerAnim.SetTrigger("Jump");
+                    m_playerAnim.SetBool("Grounded", false);
+                    JumpMotion();
+                    m_jumped = true;
+                    //m_doubleJumping = false;
+                }
             }
         }
         else
         {
-            if (Input.GetAxis("Jump") != 0.0f && !m_airJumpPressed && !m_wallJumping && !m_jumped)
+            if (Input.GetAxis("Jump") != 0.0f && !m_airJumpPressed && !m_wallJumping && !m_jumped && !m_pausePlayer)
             {
                 Debug.Log("----------------------------------Nrom");
 
@@ -300,7 +332,7 @@ public class PlayerMovement : MonoBehaviour
 
         CollisionFlags flags = m_controller.Move(m_moveVector + m_velocity);
         bool headTouch = (flags & CollisionFlags.CollidedAbove) != 0;
-        bool sideTouch = (flags & CollisionFlags.CollidedSides) != 0;
+        sideTouch = (flags & CollisionFlags.CollidedSides) != 0;
         bool floorTouch = (flags & CollisionFlags.CollidedBelow) != 0;
         //if (!CheckOnGround() && !sideTouch)
         //{
@@ -389,7 +421,6 @@ public class PlayerMovement : MonoBehaviour
         //If hitting jumpable wall + in air + wall is not sloped
         if (!CheckOnGround() && hit.normal.y < 0.1f && hit.collider.tag == "JumpableWall")
         {
-
             m_wallTouch = true;
             m_playerAnim.SetBool("WallTouch", m_wallTouch);
 
@@ -443,6 +474,7 @@ public class PlayerMovement : MonoBehaviour
         {
             m_wallTouch = false;
             m_playerAnim.SetBool("WallTouch", false);
+
         }
 
 
@@ -454,12 +486,23 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (hit.collider.tag == "Pushable" && m_armourManager.IsBootActive())
+        if (hit.collider.tag == "Pushable" && sideTouch) 
         {
-            hit.collider.gameObject.GetComponent<PushableObject>().m_pushed = true;
-            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
-            rigidbody.velocity = pushDir * m_pushForce / rigidbody.mass;
+            m_playerAnim.SetBool("Pushing", true);
+            if (m_armourManager.IsBootActive())
+            {
+                m_pushingObject = true;
+                hit.collider.gameObject.GetComponent<PushableObject>().m_pushed = true;
+                Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);
+                rigidbody.velocity = pushDir * m_pushForce / rigidbody.mass;
+            }
+                
             //Animation
+        }
+        else
+        {
+            m_pushingObject = false;
+            m_playerAnim.SetBool("Pushing", false);
         }
     }
 }

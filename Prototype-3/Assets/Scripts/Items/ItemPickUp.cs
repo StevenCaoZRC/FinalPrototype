@@ -7,8 +7,8 @@ public class ItemPickUp : Interactables
     public Item m_item;
     
     public GameObject m_particles;
-   
-  
+
+
     public override void Interact()
     {
         base.Interact();
@@ -37,26 +37,45 @@ public class ItemPickUp : Interactables
             case("HelmetPickup"):
             {
                  m_armourManager.ActivateHelmet(true);
-                 break;
+                 m_playerAnim.SetTrigger("HelmetGained");
+                    
+                 m_speechText.text = "HELMET: No skill defined yet";
+                    m_speechText.gameObject.SetActive(true);
+                    break;
             }
             case ("ChestPickup"):
             {
-                m_armourManager.ActivateChest(true);
-                break;
+                 m_armourManager.ActivateChest(true);
+                m_playerAnim.SetTrigger("BodyArmourGained");
+                m_speechText.text = "BODY: No skill defined yet";
+                    m_speechText.gameObject.SetActive(true);
+
+                    break;
             }
             case ("ArmPickup"):
             {
-                m_armourManager.ActivateArmCuffs(true);
-                break;
+                 m_armourManager.ActivateArmCuffs(true);
+                 m_playerAnim.SetTrigger("ArmCuffsGained");
+                m_speechText.text = "ARM CUFFS: You can now Wall jump !";
+                 m_speechText.gameObject.SetActive(true);
+
+                    break;
             }
             case ("GetaPickup"):
             {
                 m_armourManager.ActivateBoots(true);
+                m_playerAnim.SetTrigger("GetaGained");
+                m_speechText.text = "GETA: You may now push wooden drawers";
+                 m_speechText.gameObject.SetActive(true);
                 break;
             }
             case ("BrokenKatanaPickup"):
             {
                 m_armourManager.ActivateBrokenKatana(true);
+                m_playerAnim.SetTrigger("ArmCuffsGained");
+                m_speechText.text = "Press 'E' to slash. Paper ? Wooden Boxes ?";
+                m_speechText.gameObject.SetActive(true);
+
                 break;
             }
             case ("CompleteKatanaPickup"):

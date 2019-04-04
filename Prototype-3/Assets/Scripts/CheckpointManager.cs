@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
+    public List<CheckPoint> m_checkPoints;
     // Start is called before the first frame update
-    public List<GameObject> m_checkpoints;
-
-    void Start()
+    public void SetAllInactive()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        if(m_checkPoints !=null)
+        {
+            foreach (CheckPoint c in m_checkPoints)
+            {
+                c.SetInactive();
+            }
+        }
         
     }
 }

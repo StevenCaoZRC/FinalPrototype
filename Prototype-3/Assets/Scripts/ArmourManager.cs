@@ -17,7 +17,9 @@ public class ArmourManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(m_helmet != null) m_helmet.SetActive(false);
+        bool m_loaded = false;
+
+        if (m_helmet != null) m_helmet.SetActive(false);
         if (m_hair != null) m_hair.SetActive(true);
         if (m_chest != null) m_chest.SetActive(false);
         if (m_leftArmCuffs != null) m_leftArmCuffs.SetActive(false);
@@ -26,12 +28,26 @@ public class ArmourManager : MonoBehaviour
         if (m_rightBoots != null) m_rightBoots.SetActive(false);
         if (m_brokenKatana != null) m_brokenKatana.SetActive(false);
         if (m_completeKatana != null) m_completeKatana.SetActive(false);
+
+        if (!m_loaded)
+        {
+            GameManager.GetInstance().SetUpArmourVariables(this);
+            m_loaded = true;
+        }
     }
 
     public void ActivateHelmet(bool _activate)
     {
-        m_hair.SetActive(false);
-        m_helmet.SetActive(_activate);
+        if(_activate)
+        {
+            m_hair.SetActive(false);
+            m_helmet.SetActive(true);
+        }
+        else
+        {
+            m_hair.SetActive(true);
+            m_helmet.SetActive(false);
+        }
     }
 
     public bool IsHelmetActive()
@@ -73,7 +89,15 @@ public class ArmourManager : MonoBehaviour
 
     public void ActivateBrokenKatana(bool _activate)
     {
-        m_brokenKatana.SetActive(_activate);
+        if (_activate)
+        {
+            m_brokenKatana.SetActive(true);
+        }
+        else
+        {
+            m_completeKatana.SetActive(false);
+            m_brokenKatana.SetActive(false);
+        }
     }
      
     public bool IsBrokenKatanaActive()
@@ -83,16 +107,16 @@ public class ArmourManager : MonoBehaviour
 
     public void ActivateCompleteKatana(bool _activate)
     {
-        if(_activate)
-        {
-            m_completeKatana.SetActive(true);
-            m_brokenKatana.SetActive(false);
-        }
-        else
-        {
-            m_completeKatana.SetActive(false);
-            m_brokenKatana.SetActive(true);
-        }
+        //if(_activate)
+        //{
+        //    m_completeKatana.SetActive(true);
+        //    m_brokenKatana.SetActive(false);
+        //}
+        //else
+        //{
+        //    m_completeKatana.SetActive(false);
+        //    m_brokenKatana.SetActive(true);
+        //}
     }
 
     public bool IsCompleteKatanaActive()
