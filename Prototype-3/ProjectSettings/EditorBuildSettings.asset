@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/VivFuncScene.unity
     guid: bd7165b44bb623e42a157dcdaa8c0a7b
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 5713a22459d87494680ee3d3eeaa29d9
+  - enabled: 1
     path: Assets/Scenes/VivLevel.unity
     guid: 198cd38d856b65b40bdb9e20bb5758c8
   m_configObjects: {}
