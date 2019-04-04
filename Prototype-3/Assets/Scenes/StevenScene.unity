@@ -180,6 +180,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1357808440, guid: 0fa2e4eb65c66694ea49df8ff7a67564, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357808440, guid: 0fa2e4eb65c66694ea49df8ff7a67564, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357808440, guid: 0fa2e4eb65c66694ea49df8ff7a67564, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357808440, guid: 0fa2e4eb65c66694ea49df8ff7a67564, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357808440, guid: 0fa2e4eb65c66694ea49df8ff7a67564, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fa2e4eb65c66694ea49df8ff7a67564, type: 3}
 --- !u!1 &141086790
@@ -1347,12 +1367,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1536929571 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 808371042669315554, guid: 22e1bd9bdb74d6f4fb1e0f4473c37764,
-    type: 3}
-  m_PrefabInstance: {fileID: 6151620078854115729}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1562284196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1921,21 +1935,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2206647657691503729, guid: 22e1bd9bdb74d6f4fb1e0f4473c37764,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3945643049132345373, guid: 22e1bd9bdb74d6f4fb1e0f4473c37764,
         type: 3}
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 1394216149}
-    - target: {fileID: 3945643049132345373, guid: 22e1bd9bdb74d6f4fb1e0f4473c37764,
-        type: 3}
-      propertyPath: selectedObject
-      value: 
-      objectReference: {fileID: 1536929571}
     - target: {fileID: 6151620078854115732, guid: 22e1bd9bdb74d6f4fb1e0f4473c37764,
         type: 3}
       propertyPath: eventSystem
