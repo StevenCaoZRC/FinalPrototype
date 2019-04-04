@@ -70,14 +70,14 @@ MonoBehaviour:
     volume: 0.4
     pitch: 1
     loop: 0
-    SpatialBlend: 0.9
+    SpatialBlend: 1
     source: {fileID: 0}
   - name: Collection
     clip: {fileID: 8300000, guid: 5f9324bc7656a6b408f9ead034a03373, type: 3}
     volume: 0.7
     pitch: 1
     loop: 0
-    SpatialBlend: 0.9
+    SpatialBlend: 1
     source: {fileID: 0}
   - name: FireballShoot
     clip: {fileID: 8300000, guid: 94a2451b97937cd429d46ee6f0bee6ee, type: 3}
@@ -98,47 +98,47 @@ MonoBehaviour:
     volume: 0.3
     pitch: 1
     loop: 0
-    SpatialBlend: 0.9
+    SpatialBlend: 1
     source: {fileID: 0}
   - name: Running
-    clip: {fileID: 8300000, guid: 545999c2efff8f845b7b586cd6ca40d7, type: 3}
-    volume: 0
-    pitch: 0
+    clip: {fileID: 8300000, guid: f110aa9448961784aa01544635b00509, type: 3}
+    volume: 0.5
+    pitch: 1
     loop: 0
-    SpatialBlend: 0
+    SpatialBlend: 1
     source: {fileID: 0}
   - name: CloseSlideDoor
     clip: {fileID: 8300000, guid: 6ee1310ec62586445ad2de0991452a23, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    SpatialBlend: 0.9
+    SpatialBlend: 1
     source: {fileID: 0}
   - name: OpenSlideDoor
     clip: {fileID: 8300000, guid: 2bdc38eb3d384c74b969fd675b53811c, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    SpatialBlend: 0.6
+    SpatialBlend: 0.8
     source: {fileID: 0}
   - name: PaperWall
-    clip: {fileID: 8300000, guid: 83c27a7ef9c13344f9aa6ef5a0ccd674, type: 3}
+    clip: {fileID: 8300000, guid: 20cd29a0b1248ba45b424134093b271e, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
-    SpatialBlend: 0.9
+    SpatialBlend: 1
     source: {fileID: 0}
   - name: Slash
     clip: {fileID: 8300000, guid: 2e64be50609d8c54581b2f142cd56a66, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
-    SpatialBlend: 0.6
+    SpatialBlend: 1
     source: {fileID: 0}
   - name: TrapDoor
     clip: {fileID: 8300000, guid: 2925023eb862cab4293e7cba0bd467ae, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
-    SpatialBlend: 0.9
+    SpatialBlend: 1
     source: {fileID: 0}
