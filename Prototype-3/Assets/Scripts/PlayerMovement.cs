@@ -151,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 m_playerAnim.SetBool("WallTouch", false);
                 m_playerAnim.SetBool("Run", true);
+               
 
             }
 
@@ -163,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             m_playerAnim.SetBool("Run", false);
+
         }
 
 
