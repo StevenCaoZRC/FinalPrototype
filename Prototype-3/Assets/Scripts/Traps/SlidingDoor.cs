@@ -18,10 +18,10 @@ public class SlidingDoor : PressurePlate
     {
         base.PerformAction();
         if (m_triggered)
-            FindObjectOfType<AudioManager>().PlayOnce("OpenSlideDoor");
+            if(FindObjectOfType<AudioManager>() != null) FindObjectOfType<AudioManager>().PlayOnce("OpenSlideDoor");
         else if (!m_triggered)
         {
-            FindObjectOfType<AudioManager>().PlayOnce("CloseSlideDoor");
+            if(FindObjectOfType<AudioManager>() != null) FindObjectOfType<AudioManager>().PlayOnce("CloseSlideDoor");
         }
     }
     private void Update()

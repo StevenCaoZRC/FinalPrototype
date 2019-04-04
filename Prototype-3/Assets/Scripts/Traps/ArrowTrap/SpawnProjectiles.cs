@@ -39,9 +39,9 @@ public class SpawnProjectiles : MonoBehaviour
             m_bowAnim.SetTrigger("Shoot");
             projectile = Instantiate(m_projectile, m_firePoint.transform.position, m_firePoint.transform.rotation);
             if(gameObject.tag == "ArrowTrap")
-            FindObjectOfType<AudioManager>().PlayOnce("ArrowShoot");
+            if(FindObjectOfType<AudioManager>() != null) FindObjectOfType<AudioManager>().PlayOnce("ArrowShoot");
             else if(gameObject.tag == "FireballTrap")
-                FindObjectOfType<AudioManager>().PlayOnce("FireballShoot");
+                if(FindObjectOfType<AudioManager>() != null) FindObjectOfType<AudioManager>().PlayOnce("FireballShoot");
         }
         else
         {

@@ -7,7 +7,7 @@ public class ShatteringBox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FindObjectOfType<AudioManager>().PlayOnce("BreakBox");
+        if (FindObjectOfType<AudioManager>() != null) FindObjectOfType<AudioManager>().PlayOnce("BreakBox");
         Destroy(gameObject, 2);
     }
 

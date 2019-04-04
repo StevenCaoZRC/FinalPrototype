@@ -23,7 +23,7 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && (m_armourManager.IsBrokenKatanaActive() || m_armourManager.IsCompleteKatanaActive()))
         {
             m_playeranim.SetTrigger("Slash");
-            FindObjectOfType<AudioManager>().PlayOnce("Slash");
+            if(FindObjectOfType<AudioManager>()!=null) FindObjectOfType<AudioManager>().PlayOnce("Slash");
         }
     }
 

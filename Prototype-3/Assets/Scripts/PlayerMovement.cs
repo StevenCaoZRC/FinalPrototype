@@ -151,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 m_playerAnim.SetBool("WallTouch", false);
                 m_playerAnim.SetBool("Run", true);
+
             }
 
             if (m_wallJumping)
@@ -236,6 +237,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (Input.GetAxis("Jump") != 0.0f && !m_jumped && !m_airJumpPressed && !m_wallJumpingOnce)
                 {
+
                     Debug.Log("----------------------------------Nrom");
                     m_normalJumpPressed = true;
                     m_playerAnim.SetTrigger("Jump");
@@ -345,6 +347,7 @@ public class PlayerMovement : MonoBehaviour
 
     void JumpMotion()
     {
+        if (FindObjectOfType<AudioManager>() != null) FindObjectOfType<AudioManager>().PlayOnce("Jump");
         PlayGOParticles(m_jumpParticles, true);
         m_velocity.y = -m_jumpSpeed * Physics.gravity.y * Time.deltaTime;
         m_wallTouch = false;

@@ -12,7 +12,7 @@ public class ItemPickUp : Interactables
     public override void Interact()
     {
         base.Interact();
-        FindObjectOfType<AudioManager>().PlayOnce("Collection");
+        if(FindObjectOfType<AudioManager>() != null) FindObjectOfType<AudioManager>().PlayOnce("Collection");
         PickUpItem();
         // m_particleSystem.Play();
     }
