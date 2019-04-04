@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     int m_firstGroundTouch = 0;
     bool m_jumped = false;
     bool m_airJumpPressed = false;
+    bool m_spawned = false;
 
     float m_wallTouchFallSpeed = 0.1f;
     float m_wallTouchTimer = 0.0f;
@@ -67,17 +68,32 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         m_armourManager = GetComponent<ArmourManager>();
+        
         PlayGOParticles(m_landParticles, false);
         PlayGOParticles(m_jumpParticles, false);
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
         m_lastFreeTurnTimer = 0.0f;
+        transform.position = new Vector3(-15, 1.0f, 15.0f);
+
+        if (GameManager.GetInstance().GetSpawnPos() != null && !m_spawned)
+        {
+            m_spawned = true;
+            Debug.Log("AAAAAAAAAAAAAAAAAAAAA");
+
+            m_controller.transform.position = GameManager.GetInstance().GetSpawnPos();
+            transform.position = GameManager.GetInstance().GetSpawnPos();
+            Debug.Log(transform.position + "         " + GameManager.GetInstance().GetSpawnPos());
+
+        }
         //m_playerAnim.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move();
+        
+        if(m_spawned)
+            Move();
     }
 
     private void Move()
