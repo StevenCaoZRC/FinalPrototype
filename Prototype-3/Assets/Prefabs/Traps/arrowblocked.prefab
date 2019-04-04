@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5204257598009293404}
   - component: {fileID: 2583801415235051191}
   m_Layer: 0
-  m_Name: arrowThreeshot
+  m_Name: arrowblocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: 15
-  m_fireRate: 1
+  m_fireRate: 3
 --- !u!54 &5204257598009293404
 Rigidbody:
   m_ObjectHideFlags: 0
