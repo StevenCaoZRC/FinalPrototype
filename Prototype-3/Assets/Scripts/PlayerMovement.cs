@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject m_landParticles;
@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     bool m_jumped = false;
     bool m_airJumpPressed = false;
     bool m_pushingObject = false;
+    bool m_endLevel = false;
 
     float m_wallTouchFallSpeed = 0.1f;
     float m_wallTouchTimer = 0.0f;
@@ -74,13 +75,18 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
         if (m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("ArmCuffsGained") 
             || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("GetaGained")
             || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("BodyArmourGained")
-            || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("HelmetGained")
             || m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
         {
             m_pausePlayer = true;
@@ -89,6 +95,14 @@ public class PlayerMovement : MonoBehaviour
         {
             m_pausePlayer = false;
         }
+
+        if(m_playerAnim.GetCurrentAnimatorStateInfo(0).IsName("HelmetGained") && !m_endLevel)
+        {
+            m_endLevel = true;
+            m_pausePlayer = true;
+            Invoke("MainMenu", 3.0f);
+        }
+
         Move();
     }
     bool sideTouch = false;

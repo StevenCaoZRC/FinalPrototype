@@ -41,7 +41,7 @@ public class ItemPickUp : Interactables
                     
                     if(m_speechText != null)
                     {
-                        m_speechText.text = "HELMET: No skill defined yet";
+                        m_speechText.text = "HELMET: CONGRATULATIONS";
                         m_speechText.gameObject.SetActive(true);
                     }
                  
