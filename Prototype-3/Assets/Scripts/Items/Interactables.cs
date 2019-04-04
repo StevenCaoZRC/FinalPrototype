@@ -5,13 +5,14 @@ using UnityEngine;
 public class Interactables : MonoBehaviour
 {
     public float m_radius = 3f; //within range before you can interact with object
-    public Transform m_player;
+    GameObject m_player;
     public Transform m_interactableTransform;
     protected ArmourManager m_armourManager;
     KatanaFill m_katanaBar;
 
     private void Start()
     {
+        m_player = GameObject.FindGameObjectWithTag("Player");
         m_armourManager = m_player.GetComponent<ArmourManager>();
         m_interactableTransform = GetComponent<Transform>();
         m_katanaBar = FindObjectOfType<KatanaFill>();
@@ -31,7 +32,7 @@ public class Interactables : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(m_player.position, m_interactableTransform.position);
+        float distance = Vector3.Distance(m_player.transform.position, m_interactableTransform.position);
         if(distance < m_radius) // if they are within the radius
         {
             Interact();
