@@ -63,7 +63,7 @@ MonoBehaviour:
     volume: 0.2
     pitch: 1
     loop: 0
-    SpatialBlend: 0.9
+    SpatialBlend: 1
     source: {fileID: 0}
   - name: BreakBox
     clip: {fileID: 8300000, guid: 936583570d47f5543a9bdf54b1bf8bf3, type: 3}
@@ -84,12 +84,12 @@ MonoBehaviour:
     volume: 0.2
     pitch: 1
     loop: 0
-    SpatialBlend: 0.9
+    SpatialBlend: 1
     source: {fileID: 0}
   - name: Jump
     clip: {fileID: 8300000, guid: e607fae7a606c0046b3ce639bfe2b070, type: 3}
-    volume: 0
-    pitch: 0
+    volume: 0.05
+    pitch: 0.43
     loop: 0
     SpatialBlend: 0
     source: {fileID: 0}
