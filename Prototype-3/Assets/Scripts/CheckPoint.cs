@@ -5,20 +5,24 @@ using UnityEngine;
 public class CheckPoint : MonoBehaviour
 {
     ArmourManager m_armourManager;
-    CheckPointManager m_checkPointManager;
+    CheckpointManager m_checkPointManager;
     public bool m_activeCheckpoint = false;
+
     public Color m_inactiveColor;
     public Color m_activeColor;
+
     public Material m_activeMaterial;
     public Material m_inactiveMaterial;
     public GameObject m_currentMaterial;
+
     public GameObject m_particles;
     public GameObject m_particlePos;
+
     public GameObject m_spawnPos;
 
     void Start()
     {
-        m_checkPointManager = transform.parent.transform.parent.GetComponent<CheckPointManager>();
+        m_checkPointManager = transform.parent.transform.parent.GetComponent<CheckpointManager>();
         m_inactiveMaterial.SetColor("_EmissionColor", m_inactiveColor);
         m_activeMaterial.SetColor("_EmissionColor", m_activeColor);
         m_currentMaterial.GetComponent<Renderer>().material = m_inactiveMaterial;
@@ -42,9 +46,8 @@ public class CheckPoint : MonoBehaviour
 
             m_activeCheckpoint = true;
             m_currentMaterial.GetComponent<Renderer>().material = m_activeMaterial;
-            GameManager.GetInstance().SetCheckPoint(this);
             GameManager.GetInstance().SetSpawnPos(transform.position);
-            Debug.Log(GameManager.GetInstance().GetCheckPoint().name);
+            GameManager.GetInstance().SetArmourVariables(m_armourManager);
         }
     }
 

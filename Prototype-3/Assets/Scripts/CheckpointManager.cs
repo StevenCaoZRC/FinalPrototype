@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckPointManager : MonoBehaviour
+public class CheckpointManager : MonoBehaviour
 {
     public List<CheckPoint> m_checkPoints;
     // Start is called before the first frame update

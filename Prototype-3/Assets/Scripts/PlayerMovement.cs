@@ -73,27 +73,19 @@ public class PlayerMovement : MonoBehaviour
         PlayGOParticles(m_jumpParticles, false);
         m_distToGround = GetComponent<Collider>().bounds.extents.y;
         m_lastFreeTurnTimer = 0.0f;
-        transform.position = new Vector3(-15, 1.0f, 15.0f);
 
-        if (GameManager.GetInstance().GetSpawnPos() != null && !m_spawned)
-        {
-            m_spawned = true;
-            Debug.Log("AAAAAAAAAAAAAAAAAAAAA");
-
-            m_controller.transform.position = GameManager.GetInstance().GetSpawnPos();
-            transform.position = GameManager.GetInstance().GetSpawnPos();
-            Debug.Log(transform.position + "         " + GameManager.GetInstance().GetSpawnPos());
-
-        }
-        //m_playerAnim.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        
-        if(m_spawned)
-            Move();
+        if(!m_spawned && !m_armourManager)
+        {
+            GameManager.GetInstance().SetUpArmourVariables(m_armourManager);
+            m_spawned = true;
+        }
+
+        Move();
     }
 
     private void Move()

@@ -6,7 +6,15 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     [SerializeField]CheckPoint m_lastCheckpoint;
-    [SerializeField] Vector3 m_spawnPoint;
+    [SerializeField] Vector3 m_spawnPoint = Vector3.zero;
+
+    bool m_helmetActive = false;
+    bool m_chestActive = false;
+    bool m_armCuffsActive = false;
+    bool m_getaActive = false;
+    bool m_brokenKatanaActive = false;
+    bool m_CompleteKatanaActive = false;
+
 
     // Use this for initialization
     private void Awake()
@@ -14,12 +22,33 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            m_spawnPoint = GameObject.FindGameObjectWithTag("Player").transform.position;
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void SetArmourVariables(ArmourManager _manager)
+    {
+        m_helmetActive = _manager.IsHelmetActive();
+        m_chestActive = _manager.IsChestActive();
+        m_armCuffsActive = _manager.IsArmCuffActive();
+        m_getaActive = _manager.IsBootActive();
+        m_brokenKatanaActive = _manager.IsBrokenKatanaActive();
+        m_CompleteKatanaActive = _manager.IsCompleteKatanaActive();
+    }
+
+    public void SetUpArmourVariables(ArmourManager _manager)
+    {
+        _manager.ActivateHelmet(m_helmetActive);
+        _manager.ActivateChest(m_chestActive);
+        _manager.ActivateArmCuffs(m_armCuffsActive);
+        _manager.ActivateBoots(m_getaActive);
+        _manager.ActivateBrokenKatana(m_brokenKatanaActive);
+        _manager.ActivateCompleteKatana(m_CompleteKatanaActive);
     }
 
     static public GameManager GetInstance()

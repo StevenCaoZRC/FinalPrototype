@@ -12297,6 +12297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_lastCheckpoint: {fileID: 0}
+  m_spawnPoint: {x: 22, y: 0.25, z: 0}
 --- !u!4 &1710380541
 Transform:
   m_ObjectHideFlags: 0
@@ -13437,6 +13438,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5585181992760878364}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1817429391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8000290573146516610, guid: 428a5d21b53a9dd4082c7682096d1171,
+    type: 3}
+  m_PrefabInstance: {fileID: 8000290574609745741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1817429392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817429391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbcae5aaf5161bb498c068fe6857f048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1817668942
 GameObject:
   m_ObjectHideFlags: 0
@@ -14314,8 +14333,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_checkPoints:
+  - {fileID: 2108759120}
   - {fileID: 2093989020}
-  - {fileID: 0}
 --- !u!4 &1926209208
 Transform:
   m_ObjectHideFlags: 0
@@ -44660,12 +44679,12 @@ PrefabInstance:
     - target: {fileID: 8000290573146516632, guid: 428a5d21b53a9dd4082c7682096d1171,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8000290573146516632, guid: 428a5d21b53a9dd4082c7682096d1171,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 8000290573146516632, guid: 428a5d21b53a9dd4082c7682096d1171,
         type: 3}
