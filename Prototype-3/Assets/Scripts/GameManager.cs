@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    Vector3 m_spawnPoint = Vector3.zero;
+    Vector3 m_spawnPoint = new Vector3(-15.0f, 1.5f, 0.0f);
 
     bool m_helmetActive = false;
     bool m_chestActive = false;
@@ -52,6 +52,17 @@ public class GameManager : MonoBehaviour
         //_manager.ActivateCompleteKatana(m_CompleteKatanaActive);
 
         Debug.Log("katana: " + m_brokenKatanaActive + " geta: " + m_getaActive);
+    }
+
+    public void ResetVariables()
+    {
+        m_helmetActive = false;
+        m_chestActive = false;
+        m_armCuffsActive = false;
+        m_getaActive = false;
+        m_brokenKatanaActive = false;
+        m_CompleteKatanaActive = false;
+        m_spawnPoint = new Vector3(-15.0f, 1.5f, 0.0f);
     }
 
     static public GameManager GetInstance()

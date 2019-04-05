@@ -160,6 +160,8 @@ public class PlayerMovement : MonoBehaviour
             if (hor == 0.0f && ver == 0.0f && !m_wallJumping)
             {
                 m_playerAnim.SetBool("Run", false);
+                m_playerAnim.SetBool("Pushing", false);
+
             }
             else if (hor != 0.0f || ver != 0.0f && !m_wallJumping && !m_jumped)
             {
@@ -172,12 +174,15 @@ public class PlayerMovement : MonoBehaviour
             if (m_wallJumping)
             {
                 m_playerAnim.SetBool("Run", false);
+                m_playerAnim.SetBool("Pushing", false);
+
             }
 
         }
         else
         {
             m_playerAnim.SetBool("Run", false);
+            m_playerAnim.SetBool("Pushing", false);
 
         }
 
@@ -324,7 +329,7 @@ public class PlayerMovement : MonoBehaviour
         if ((m_controller.transform.position.z != 0.0f || m_controller.transform.position.z != 15.0f) && !m_playerAtDoorPath)
         {
             //m_controller.enabled = false;
-            if (transform.position.z < 2.0f)
+            if (transform.position.z < m_backZPos/2)
             {
                 //transform.position = new Vector3(transform.position.x, transform.position.y, m_frontZPos);
                 Vector3 move = new Vector3(transform.position.x, transform.position.y, m_frontZPos) - transform.position;
@@ -484,6 +489,7 @@ public class PlayerMovement : MonoBehaviour
                 m_playerAnim.SetTrigger("Climbing");
                 m_playerAnim.SetBool("WallTouch", false);
                 m_playerAnim.SetBool("Grounded", false);
+                m_playerAnim.SetBool("Pushing", false);
 
                 JumpMotion();
             }

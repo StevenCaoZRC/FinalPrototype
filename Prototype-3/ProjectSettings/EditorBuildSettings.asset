@@ -11,10 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 5713a22459d87494680ee3d3eeaa29d9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StevenScene.unity
     guid: e136487ada3fc1d488aef000960b43ba
   - enabled: 0
     path: Assets/Scenes/VivLevel.unity
     guid: 198cd38d856b65b40bdb9e20bb5758c8
+  - enabled: 1
+    path: Assets/Scenes/HarryLEVEL.unity
+    guid: 18a1df595b1b65148a36d659e8ad24e0
   m_configObjects: {}

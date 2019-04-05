@@ -41,6 +41,7 @@ public class MenuScript : MonoBehaviour
     }
     public void StartBtn()
     {
+        GameManager.GetInstance().ResetVariables();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 );
         if (FindObjectOfType<AudioManager>() != null) FindObjectOfType<AudioManager>().Stop("MenuMusic");
         if (FindObjectOfType<AudioManager>() != null) FindObjectOfType<AudioManager>().Play("InGameMusic");

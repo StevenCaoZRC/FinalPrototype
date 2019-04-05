@@ -27,8 +27,10 @@ public class ArrowMove : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !m_isHit && 
+            !other.gameObject.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dead"))
         {
+            m_isHit = true;
             other.gameObject.GetComponentInChildren<Animator>().SetTrigger("Dead");
         }
         else if (other.gameObject.tag != "ArrowTrap" || other.gameObject.tag != "FireballTrap")
